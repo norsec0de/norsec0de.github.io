@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>openssl on norsey&#39;s hideout</title>
-    <link>http://norsec0de.github.io/tags/openssl/</link>
+    <link>https://norsec0de.github.io/tags/openssl/</link>
     <description>Recent content in openssl on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Apr 2014 06:18:30 +0000</lastBuildDate><atom:link href="http://norsec0de.github.io/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Apr 2014 06:18:30 +0000</lastBuildDate><atom:link href="https://norsec0de.github.io/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>build a heartbleed test lab in 5 minutes</title>
-      <link>http://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/</link>
+      <link>https://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/</link>
       <pubDate>Tue, 15 Apr 2014 06:18:30 +0000</pubDate>
       
-      <guid>http://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/</guid>
+      <guid>https://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/</guid>
       <description>Lets be clear, I’m all about the offensive side of information security. I&amp;rsquo;m a pentester and I enjoy popping, rooting, owning and pwning all the things. I am aware that what we do is there to assist and encourage better defensive countermeasures but I just leave that to the experts. My colleague sitting nearby has the more unfortunate &amp;ldquo;defensive&amp;rdquo; job consisting of writing detections for all the evil things I do.</description>
     </item>
     

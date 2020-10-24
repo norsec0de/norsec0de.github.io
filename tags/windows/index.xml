@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>windows on norsey&#39;s hideout</title>
-    <link>http://norsec0de.github.io/tags/windows/</link>
+    <link>https://norsec0de.github.io/tags/windows/</link>
     <description>Recent content in windows on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 19 Dec 2013 02:55:06 +0000</lastBuildDate><atom:link href="http://norsec0de.github.io/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 19 Dec 2013 02:55:06 +0000</lastBuildDate><atom:link href="https://norsec0de.github.io/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>post exploitation: finding passwords in haystacks</title>
-      <link>http://norsec0de.github.io/posts/post-exploitation-finding-passwords-in-haystacks/</link>
+      <link>https://norsec0de.github.io/posts/post-exploitation-finding-passwords-in-haystacks/</link>
       <pubDate>Thu, 19 Dec 2013 02:55:06 +0000</pubDate>
       
-      <guid>http://norsec0de.github.io/posts/post-exploitation-finding-passwords-in-haystacks/</guid>
+      <guid>https://norsec0de.github.io/posts/post-exploitation-finding-passwords-in-haystacks/</guid>
       <description>Often while conducting an internal pentest you may gain access to a user machine through some vulnerability or more commonly via social engineering. Let’s say that you pop a shell, unprivileged, and incognito only finds unprivileged domain tokens. You could move onto another target or you can try some post exploitation reconnaissance. A commonly overlooked source of sensitive information is documents that are stored on the company servers as well as staff who think they know enough to start sharing folders with their peers and end up sharing the root of ‘C’.</description>
     </item>
     
     <item>
       <title>using ~ to enumerate directories on IIS 6.0</title>
-      <link>http://norsec0de.github.io/posts/using-tilde-to-enumerate-directories-on-iis-6-0/</link>
+      <link>https://norsec0de.github.io/posts/using-tilde-to-enumerate-directories-on-iis-6-0/</link>
       <pubDate>Thu, 16 Aug 2012 01:09:43 +0000</pubDate>
       
-      <guid>http://norsec0de.github.io/posts/using-tilde-to-enumerate-directories-on-iis-6-0/</guid>
+      <guid>https://norsec0de.github.io/posts/using-tilde-to-enumerate-directories-on-iis-6-0/</guid>
       <description>Recently I was running a web application assessment for a client whose system was running IIS 6.0 on Windows 2003 server. Much foosball and coffee had already gone into this assessment yet I still didn&amp;rsquo;t have the &amp;ldquo;Oh Shit, how did you find that?&amp;rdquo; discovery that makes developers curl up in a ball and rock themselves to sleep. These developers where smarter than most and this was not their first assessment either.</description>
     </item>
     

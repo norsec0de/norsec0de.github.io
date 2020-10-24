@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>robots.txt on norsey&#39;s hideout</title>
-    <link>http://norsec0de.github.io/tags/robots.txt/</link>
+    <link>https://norsec0de.github.io/tags/robots.txt/</link>
     <description>Recent content in robots.txt on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 17 Sep 2012 09:48:35 +0000</lastBuildDate><atom:link href="http://norsec0de.github.io/tags/robots.txt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 17 Sep 2012 09:48:35 +0000</lastBuildDate><atom:link href="https://norsec0de.github.io/tags/robots.txt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>is robots.txt dead? lets ask dropbox</title>
-      <link>http://norsec0de.github.io/posts/is-robots-txt-dead-lets-ask-dropbox/</link>
+      <link>https://norsec0de.github.io/posts/is-robots-txt-dead-lets-ask-dropbox/</link>
       <pubDate>Mon, 17 Sep 2012 09:48:35 +0000</pubDate>
       
-      <guid>http://norsec0de.github.io/posts/is-robots-txt-dead-lets-ask-dropbox/</guid>
+      <guid>https://norsec0de.github.io/posts/is-robots-txt-dead-lets-ask-dropbox/</guid>
       <description>First off I&amp;rsquo;d like to give creds to Francis Brown and Rob Ragan who presented their talk Tenacious Diggity at DEFCON 20 where I found out about the apparent steam-rolling of Dropbox&amp;rsquo;s robots.txt file. For as far back as I can remember, the robots.txt file has been a ban-list of places that search engine crawlers are supposed to ignore when crawling a site. Recently however there is some talk that the preferred way of disallowing crawlers is to control them using alternative methods such as metatags and javascript.</description>
     </item>
     

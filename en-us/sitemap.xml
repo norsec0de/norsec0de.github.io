@@ -3,44 +3,44 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://norsec0de.github.io/en-us/categories/</loc>
+    <loc>https://norsec0de.github.io/en-us/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://norsec0de.github.io/categories/"
+                href="https://norsec0de.github.io/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="http://norsec0de.github.io/en-us/categories/"
+                href="https://norsec0de.github.io/en-us/categories/"
                 />
   </url>
   
   <url>
-    <loc>http://norsec0de.github.io/en-us/tags/</loc>
+    <loc>https://norsec0de.github.io/en-us/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://norsec0de.github.io/tags/"
+                href="https://norsec0de.github.io/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="http://norsec0de.github.io/en-us/tags/"
+                href="https://norsec0de.github.io/en-us/tags/"
                 />
   </url>
   
   <url>
-    <loc>http://norsec0de.github.io/en-us/</loc>
+    <loc>https://norsec0de.github.io/en-us/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://norsec0de.github.io/"
+                href="https://norsec0de.github.io/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="http://norsec0de.github.io/en-us/"
+                href="https://norsec0de.github.io/en-us/"
                 />
   </url>
   

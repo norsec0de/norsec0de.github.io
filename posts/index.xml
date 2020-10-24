@@ -1,19 +1,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on norsey&#39;s hideout</title>
-        <link>http://norsec0de.github.io/posts/</link>
+        <link>https://norsec0de.github.io/posts/</link>
         <description>Recent content in Posts on norsey&#39;s hideout</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Thu, 31 Dec 2015 06:32:09 +0000</lastBuildDate>
-        <atom:link href="http://norsec0de.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://norsec0de.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
             <title>installing metasploit framework on os x el capitan</title>
-            <link>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-el-capitan/</link>
+            <link>https://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-el-capitan/</link>
             <pubDate>Thu, 31 Dec 2015 06:32:09 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-el-capitan/</guid>
+            <guid>https://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-el-capitan/</guid>
             <description>This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X El Capitan.
 This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&amp;rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem.</description>
             <content type="html"><![CDATA[<p>This Guide is adapted from <a href="http://www.darkoperator.com/installing-metasploit-framewor/">Carlos Perez’s Blog</a> (<a href="http://www.darkoperator.com/installing-metasploit-framewor/">http://www.darkoperator.com/installing-metasploit-framewor/</a>) (<em>which is a must read</em>) with some additions and fixes to make the setup work on OS X El Capitan.</p>
@@ -182,10 +182,10 @@ ln -s /usr/local/armitage/teamserver /usr/local/bin/teamserver
         
         <item>
             <title>installing metasploit framework on os x yosemite (updated april 2015)</title>
-            <link>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/</link>
+            <link>https://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/</link>
             <pubDate>Mon, 03 Nov 2014 13:48:22 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/</guid>
+            <guid>https://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/</guid>
             <description>EDIT: The installation guide for OSX El Capitan can be found here
 This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X Yosemite.
 This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&amp;rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem.</description>
@@ -351,10 +351,10 @@ ln -s /usr/local/armitage/teamserver /usr/local/bin/teamserver
         
         <item>
             <title>installing unicornscan on debian/ubuntu</title>
-            <link>http://norsec0de.github.io/posts/installing-unicornscan-on-debianubuntu/</link>
+            <link>https://norsec0de.github.io/posts/installing-unicornscan-on-debianubuntu/</link>
             <pubDate>Sat, 19 Jul 2014 09:19:23 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/installing-unicornscan-on-debianubuntu/</guid>
+            <guid>https://norsec0de.github.io/posts/installing-unicornscan-on-debianubuntu/</guid>
             <description>Looking back, I can&amp;rsquo;t remember a time where I used Nmap to perform UDP port scans. Pentesters are far too impatient to spend hours waiting for a UDP scan to finish in the hope of finding some badly configured service. Which is why I found it odd when I received a message saying &amp;ldquo;why do UDP scans take hours?&amp;rdquo;
 It never occurred to me that this poor dude was staring at the screen, Nmap torturing him every 30 seconds by telling him he won&amp;rsquo;t be done with this machine any time this week.</description>
             <content type="html"><![CDATA[<p>Looking back, I can&rsquo;t remember a time where I used Nmap to perform UDP port scans. Pentesters are far too impatient to spend hours waiting for a UDP scan to finish in the hope of finding some badly configured service. Which is why I found it odd when I received a message saying &ldquo;<em>why do UDP scans take hours?</em>&rdquo;</p>
@@ -388,10 +388,10 @@ sudo make install
         
         <item>
             <title>data exfiltration over SSL with srvdir</title>
-            <link>http://norsec0de.github.io/posts/data-exfiltration-over-ssl-with-srvdir/</link>
+            <link>https://norsec0de.github.io/posts/data-exfiltration-over-ssl-with-srvdir/</link>
             <pubDate>Sun, 15 Jun 2014 04:31:04 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/data-exfiltration-over-ssl-with-srvdir/</guid>
+            <guid>https://norsec0de.github.io/posts/data-exfiltration-over-ssl-with-srvdir/</guid>
             <description>Every now and then I come across some application that may (or may not) have been developed with penetration testing in mind but it ends up being damn helpful all the same. Yesterday I found a post about srvdir which is designed to share content over SSL/TLS via a public site.
 When trying to exfiltrate data from a client site I normally spend a lot of time setting up tunnels, using disposable A records from afraid.</description>
             <content type="html"><![CDATA[
@@ -439,10 +439,10 @@ When trying to exfiltrate data from a client site I normally spend a lot of time
         
         <item>
             <title>very simple caesar cipher in python</title>
-            <link>http://norsec0de.github.io/posts/very-simple-caesar-cipher-python/</link>
+            <link>https://norsec0de.github.io/posts/very-simple-caesar-cipher-python/</link>
             <pubDate>Mon, 26 May 2014 05:53:11 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/very-simple-caesar-cipher-python/</guid>
+            <guid>https://norsec0de.github.io/posts/very-simple-caesar-cipher-python/</guid>
             <description>During a recent CTF I needed to decrypt a page encrypted with a Caesar Cipher. I didn&amp;rsquo;t know the what the ROT was and I was struggling to find an easy yet useful one around so I wrote this pure python one.
 Feel free to borrow it, steal it, claim it as your own or do whatever with it.
 Keep on sploiting,
@@ -537,10 +537,10 @@ norsec0de
         
         <item>
             <title>cracking the infernal hades</title>
-            <link>http://norsec0de.github.io/posts/cracking-the-infernal-hades/</link>
+            <link>https://norsec0de.github.io/posts/cracking-the-infernal-hades/</link>
             <pubDate>Fri, 16 May 2014 06:53:11 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/cracking-the-infernal-hades/</guid>
+            <guid>https://norsec0de.github.io/posts/cracking-the-infernal-hades/</guid>
             <description>About a month ago, Vulnhub released a boot2root image built by Lok_Sigma called Hades. The box promised to be full of annoyances and it delivered them in droves. Requiring a combination of exploit development, reverse engineering and some out of the box thinking, I really enjoyed this challenge. I decided to share my solution now that the competition is over. It goes without saying this post has a lot of SPOILERS!</description>
             <content type="html"><![CDATA[
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
@@ -628,10 +628,10 @@ s<span style="color:#f92672">.</span>close()
         
         <item>
             <title>part 3: cleaning and optimising shellcode</title>
-            <link>http://norsec0de.github.io/posts/part-3-cleaning-and-optimising-shellcode/</link>
+            <link>https://norsec0de.github.io/posts/part-3-cleaning-and-optimising-shellcode/</link>
             <pubDate>Thu, 24 Apr 2014 12:00:54 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/part-3-cleaning-and-optimising-shellcode/</guid>
+            <guid>https://norsec0de.github.io/posts/part-3-cleaning-and-optimising-shellcode/</guid>
             <description>In Part 2: Building the shellcode, we created a bind shell on port 4444 which accepts connections from any host and then interacts with /bin/sh to facilitate remote code execution. Our shellcode however was littered with null bytes and would probably not be very useful if embedding in any exploit code.
 In this final part, we will clean our code and remove any null bytes from our shellcode. We will also look at removing unnecessary instruction to make our shellcode smaller if possible.</description>
             <content type="html"><![CDATA[<p>In <a href="/posts/part-2-building-the-shellcode/">Part 2: Building the shellcode</a>, we created a bind shell on port 4444 which accepts connections from any host and then interacts with <code>/bin/sh</code> to facilitate remote code execution. Our shellcode however was littered with null bytes and would probably not be very useful if embedding in any exploit code.</p>
@@ -866,10 +866,10 @@ id
         
         <item>
             <title>part 2: building the shellcode</title>
-            <link>http://norsec0de.github.io/posts/part-2-building-the-shellcode/</link>
+            <link>https://norsec0de.github.io/posts/part-2-building-the-shellcode/</link>
             <pubDate>Thu, 24 Apr 2014 12:00:06 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/part-2-building-the-shellcode/</guid>
+            <guid>https://norsec0de.github.io/posts/part-2-building-the-shellcode/</guid>
             <description>In Part 1: Disassembling and Understanding Shellcode we disassembled some shellcode and found out the steps required to create a bind shell. In Part 2, we will take each of these 6 steps, understand them and write assembly instructions to call them.
 The steps we need to follow to create our bind shell are:
  Socket Bind Listen Accept Dup2 Execve  We are going to spend a lot of time working with NASM (The Netwide Assembler).</description>
@@ -1652,10 +1652,10 @@ objdump -d ./$1|grep <span style="color:#e6db74">&#39;[0-9a-f]:&#39;</span>|grep
         
         <item>
             <title>part 1: disassembling and understanding shellcode</title>
-            <link>http://norsec0de.github.io/posts/part-1-disassembling-and-understanding-shellcode/</link>
+            <link>https://norsec0de.github.io/posts/part-1-disassembling-and-understanding-shellcode/</link>
             <pubDate>Thu, 24 Apr 2014 11:58:47 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/part-1-disassembling-and-understanding-shellcode/</guid>
+            <guid>https://norsec0de.github.io/posts/part-1-disassembling-and-understanding-shellcode/</guid>
             <description>About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &amp;ldquo;hail-mary&amp;rdquo; advice like &amp;ldquo;use pop, pop, ret when dealing with SEH.&amp;rdquo; If you&amp;rsquo;re interested in Assembly or writing shellcode, I&amp;rsquo;d highly recommend you take the certification.</description>
             <content type="html"><![CDATA[<figure>
     <img src="http://i.imgur.com/f8xqQgX.png"/> 
@@ -1964,10 +1964,10 @@ sudo ldconfig -n /opt/libemu/lib
         
         <item>
             <title>build a heartbleed test lab in 5 minutes</title>
-            <link>http://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/</link>
+            <link>https://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/</link>
             <pubDate>Tue, 15 Apr 2014 06:18:30 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/</guid>
+            <guid>https://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/</guid>
             <description>Lets be clear, I’m all about the offensive side of information security. I&amp;rsquo;m a pentester and I enjoy popping, rooting, owning and pwning all the things. I am aware that what we do is there to assist and encourage better defensive countermeasures but I just leave that to the experts. My colleague sitting nearby has the more unfortunate &amp;ldquo;defensive&amp;rdquo; job consisting of writing detections for all the evil things I do.</description>
             <content type="html"><![CDATA[
     <img src="http://i.imgur.com/1WCqASf.png"  class="left"  />
@@ -2035,10 +2035,10 @@ b. Pastebin: <a href="http://pastebin.com/5zUbJXe7">http://pastebin.com/5zUbJXe7
         
         <item>
             <title>post exploitation: finding passwords in haystacks</title>
-            <link>http://norsec0de.github.io/posts/post-exploitation-finding-passwords-in-haystacks/</link>
+            <link>https://norsec0de.github.io/posts/post-exploitation-finding-passwords-in-haystacks/</link>
             <pubDate>Thu, 19 Dec 2013 02:55:06 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/post-exploitation-finding-passwords-in-haystacks/</guid>
+            <guid>https://norsec0de.github.io/posts/post-exploitation-finding-passwords-in-haystacks/</guid>
             <description>Often while conducting an internal pentest you may gain access to a user machine through some vulnerability or more commonly via social engineering. Let’s say that you pop a shell, unprivileged, and incognito only finds unprivileged domain tokens. You could move onto another target or you can try some post exploitation reconnaissance. A commonly overlooked source of sensitive information is documents that are stored on the company servers as well as staff who think they know enough to start sharing folders with their peers and end up sharing the root of ‘C’.</description>
             <content type="html"><![CDATA[<p>Often while conducting an internal pentest you may gain access to a user machine through some vulnerability or more commonly via social engineering. Let’s say that you pop a shell, unprivileged, and incognito only finds unprivileged domain tokens. You could move onto another target or you can try some post exploitation reconnaissance. A commonly overlooked source of sensitive information is documents that are stored on the company servers as well as staff who think they know enough to start sharing folders with their peers and end up sharing the root of ‘C’. These can be a fantastic source of juicy info if you know how to index and then search through them effectively.</p>
 <p>Firstly we need to see what shares your victim has access to. Nmap’s NSE will only get you so far but fortunately Microsoft has their own tool to do this for us, and best of all, it’s signed by Microsoft so using this is seldom an issue.</p>
@@ -2128,10 +2128,10 @@ wireless
         
         <item>
             <title>using perl to grab ip addresses of multiple hostnames</title>
-            <link>http://norsec0de.github.io/posts/using-perl-to-grab-ip-addresses-of-multiple-hostnames/</link>
+            <link>https://norsec0de.github.io/posts/using-perl-to-grab-ip-addresses-of-multiple-hostnames/</link>
             <pubDate>Sun, 10 Mar 2013 00:13:31 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/using-perl-to-grab-ip-addresses-of-multiple-hostnames/</guid>
+            <guid>https://norsec0de.github.io/posts/using-perl-to-grab-ip-addresses-of-multiple-hostnames/</guid>
             <description>Recently while conducting a vulnerability assessment for a rather large customer I was given a list of hostnames from around 20 domains culminating in a list of over 5000 targets that needed to go through the motions. Due to scale of the testing I needed to run the scans from several cloud nodes simultaneously to speed up the scanning. The other thing I needed to do was to extract all the IP addresses from the hostnames so as not to scan boxes multiple times when performing Port Scans for instance.</description>
             <content type="html"><![CDATA[<p>Recently while conducting a vulnerability assessment for a rather large customer I was given a list of hostnames from around 20 domains culminating in a list of over 5000 targets that needed to go through the motions. Due to scale of the testing I needed to run the scans from several cloud nodes simultaneously to speed up the scanning. The other thing I needed to do was to extract all the IP addresses from the hostnames so as not to scan boxes multiple times when performing Port Scans for instance.</p>
 <p>I had been playing with Perl for literally a couple of hours and decided to give writing my first Perl script a go in order to grab all the IP addresses from the list of hosts which I could then Unique and Sort to get the final list of target IP&rsquo;s. I initially played with the idea of running ping commands or nslookups and then regex&rsquo;ing the IP&rsquo;s from there but I discovered a fantastic method called <code>gethostbyname</code> in Perl.</p>
@@ -2188,10 +2188,10 @@ close(FILE);
         
         <item>
             <title>decrypting base64 encrypted binary hashes</title>
-            <link>http://norsec0de.github.io/posts/decrypting-base64-encrypted-binary-hashes/</link>
+            <link>https://norsec0de.github.io/posts/decrypting-base64-encrypted-binary-hashes/</link>
             <pubDate>Wed, 07 Nov 2012 09:18:43 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/decrypting-base64-encrypted-binary-hashes/</guid>
+            <guid>https://norsec0de.github.io/posts/decrypting-base64-encrypted-binary-hashes/</guid>
             <description>I came across a database while testing the other day which happily contained a table called users with the good old id, username and password fields. What made this a somewhat interesting find was the fact that the passwords appeared to be encrypted as base64.
 After I stopped giggling I dumped the database and grabbed the first few hashes in an attempt to quickly script the decryption. The script ran fine although I ended up with a lot of garbled text and no plain text passwords.</description>
             <content type="html"><![CDATA[<p>I came across a database while testing the other day which happily contained a table called users with the good old id, username and password fields. What made this a somewhat interesting find was the fact that the passwords appeared to be encrypted as base64.</p>
@@ -2229,10 +2229,10 @@ After I stopped giggling I dumped the database and grabbed the first few hashes 
         
         <item>
             <title>apache log poisoning with local file inclusion</title>
-            <link>http://norsec0de.github.io/posts/apache-log-poisoning-with-local-file-inclusion/</link>
+            <link>https://norsec0de.github.io/posts/apache-log-poisoning-with-local-file-inclusion/</link>
             <pubDate>Sun, 04 Nov 2012 04:08:58 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/apache-log-poisoning-with-local-file-inclusion/</guid>
+            <guid>https://norsec0de.github.io/posts/apache-log-poisoning-with-local-file-inclusion/</guid>
             <description>So we have our Local File Inclusion vulnerability and we can read the /etc/passwd file, now it&amp;rsquo;s time to start escalating the attack so that we are able to execute our own commands on the target system.
 In the previous post, we found the Apache log files and particularly the Apache error.log file using Burp Suite&amp;rsquo;s Intruder module. We are now going to use this log file to inject our own PHP code into this page.</description>
             <content type="html"><![CDATA[<p>So we have our Local File Inclusion vulnerability and we can read the <code>/etc/passwd</code> file, now it&rsquo;s time to start escalating the attack so that we are able to execute our own commands on the target system.</p>
@@ -2281,10 +2281,10 @@ In the previous post, we found the Apache log files and particularly the Apache 
         
         <item>
             <title>finding the apache log files using burp intruder</title>
-            <link>http://norsec0de.github.io/posts/finding-the-apache-log-files-using-burp-intruder/</link>
+            <link>https://norsec0de.github.io/posts/finding-the-apache-log-files-using-burp-intruder/</link>
             <pubDate>Sun, 04 Nov 2012 01:26:05 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/finding-the-apache-log-files-using-burp-intruder/</guid>
+            <guid>https://norsec0de.github.io/posts/finding-the-apache-log-files-using-burp-intruder/</guid>
             <description>Often when conducting security assessments it is necessary to go beyond just identifying the vulnerability, reporting it and heading out for a beer. Sometimes, like when conducting a penetration test or when asked by a client to demonstrate business risk, it is necessary to gain command line line access to the machine to show the risks associated with having a web user being able to execute commands on their machine. Often this involves getting a shell by some means but in the case of Local File Inclusion (LFI) simply finding the Apache Log location folder can be enough to start running commands on the system as the Apache service account.</description>
             <content type="html"><![CDATA[<p>Often when conducting security assessments it is necessary to go beyond just identifying the vulnerability, reporting it and heading out for a beer. Sometimes, like when conducting a penetration test or when asked by a client to demonstrate business risk, it is necessary to gain command line line access to the machine to show the risks associated with having a web user being able to execute commands on their machine. Often this involves getting a shell by some means but in the case of Local File Inclusion (LFI) simply finding the Apache Log location folder can be enough to start running commands on the system as the Apache service account.</p>
 <p>Often I&rsquo;ve wasted hours trying all sorts of combinations trying to find the correct location of the log files by looking up version numbers and identifying operating systems but being the true to the Pentesters code, sometimes it&rsquo;s better to be lazy and just automate the damn thing. So what a buddy of mine and me did was to compile a list of common Apache log file locations and files that may indicate Apache log locations across different operating systems. This list is by no means comprehensive and if the developer or engineer has bothered to spend 5 minutes moving the log file locations then chances are that this list may not help you.</p>
@@ -2618,10 +2618,10 @@ In the previous post, we found the Apache log files and particularly the Apache 
         
         <item>
             <title>is robots.txt dead? lets ask dropbox</title>
-            <link>http://norsec0de.github.io/posts/is-robots-txt-dead-lets-ask-dropbox/</link>
+            <link>https://norsec0de.github.io/posts/is-robots-txt-dead-lets-ask-dropbox/</link>
             <pubDate>Mon, 17 Sep 2012 09:48:35 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/is-robots-txt-dead-lets-ask-dropbox/</guid>
+            <guid>https://norsec0de.github.io/posts/is-robots-txt-dead-lets-ask-dropbox/</guid>
             <description>First off I&amp;rsquo;d like to give creds to Francis Brown and Rob Ragan who presented their talk Tenacious Diggity at DEFCON 20 where I found out about the apparent steam-rolling of Dropbox&amp;rsquo;s robots.txt file. For as far back as I can remember, the robots.txt file has been a ban-list of places that search engine crawlers are supposed to ignore when crawling a site. Recently however there is some talk that the preferred way of disallowing crawlers is to control them using alternative methods such as metatags and javascript.</description>
             <content type="html"><![CDATA[<p>First off I&rsquo;d like to give creds to Francis Brown and Rob Ragan who presented their talk <a href="https://www.defcon.org/html/defcon-20/dc-20-speakers.html#Brown">Tenacious Diggity</a> at <a href="https://www.defcon.org/">DEFCON 20</a> where I found out about the apparent steam-rolling of Dropbox&rsquo;s robots.txt file. For as far back as I can remember, the robots.txt file has been a ban-list of places that search engine crawlers are supposed to ignore when crawling a site. Recently however there is some talk that the preferred way of disallowing crawlers is to control them using alternative methods such as metatags and javascript.</p>
 <p>It may appear however, that Google has already decided that robots.txt is merely a bug heading towards it&rsquo;s windscreen and is indexing pages that are excluded via the robots.txt as is apparent with Dropbox.</p>
@@ -2657,10 +2657,10 @@ In the previous post, we found the Apache log files and particularly the Apache 
         
         <item>
             <title>using ~ to enumerate directories on IIS 6.0</title>
-            <link>http://norsec0de.github.io/posts/using-tilde-to-enumerate-directories-on-iis-6-0/</link>
+            <link>https://norsec0de.github.io/posts/using-tilde-to-enumerate-directories-on-iis-6-0/</link>
             <pubDate>Thu, 16 Aug 2012 01:09:43 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/using-tilde-to-enumerate-directories-on-iis-6-0/</guid>
+            <guid>https://norsec0de.github.io/posts/using-tilde-to-enumerate-directories-on-iis-6-0/</guid>
             <description>Recently I was running a web application assessment for a client whose system was running IIS 6.0 on Windows 2003 server. Much foosball and coffee had already gone into this assessment yet I still didn&amp;rsquo;t have the &amp;ldquo;Oh Shit, how did you find that?&amp;rdquo; discovery that makes developers curl up in a ball and rock themselves to sleep. These developers where smarter than most and this was not their first assessment either.</description>
             <content type="html"><![CDATA[<p>Recently I was running a web application assessment for a client whose system was running IIS 6.0 on Windows 2003 server. Much foosball and coffee had already gone into this assessment yet I still didn&rsquo;t have the &ldquo;Oh Shit, how did you find that?&rdquo; discovery that makes developers curl up in a ball and rock themselves to sleep. These developers where smarter than most and this was not their first assessment either. They had learned from previous tests to be vigilant about input sanitation and the usual bag of tricks.</p>
 <p>I was pretty much ready to swap my Nerf Gun for Microsoft Word and start typing up my findings when I saw <a href="http://soroush.secproject.com/downloadable/microsoft_iis_tilde_character_vulnerability_feature.pdf">this</a> article by Soroush Dalili about using a 17 year old technique to enumerate directories on &lt; IIS 7.0 using the good old &ldquo;~1&rdquo; from the 8dot3 days of Windows.</p>
@@ -2689,10 +2689,10 @@ In the previous post, we found the Apache log files and particularly the Apache 
         
         <item>
             <title>d0x’n myself beats the &#39;hello world&#39; post</title>
-            <link>http://norsec0de.github.io/posts/d0xn-myself-beats-the-hello-world-post/</link>
+            <link>https://norsec0de.github.io/posts/d0xn-myself-beats-the-hello-world-post/</link>
             <pubDate>Mon, 30 Jul 2012 11:46:56 +0000</pubDate>
             
-            <guid>http://norsec0de.github.io/posts/d0xn-myself-beats-the-hello-world-post/</guid>
+            <guid>https://norsec0de.github.io/posts/d0xn-myself-beats-the-hello-world-post/</guid>
             <description>My name is Ryan and I live in Sydney. My history is extremely boring and full of horror stories from racist countries so I&amp;rsquo;ll skip to 5 years ago in a hotel room in Perth, shortly after I moved to Australia. I liked to call myself an IT Professional but in all honesty I was a Windows Systems Administrator for 13 years who discovered that you can actually make a living breaking into peoples shit&amp;hellip;.</description>
             <content type="html"><![CDATA[<p><img src="http://i.imgur.com/dpcoz.jpg" alt=""> My name is Ryan and I live in Sydney. My history is extremely boring and full of horror stories from racist countries so I&rsquo;ll skip to 5 years ago in a hotel room in Perth, shortly after I moved to Australia. I liked to call myself an IT Professional but in all honesty I was a Windows Systems Administrator for 13 years who discovered that you can actually make a living breaking into peoples shit&hellip;.ethically of course!</p>
 <p>I met a guy in a downstairs bar of a hotel I was staying in and after shooting the shit and finding out we both worked in IT he told me why he was there. He was performing a Penetration Test of that hotel and he explained his life of planes, hotels and laptops and  after showing me my first ever exploit, I realised I wanted&hellip;no&hellip;NEEDED to be him! I wanted his life and I wanted his sorcery! I can&rsquo;t remember his name but if you are reading this, get in touch!</p>
