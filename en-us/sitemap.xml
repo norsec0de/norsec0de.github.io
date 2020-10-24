@@ -3,44 +3,44 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://norsec0de.github.io/en-us/categories/</loc>
+    <loc>http://www.pwnd.red/en-us/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://norsec0de.github.io/categories/"
+                href="http://www.pwnd.red/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://norsec0de.github.io/en-us/categories/"
+                href="http://www.pwnd.red/en-us/categories/"
                 />
   </url>
   
   <url>
-    <loc>https://norsec0de.github.io/en-us/tags/</loc>
+    <loc>http://www.pwnd.red/en-us/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://norsec0de.github.io/tags/"
+                href="http://www.pwnd.red/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://norsec0de.github.io/en-us/tags/"
+                href="http://www.pwnd.red/en-us/tags/"
                 />
   </url>
   
   <url>
-    <loc>https://norsec0de.github.io/en-us/</loc>
+    <loc>http://www.pwnd.red/en-us/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://norsec0de.github.io/"
+                href="http://www.pwnd.red/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://norsec0de.github.io/en-us/"
+                href="http://www.pwnd.red/en-us/"
                 />
   </url>
   

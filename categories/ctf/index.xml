@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ctf on norsey&#39;s hideout</title>
-    <link>https://norsec0de.github.io/categories/ctf/</link>
+    <link>http://www.pwnd.red/categories/ctf/</link>
     <description>Recent content in ctf on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 May 2014 05:53:11 +0000</lastBuildDate><atom:link href="https://norsec0de.github.io/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 May 2014 05:53:11 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>very simple caesar cipher in python</title>
-      <link>https://norsec0de.github.io/posts/very-simple-caesar-cipher-python/</link>
+      <link>http://www.pwnd.red/posts/very-simple-caesar-cipher-python/</link>
       <pubDate>Mon, 26 May 2014 05:53:11 +0000</pubDate>
       
-      <guid>https://norsec0de.github.io/posts/very-simple-caesar-cipher-python/</guid>
+      <guid>http://www.pwnd.red/posts/very-simple-caesar-cipher-python/</guid>
       <description>During a recent CTF I needed to decrypt a page encrypted with a Caesar Cipher. I didn&amp;rsquo;t know the what the ROT was and I was struggling to find an easy yet useful one around so I wrote this pure python one.
 Feel free to borrow it, steal it, claim it as your own or do whatever with it.
 Keep on sploiting,

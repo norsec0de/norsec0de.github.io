@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ShareEnum on norsey&#39;s hideout</title>
-    <link>https://norsec0de.github.io/tags/shareenum/</link>
+    <link>http://www.pwnd.red/tags/shareenum/</link>
     <description>Recent content in ShareEnum on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 19 Dec 2013 02:55:06 +0000</lastBuildDate><atom:link href="https://norsec0de.github.io/tags/shareenum/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 19 Dec 2013 02:55:06 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/tags/shareenum/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>post exploitation: finding passwords in haystacks</title>
-      <link>https://norsec0de.github.io/posts/post-exploitation-finding-passwords-in-haystacks/</link>
+      <link>http://www.pwnd.red/posts/post-exploitation-finding-passwords-in-haystacks/</link>
       <pubDate>Thu, 19 Dec 2013 02:55:06 +0000</pubDate>
       
-      <guid>https://norsec0de.github.io/posts/post-exploitation-finding-passwords-in-haystacks/</guid>
+      <guid>http://www.pwnd.red/posts/post-exploitation-finding-passwords-in-haystacks/</guid>
       <description>Often while conducting an internal pentest you may gain access to a user machine through some vulnerability or more commonly via social engineering. Let’s say that you pop a shell, unprivileged, and incognito only finds unprivileged domain tokens. You could move onto another target or you can try some post exploitation reconnaissance. A commonly overlooked source of sensitive information is documents that are stored on the company servers as well as staff who think they know enough to start sharing folders with their peers and end up sharing the root of ‘C’.</description>
     </item>
     

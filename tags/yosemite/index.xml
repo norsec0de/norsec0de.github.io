@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>yosemite on norsey&#39;s hideout</title>
-    <link>https://norsec0de.github.io/tags/yosemite/</link>
+    <link>http://www.pwnd.red/tags/yosemite/</link>
     <description>Recent content in yosemite on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Nov 2014 13:48:22 +0000</lastBuildDate><atom:link href="https://norsec0de.github.io/tags/yosemite/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Nov 2014 13:48:22 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/tags/yosemite/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>installing metasploit framework on os x yosemite (updated april 2015)</title>
-      <link>https://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/</link>
+      <link>http://www.pwnd.red/posts/installing-metasploit-framework-on-os-x-yosemite/</link>
       <pubDate>Mon, 03 Nov 2014 13:48:22 +0000</pubDate>
       
-      <guid>https://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/</guid>
+      <guid>http://www.pwnd.red/posts/installing-metasploit-framework-on-os-x-yosemite/</guid>
       <description>EDIT: The installation guide for OSX El Capitan can be found here
 This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X Yosemite.
 This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&amp;rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem.</description>
