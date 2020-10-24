@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="norsec0de">
+<meta name="description" content="First off I&amp;rsquo;d like to give creds to Francis Brown and Rob Ragan who presented their talk Tenacious Diggity at DEFCON 20 where I found out about the apparent steam-rolling of Dropbox&amp;rsquo;s robots.txt file. For as far back as I can remember, the robots.txt file has been a ban-list of places that search engine crawlers are supposed to ignore when crawling a site. Recently however there is some talk that the preferred way of disallowing crawlers is to control them using alternative methods such as metatags and javascript." />
+<meta name="keywords" content="infosec, norsey, norsec0de, dropbox, gallery, google, hacker4hire, hacking, robots.txt" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="http://norsec0de.github.io/posts/is-robots-txt-dead-lets-ask-dropbox/" />
+
+
+    <title>
+        
+            is robots.txt dead? lets ask dropbox :: norsey&#39;s hideout 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="http://norsec0de.github.io/main.393856bf2c430bb6c01d7af07c6fe966e7cce8073435cfbbc46e590bab7405ef.css">
+
+
+
+
+
+
+<meta itemprop="name" content="is robots.txt dead? lets ask dropbox">
+<meta itemprop="description" content="First off I&rsquo;d like to give creds to Francis Brown and Rob Ragan who presented their talk Tenacious Diggity at DEFCON 20 where I found out about the apparent steam-rolling of Dropbox&rsquo;s robots.txt file. For as far back as I can remember, the robots.txt file has been a ban-list of places that search engine crawlers are supposed to ignore when crawling a site. Recently however there is some talk that the preferred way of disallowing crawlers is to control them using alternative methods such as metatags and javascript.">
+<meta itemprop="datePublished" content="2012-09-17T09:48:35+00:00" />
+<meta itemprop="dateModified" content="2012-09-17T09:48:35+00:00" />
+<meta itemprop="wordCount" content="391">
+<meta itemprop="image" content="http://norsec0de.github.io/"/>
+
+
+
+<meta itemprop="keywords" content="dropbox,gallery,google,hacker4hire,hacking,robots.txt," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://norsec0de.github.io/"/>
+
+<meta name="twitter:title" content="is robots.txt dead? lets ask dropbox"/>
+<meta name="twitter:description" content="First off I&rsquo;d like to give creds to Francis Brown and Rob Ragan who presented their talk Tenacious Diggity at DEFCON 20 where I found out about the apparent steam-rolling of Dropbox&rsquo;s robots.txt file. For as far back as I can remember, the robots.txt file has been a ban-list of places that search engine crawlers are supposed to ignore when crawling a site. Recently however there is some talk that the preferred way of disallowing crawlers is to control them using alternative methods such as metatags and javascript."/>
+
+
+
+
+
+    <meta property="article:section" content="fun" />
+
+    <meta property="article:section" content="general" />
+
+
+
+    <meta property="article:published_time" content="2012-09-17 09:48:35 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://norsec0de.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">norsey&#39;s hideout</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://norsec0de.github.io/posts">intel</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="http://norsec0de.github.io/posts/is-robots-txt-dead-lets-ask-dropbox/">is robots.txt dead? lets ask dropbox</a></h2>
+
+            
+
+            
+
+            <div class="post-content">
+                <p>First off I&rsquo;d like to give creds to Francis Brown and Rob Ragan who presented their talk <a href="https://www.defcon.org/html/defcon-20/dc-20-speakers.html#Brown">Tenacious Diggity</a> at <a href="https://www.defcon.org/">DEFCON 20</a> where I found out about the apparent steam-rolling of Dropbox&rsquo;s robots.txt file. For as far back as I can remember, the robots.txt file has been a ban-list of places that search engine crawlers are supposed to ignore when crawling a site. Recently however there is some talk that the preferred way of disallowing crawlers is to control them using alternative methods such as metatags and javascript.</p>
+<p>It may appear however, that Google has already decided that robots.txt is merely a bug heading towards it&rsquo;s windscreen and is indexing pages that are excluded via the robots.txt as is apparent with Dropbox.</p>
+<figure>
+    <img src="http://i.imgur.com/T3Gnp.png"/> 
+</figure>
+
+<p>Above is a copy of Dropbox&rsquo;s <code>robots.txt</code> file and you can clearly see that <code>/gallery/</code> is on the no-fly list however the following screenshot suggests otherwise.</p>
+<figure>
+    <img src="http://i.imgur.com/yUrYp.png"/> 
+</figure>
+
+<p>Why should you care about this? What&rsquo;s so special about &ldquo;Gallery&rdquo; anyway? Well if you are a Dropbox user and you have ever clicked &ldquo;Start Import&rdquo; when seeing the below message, you should know that those photo&rsquo;s of yours may just be on that Google search result and as a result, public.</p>
+<figure>
+    <img src="http://i.imgur.com/aEzN3.png"/> 
+</figure>
+
+<p>I&rsquo;m almost positive that Dropbox did not want the galleries to be indexed and I&rsquo;m also sure that Googles Army of Lawyers has a good reason why it was but as a curious individual who enjoys tinkering with things I couldn&rsquo;t resist having a snoop through some of the results.</p>
+<p>By appending some choice keywords to the searches such as confidential, screen, budget, excel, portfolio, audition, temp, delete and a few others, I was absolutely staggered at the amount of useful data people have images of. Just in the first 10 or so pages of each result I was able to find bank statements, drivers licenses, credit cards, passwords, wifi keys, serial numbers, medical information and yes&hellip; lots and lots of porn (<em>home made mostly</em>)</p>
+<figure>
+    <img src="http://i.imgur.com/3fi1S.png"/> 
+</figure>
+
+<p>Whether you&rsquo;re bored like me or digging  up some info for (<code>$insert legitimate reason here</code>) it is a fantastic search to kill time with. If you are planning on being pro-active with it, go and get Stach &amp; Liu&rsquo;s <a href="http://www.stachliu.com/resources/tools/google-hacking-diggity-project/attack-tools/">Search Diggity</a> tool and look at some of the fantastic features they&rsquo;ve built for searching for documents through Skydrive, AWS S3 and Dropbox.</p>
+<figure>
+    <img src="http://i.imgur.com/c8SaC.png"/> 
+</figure>
+
+<p>Keep on sploiting,</p>
+<p>norsec0de</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/tags/dropbox/">dropbox</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/gallery/">gallery</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/google/">google</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/hacker4hire/">hacker4hire</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/hacking/">hacking</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/robots.txt/">robots.txt</a></span>
+        
+    </p>
+
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/categories/fun/">fun</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/categories/general/">general</a></span>
+        
+    </p>
+
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="http://norsec0de.github.io/">norsey</a></span>
+            
+            <span><a href="http://norsec0de.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>norsey's hideout</span>
+            <span>hugo</span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://norsec0de.github.io/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

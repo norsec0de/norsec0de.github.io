@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="norsec0de">
+<meta name="description" content="Lets be clear, I’m all about the offensive side of information security. I&amp;rsquo;m a pentester and I enjoy popping, rooting, owning and pwning all the things. I am aware that what we do is there to assist and encourage better defensive countermeasures but I just leave that to the experts. My colleague sitting nearby has the more unfortunate &amp;ldquo;defensive&amp;rdquo; job consisting of writing detections for all the evil things I do." />
+<meta name="keywords" content="infosec, norsey, norsec0de, 5 minutes, heartbleed, openssl" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="http://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/" />
+
+
+    <title>
+        
+            build a heartbleed test lab in 5 minutes :: norsey&#39;s hideout 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="http://norsec0de.github.io/main.393856bf2c430bb6c01d7af07c6fe966e7cce8073435cfbbc46e590bab7405ef.css">
+
+
+
+
+
+
+<meta itemprop="name" content="build a heartbleed test lab in 5 minutes">
+<meta itemprop="description" content="Lets be clear, I’m all about the offensive side of information security. I&rsquo;m a pentester and I enjoy popping, rooting, owning and pwning all the things. I am aware that what we do is there to assist and encourage better defensive countermeasures but I just leave that to the experts. My colleague sitting nearby has the more unfortunate &ldquo;defensive&rdquo; job consisting of writing detections for all the evil things I do.">
+<meta itemprop="datePublished" content="2014-04-15T06:18:30+00:00" />
+<meta itemprop="dateModified" content="2014-04-15T06:18:30+00:00" />
+<meta itemprop="wordCount" content="428">
+<meta itemprop="image" content="http://norsec0de.github.io/"/>
+
+
+
+<meta itemprop="keywords" content="5 minutes,heartbleed,openssl," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://norsec0de.github.io/"/>
+
+<meta name="twitter:title" content="build a heartbleed test lab in 5 minutes"/>
+<meta name="twitter:description" content="Lets be clear, I’m all about the offensive side of information security. I&rsquo;m a pentester and I enjoy popping, rooting, owning and pwning all the things. I am aware that what we do is there to assist and encourage better defensive countermeasures but I just leave that to the experts. My colleague sitting nearby has the more unfortunate &ldquo;defensive&rdquo; job consisting of writing detections for all the evil things I do."/>
+
+
+
+
+
+    <meta property="article:section" content="Exploits" />
+
+    <meta property="article:section" content="Tools" />
+
+    <meta property="article:section" content="Tutorial" />
+
+
+
+    <meta property="article:published_time" content="2014-04-15 06:18:30 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://norsec0de.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">norsey&#39;s hideout</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://norsec0de.github.io/posts">intel</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="http://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/">build a heartbleed test lab in 5 minutes</a></h2>
+
+            
+
+            
+
+            <div class="post-content">
+                
+    <img src="http://i.imgur.com/1WCqASf.png"  class="left"  />
+
+
+<p>Lets be clear, I’m all about the offensive side of information security. I&rsquo;m a pentester and I enjoy popping, rooting, owning and pwning all the things. I am aware that what we do is there to assist and encourage better defensive countermeasures but I just leave that to the experts. My colleague sitting nearby has the more unfortunate &ldquo;defensive&rdquo; job consisting of writing detections for all the evil things I do.</p>
+<p>After eavesdropping on one of his conversations about downloading Apache server and configuring it with vulnerable version on OpenSSL, and since as I was in a good mood, I saved him the hours of pain he was racing towards and helped him build a test environment for the Heartbleed vulnerability.</p>
+<p>All he really needed for the IDS signature is the Heartbleed traffic. I figured others out there are having to write protections for this so here is how to build a Heartbleed test environment in 5 minutes or less.</p>
+<p>First of all, boot up a couple of test VMs, or just one if you enjoy being aggravated. One we will use as the victim machine and the other one will be the attacker&rsquo;s machine.</p>
+<h2 id="victim-machine-configuration">Victim Machine Configuration</h2>
+<ol>
+<li>
+<p>Ensure <a href="http://www.perl.org/">Perl</a> is installed.</p>
+</li>
+<li>
+<p>Grab a copy of <a href="http://www.glitchwrks.com/">glitchwrks</a> Heartbleed Honeypot from:</p>
+<p>a. Packet Storm: <a href="http://packetstormsecurity.com/files/126068/hb_honeypot.pl.txt">http://packetstormsecurity.com/files/126068/hb_honeypot.pl.txt</a> (Official)
+b. Pastebin: <a href="http://pastebin.com/5zUbJXe7">http://pastebin.com/5zUbJXe7</a> (Mirror)</p>
+</li>
+<li>
+<p>Modify the code if you want to change your port or protocol settings</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#66d9ef">my</span> $sock <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> IO::Socket::INET (
+  LocalPort <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;443&#39;</span>, <span style="color:#75715e"># &lt;== Set your port you want to listen on here (1 to 65535)</span>
+  Proto <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;tcp&#39;</span>, <span style="color:#75715e"># &lt;== Set your protocol you want to use here (tcp/udp)</span>
+  Listen <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>, <span style="color:#75715e"># &lt;== Leave this alone</span>
+  Reuse <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>, <span style="color:#75715e"># &lt;== Leave this alone too</span>
+);
+</code></pre></div></li>
+<li>
+<p>Ensure that you have sufficient privileges <strong>(root / sudo / administrator required for low port numbers)</strong> to execute the file and run it with the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">perl hb_honeypot.pl
+</code></pre></div></li>
+</ol>
+<h2 id="attacker-machine-configuration">Attacker Machine Configuration</h2>
+<ol>
+<li>
+<p>Ensure <a href="https://www.python.org/">Python</a> is installed.</p>
+</li>
+<li>
+<p>Grab a copy of <a href="http://www.jspenguin.org/about">Jared Staffords</a> Heartbleed PoC from:</p>
+<p>a. S3: <a href="http://s3.jspenguin.org/ssltest.py">http://s3.jspenguin.org/ssltest.py</a> (Official)</p>
+<p>b. Pastebin: <a href="http://pastebin.com/WmxzjkXJ">http://pastebin.com/WmxzjkXJ</a> (Mirror)</p>
+</li>
+<li>
+<p>Run the PoC with the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">python ssltest.py &lt;victim_ip&gt; -p
+</code></pre></div></li>
+</ol>
+<p>The honeypot script will just listen for a connection and reply with garbage until it sees the actual Heartbleed payload, at which point it will respond with a fake, although funny, memory content dump.</p>
+<p>A successful connection should look like this.</p>
+
+    <img src="http://i.imgur.com/VPzEyNS.png"  class="left"  />
+
+
+<p>This method also gives a clean .pcap file too that can be used for creating all sorts of IDS signatures.</p>
+
+    <img src="http://i.imgur.com/P62HkiK.png"  class="left"  />
+
+
+<p>I hope this post helps some researchers, developers or our defense brethren.</p>
+<p>Keep on sploiting,</p>
+<p>norsec0de</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/tags/5-minutes/">5 minutes</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/heartbleed/">heartbleed</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/openssl/">openssl</a></span>
+        
+    </p>
+
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/categories/exploits/">Exploits</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/categories/tools/">Tools</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/categories/tutorial/">Tutorial</a></span>
+        
+    </p>
+
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="http://norsec0de.github.io/">norsey</a></span>
+            
+            <span><a href="http://norsec0de.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>norsey's hideout</span>
+            <span>hugo</span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://norsec0de.github.io/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

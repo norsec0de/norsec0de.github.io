@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="norsec0de">
+<meta name="description" content="Often when conducting security assessments it is necessary to go beyond just identifying the vulnerability, reporting it and heading out for a beer. Sometimes, like when conducting a penetration test or when asked by a client to demonstrate business risk, it is necessary to gain command line line access to the machine to show the risks associated with having a web user being able to execute commands on their machine. Often this involves getting a shell by some means but in the case of Local File Inclusion (LFI) simply finding the Apache Log location folder can be enough to start running commands on the system as the Apache service account." />
+<meta name="keywords" content="infosec, norsey, norsec0de, apache, burp, hacking, list, location, logs, pentesting, poisoning, suite, web" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="http://norsec0de.github.io/posts/finding-the-apache-log-files-using-burp-intruder/" />
+
+
+    <title>
+        
+            finding the apache log files using burp intruder :: norsey&#39;s hideout 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="http://norsec0de.github.io/main.393856bf2c430bb6c01d7af07c6fe966e7cce8073435cfbbc46e590bab7405ef.css">
+
+
+
+
+
+
+<meta itemprop="name" content="finding the apache log files using burp intruder">
+<meta itemprop="description" content="Often when conducting security assessments it is necessary to go beyond just identifying the vulnerability, reporting it and heading out for a beer. Sometimes, like when conducting a penetration test or when asked by a client to demonstrate business risk, it is necessary to gain command line line access to the machine to show the risks associated with having a web user being able to execute commands on their machine. Often this involves getting a shell by some means but in the case of Local File Inclusion (LFI) simply finding the Apache Log location folder can be enough to start running commands on the system as the Apache service account.">
+<meta itemprop="datePublished" content="2012-11-04T01:26:05+00:00" />
+<meta itemprop="dateModified" content="2012-11-04T01:26:05+00:00" />
+<meta itemprop="wordCount" content="846">
+<meta itemprop="image" content="http://norsec0de.github.io/"/>
+
+
+
+<meta itemprop="keywords" content="apache,burp,hacking,list,location,logs,pentesting,poisoning,suite,web," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://norsec0de.github.io/"/>
+
+<meta name="twitter:title" content="finding the apache log files using burp intruder"/>
+<meta name="twitter:description" content="Often when conducting security assessments it is necessary to go beyond just identifying the vulnerability, reporting it and heading out for a beer. Sometimes, like when conducting a penetration test or when asked by a client to demonstrate business risk, it is necessary to gain command line line access to the machine to show the risks associated with having a web user being able to execute commands on their machine. Often this involves getting a shell by some means but in the case of Local File Inclusion (LFI) simply finding the Apache Log location folder can be enough to start running commands on the system as the Apache service account."/>
+
+
+
+
+
+    <meta property="article:section" content="tutorial" />
+
+
+
+    <meta property="article:published_time" content="2012-11-04 01:26:05 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://norsec0de.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">norsey&#39;s hideout</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://norsec0de.github.io/posts">intel</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="http://norsec0de.github.io/posts/finding-the-apache-log-files-using-burp-intruder/">finding the apache log files using burp intruder</a></h2>
+
+            
+
+            
+
+            <div class="post-content">
+                <p>Often when conducting security assessments it is necessary to go beyond just identifying the vulnerability, reporting it and heading out for a beer. Sometimes, like when conducting a penetration test or when asked by a client to demonstrate business risk, it is necessary to gain command line line access to the machine to show the risks associated with having a web user being able to execute commands on their machine. Often this involves getting a shell by some means but in the case of Local File Inclusion (LFI) simply finding the Apache Log location folder can be enough to start running commands on the system as the Apache service account.</p>
+<p>Often I&rsquo;ve wasted hours trying all sorts of combinations trying to find the correct location of the log files by looking up version numbers and identifying operating systems but being the true to the Pentesters code, sometimes it&rsquo;s better to be lazy and just automate the damn thing. So what a buddy of mine and me did was to compile a list of common Apache log file locations and files that may indicate Apache log locations across different operating systems. This list is by no means comprehensive and if the developer or engineer has bothered to spend 5 minutes moving the log file locations then chances are that this list may not help you.</p>
+<p>Luckily, most people don&rsquo;t bother moving logs which makes this a great list to work with. Below is an example of how to use this list to quickly discover the location of the Apache log location after you&rsquo;ve located a LFI vulnerability.</p>
+<p>This tutorial will utilize Burp Suite, one of the better Web Testing suites available. If you don&rsquo;t have a copy yet, go get it from <a href="http://www.portswigger.net/burp/">http://www.portswigger.net/burp/</a>. The paid version of the software does not have the timing restrictions and is well worth getting to speed up this attack.</p>
+<p>To start, copy the contents of this list and save it somewhere you can access through Burp Suite.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">/Library/WebServer/Documents/index.php
+/Library/WebServer/Documents/index.html
+/apache/logs/access.log
+/apache/logs/error.log
+/etc/GeoIP.conf.default
+/etc/PolicyKit/PolicyKit.conf
+/etc/X11/xorg.conf
+/etc/X11/xorg.conf-vesa
+/etc/X11/xorg.conf-vmware
+/etc/X11/xorg.conf.BeforeVMwareToolsInstall
+/etc/X11/xorg.conf.orig
+/etc/adduser.conf
+/etc/airoscript.conf
+/etc/apache2/apache2.conf
+/etc/apache2/conf.d
+/etc/apache2/conf.d/charset
+/etc/apache2/conf.d/security
+/etc/apache2/envvars
+/etc/apache2/httpd.conf
+/etc/apache2/mods-available/autoindex.conf
+/etc/apache2/mods-available/deflate.conf
+/etc/apache2/mods-available/dir.conf
+/etc/apache2/mods-available/mem_cache.conf
+/etc/apache2/mods-available/mime.conf
+/etc/apache2/mods-available/proxy.conf
+/etc/apache2/mods-available/setenvif.conf
+/etc/apache2/mods-available/ssl.conf
+/etc/apache2/mods-enabled/alias.conf
+/etc/apache2/mods-enabled/deflate.conf
+/etc/apache2/mods-enabled/dir.conf
+/etc/apache2/mods-enabled/mime.conf
+/etc/apache2/mods-enabled/negotiation.conf
+/etc/apache2/mods-enabled/php5.conf
+/etc/apache2/mods-enabled/status.conf
+/etc/apache2/ports.conf
+/etc/apache2/sites-available/default
+/etc/apache2/sites-enabled/000-default
+/etc/apt/apt.conf.d
+/etc/apt/apt.conf.d/00trustcdrom
+/etc/apt/apt.conf.d/01autoremove
+/etc/apt/apt.conf.d/01ubuntu
+/etc/apt/apt.conf.d/05aptitude
+/etc/apt/apt.conf.d/50unattended-upgrades
+/etc/apt/apt.conf.d/70debconf
+/etc/arpalert/arpalert.conf
+/etc/avahi/avahi-daemon.conf
+/etc/bash_completion.d/debconf
+/etc/belocs/locale-gen.conf
+/etc/bluetooth/input.conf
+/etc/bluetooth/main.conf
+/etc/bluetooth/network.conf
+/etc/bluetooth/rfcomm.conf
+/etc/bonobo-activation/bonobo-activation-config.xml
+/etc/ca-certificates.conf
+/etc/ca-certificates.conf.dpkg-old
+/etc/casper.conf
+/etc/chkrootkit.conf
+/etc/clamav/clamd.conf
+/etc/clamav/freshclam.conf
+/etc/conky/conky.conf
+/etc/console-tools/config.d
+/etc/console-tools/config.d/splashy
+/etc/cups/acroread.conf
+/etc/cups/cupsd.conf
+/etc/cups/cupsd.conf.default
+/etc/cups/pdftops.conf
+/etc/cups/printers.conf
+/etc/cvs-cron.conf
+/etc/cvs-pserver.conf
+/etc/dbus-1/session.conf
+/etc/dbus-1/system.conf
+/etc/debconf.conf
+/etc/defoma/config
+/etc/defoma/config/x-ttcidfont-conf.conf2
+/etc/deluser.conf
+/etc/depmod.d/ubuntu.conf
+/etc/dhcp3/dhclient.conf
+/etc/dhcp3/dhcpd.conf
+/etc/discover-modprobe.conf
+/etc/discover.conf.d
+/etc/discover.conf.d/00discover
+/etc/dns2tcpd.conf
+/etc/e2fsck.conf
+/etc/esound/esd.conf
+/etc/etter.conf
+/etc/fonts/conf.d
+/etc/fonts/conf.d/README
+/etc/foomatic/filter.conf
+/etc/foremost.conf
+/etc/freetds/freetds.conf
+/etc/fuse.conf
+/etc/gconf
+/etc/gconf/2
+/etc/gconf/2/evoldap.conf
+/etc/gconf/2/path
+/etc/gconf/gconf.xml.defaults
+/etc/gconf/gconf.xml.defaults/%gconf-tree.xml
+/etc/gconf/gconf.xml.mandatory
+/etc/gconf/gconf.xml.mandatory/%gconf-tree.xml
+/etc/gconf/gconf.xml.system
+/etc/gdm/failsafeDexconf
+/etc/gnome-vfs-2.0/modules/default-modules.conf
+/etc/gnome-vfs-2.0/modules/extra-modules.conf
+/etc/gre.d/1.9.0.10.system.conf
+/etc/gre.d/1.9.0.14.system.conf
+/etc/gre.d/1.9.0.15.system.conf
+/etc/group
+/etc/gtk-2.0/im-multipress.conf
+/etc/hdparm.conf
+/etc/host.conf
+/etc/htdig/htdig.conf
+/etc/httpd/conf/httpd.conf
+/etc/httpd/httpd.conf
+/etc/httpd/logs/acces.log
+/etc/httpd/logs/acces_log
+/etc/httpd/logs/access.log
+/etc/httpd/logs/access_log
+/etc/httpd/logs/error.log
+/etc/httpd/logs/error_log
+/etc/httpd/mod_php.conf
+/etc/inetd.conf
+/etc/initramfs-tools/conf.d
+/etc/irssi.conf
+/etc/java-6-sun/fontconfig.properties
+/etc/kbd/config
+/etc/kernel-img.conf
+/etc/kernel-pkg.conf
+/etc/ld.so.conf
+/etc/ldap/ldap.conf
+/etc/logrotate.conf
+/etc/ltrace.conf
+/etc/mail/sendmail.conf
+/etc/manpath.config
+/etc/menu-methods/menu.config
+/etc/miredo-server.conf
+/etc/miredo.conf
+/etc/miredo/miredo-server.conf
+/etc/miredo/miredo.conf
+/etc/modprobe.d/vmware-tools.conf
+/etc/mono/1.0/machine.config
+/etc/mono/2.0/machine.config
+/etc/mono/2.0/web.config
+/etc/mono/config
+/etc/mtools.conf
+/etc/mysql/conf.d
+/etc/mysql/conf.d/old_passwords.cnf
+/etc/nsswitch.conf
+/etc/oinkmaster.conf
+/etc/openvpn/update-resolv-conf
+/etc/pam.conf
+/etc/passwd
+/etc/pear/pear.conf
+/etc/php.ini
+/etc/php/php.ini
+/etc/php5/apache2/conf.d
+/etc/php5/apache2/php.ini
+/etc/php5/php.ini
+/etc/pm/config.d
+/etc/pm/config.d/00sleep_module
+/etc/postgresql-common/autovacuum.conf
+/etc/prelude/default/global.conf
+/etc/prelude/default/idmef-client.conf
+/etc/prelude/default/tls.conf
+/etc/privoxy/config
+/etc/proxychains.conf
+/etc/pulse/client.conf
+/etc/python/debian_config
+/etc/reader.conf
+/etc/reader.conf.d
+/etc/reader.conf.d/0comments
+/etc/reader.conf.d/libccidtwin
+/etc/reader.conf.old
+/etc/remastersys.conf
+/etc/resolv.conf
+/etc/resolvconf
+/etc/resolvconf/update-libc.d
+/etc/resolvconf/update-libc.d/sendmail
+/etc/rinetd.conf
+/etc/samba/dhcp.conf
+/etc/samba/smb.conf
+/etc/scrollkeeper.conf
+/etc/security/access.conf
+/etc/security/group.conf
+/etc/security/limits.conf
+/etc/security/namespace.conf
+/etc/security/opasswd
+/etc/security/pam_env.conf
+/etc/security/sepermit.conf
+/etc/security/time.conf
+/etc/sensors.conf
+/etc/shadow
+/etc/skel/.config
+/etc/skel/.config/Trolltech.conf
+/etc/skel/.config/codef00.com
+/etc/skel/.config/menus
+/etc/skel/.config/menus/applications-kmenuedit.menu
+/etc/skel/.config/user-dirs.dirs
+/etc/skel/.config/user-dirs.locale
+/etc/skel/.kde3/share/apps/kconf_update
+/etc/skel/.kde3/share/apps/kconf_update/log/update.log
+/etc/skel/.kde3/share/share/apps/kconf_update
+/etc/skel/.kde3/share/share/apps/kconf_update/log
+/etc/skel/.kde3/share/share/apps/kconf_update/log/update.log
+/etc/smi.conf
+/etc/snmp/snmpd.conf
+/etc/snort/reference.config
+/etc/snort/rules/emerging.conf
+/etc/snort/rules/open-test.conf
+/etc/snort/snort-mysql.conf
+/etc/snort/snort.conf
+/etc/snort/threshold.conf
+/etc/splashy/config.xml
+/etc/ssh/sshd_config
+/etc/stunnel/stunnel.conf
+/etc/subversion/config
+/etc/sysctl.conf
+/etc/sysctl.d/10-console-messages.conf
+/etc/sysctl.d/10-network-security.conf
+/etc/sysctl.d/10-process-security.conf
+/etc/sysctl.d/wine.sysctl.conf
+/etc/syslog.conf
+/etc/tinyproxy/tinyproxy.conf
+/etc/tor/tor-tsocks.conf
+/etc/tpvmlp.conf
+/etc/tsocks.conf
+/etc/ucf.conf
+/etc/udev/udev.conf
+/etc/ufw/sysctl.conf
+/etc/ufw/ufw.conf
+/etc/uniconf.conf
+/etc/unicornscan/modules.conf
+/etc/unicornscan/payloads.conf
+/etc/unicornscan/unicorn.conf
+/etc/updatedb.conf
+/etc/updatedb.conf.BeforeVMwareToolsInstall
+/etc/vmware-tools/config
+/etc/vmware-tools/tpvmlp.conf
+/etc/vmware-tools/vmware-tools-libraries.conf
+/etc/w3m/config
+/etc/wicd/dhclient.conf.template.default
+/etc/wicd/manager-settings.conf
+/etc/wicd/wired-settings.conf
+/etc/wicd/wireless-settings.conf
+/etc/xdg/user-dirs.conf
+/logs/access.log
+/logs/error.log
+/private/etc/apache2/extra/httpd-default.conf
+/private/etc/apache2/extra/httpd-userdir.conf
+/private/etc/apache2/extra/httpd-vhosts.conf
+/private/etc/apache2/mime.types
+/private/var/log/apache2/access_log
+/private/var/log/apache2/error_log
+/proc/cpuinfo
+/proc/meminfo
+/proc/self/cmdline
+/proc/self/environ
+/proc/self/mounts
+/proc/self/stat
+/proc/self/status
+/proc/version
+/share/snmp/snmpd.conf
+/srv/www/htdocs/index.html
+/usr/bin/php/php.ini
+/usr/bin/php5/bin/php.ini
+/usr/local/apache/logs/access.log
+/usr/local/apache/logs/access_log
+/usr/local/apache/logs/error.log
+/usr/local/apache/logs/error_log
+/usr/local/apache2/conf/extra/httpd-ssl.conf
+/usr/local/apache2/conf/httpd.conf
+/usr/local/apache2/logs/access_log
+/usr/local/apache2/logs/error_log
+/usr/local/etc/apache2/httpd.conf
+/usr/local/etc/apache22/httpd.conf
+/usr/local/www/apache22/data/index.html
+/usr/pkg/etc/httpd/httpd.conf
+/var/log/access.log
+/var/log/access_log
+/var/log/apache/access.log
+/var/log/apache/access_log
+/var/log/apache/error.log
+/var/log/apache/error_log
+/var/log/apache2/access.log
+/var/log/apache2/access_log
+/var/log/apache2/error.log
+/var/log/apache2/error_log
+/var/log/error.log
+/var/log/error_log
+/var/log/httpd-access.log
+/var/log/httpd-error.log
+/var/log/httpd/access.log
+/var/log/httpd/access_log
+/var/log/httpd/error.log
+/var/log/httpd/error_log
+/var/www/conf/httpd.conf
+/var/www/logs/access.log
+/var/www/logs/access_log
+/var/www/logs/error.log
+/var/www/logs/error_log
+/wwwroot/php/php.ini
+</code></pre></div><p>Once you have saved this list somewhere, open up Burp Suite, locate the LFI injection point and send the request to Burp Intruder.</p>
+
+    <img src="http://i.imgur.com/A3L4q.png"  class="left"  />
+
+
+<p>In the Burp Intruder window, select the <code>Positions</code> tab and mark the position of your LFI injection point. Change the attack type to <code>Sniper</code>. Then under the <code>Payloads</code> tab, choose the Apache logs list or paste the contents of the list into the payload window.</p>
+
+    <img src="http://i.imgur.com/VNbX4.png"  class="left"  />
+
+
+<p>Start the attack and pay attention to the length column. Typically Apache log folders are going to be large and should return a large length field.</p>
+
+    <img src="http://i.imgur.com/1RUry.png"  class="left"  />
+
+
+<p>When you find a length field that is significantly larger than the other requests, look at the response to see if the contents returned match what an Apache log file would look like. If it does look like a log file and you can see some of your previous traffic displayed, you have successfully found the Apache log location and can now use this to start injecting your PHP code to run requests on the target machine.</p>
+<p>I will outline the steps to complete this in the next post.</p>
+<blockquote>
+<p>this log list is not comprehensive and I will continue to add to it as I find more more locations as well as some windows folder locations.</p>
+</blockquote>
+<p>Keep on sploiting,</p>
+<p>norsec0de</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/tags/apache/">apache</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/burp/">burp</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/hacking/">hacking</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/list/">list</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/location/">location</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/logs/">logs</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/pentesting/">pentesting</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/poisoning/">poisoning</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/suite/">suite</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/web/">web</a></span>
+        
+    </p>
+
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/categories/tutorial/">tutorial</a></span>
+        
+    </p>
+
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="http://norsec0de.github.io/">norsey</a></span>
+            
+            <span><a href="http://norsec0de.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>norsey's hideout</span>
+            <span>hugo</span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://norsec0de.github.io/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

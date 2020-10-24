@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>norsey&#39;s hideout</title>
+    <link>http://norsec0de.github.io/</link>
+    <description>Recent content on norsey&#39;s hideout</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 31 Dec 2015 06:32:09 +0000</lastBuildDate><atom:link href="http://norsec0de.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>installing metasploit framework on os x el capitan</title>
+      <link>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-el-capitan/</link>
+      <pubDate>Thu, 31 Dec 2015 06:32:09 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-el-capitan/</guid>
+      <description>This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X El Capitan.
+This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&amp;rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem.</description>
+    </item>
+    
+    <item>
+      <title>installing metasploit framework on os x yosemite (updated april 2015)</title>
+      <link>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/</link>
+      <pubDate>Mon, 03 Nov 2014 13:48:22 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/</guid>
+      <description>EDIT: The installation guide for OSX El Capitan can be found here
+This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X Yosemite.
+This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&amp;rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem.</description>
+    </item>
+    
+    <item>
+      <title>installing unicornscan on debian/ubuntu</title>
+      <link>http://norsec0de.github.io/posts/installing-unicornscan-on-debianubuntu/</link>
+      <pubDate>Sat, 19 Jul 2014 09:19:23 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/installing-unicornscan-on-debianubuntu/</guid>
+      <description>Looking back, I can&amp;rsquo;t remember a time where I used Nmap to perform UDP port scans. Pentesters are far too impatient to spend hours waiting for a UDP scan to finish in the hope of finding some badly configured service. Which is why I found it odd when I received a message saying &amp;ldquo;why do UDP scans take hours?&amp;rdquo;
+It never occurred to me that this poor dude was staring at the screen, Nmap torturing him every 30 seconds by telling him he won&amp;rsquo;t be done with this machine any time this week.</description>
+    </item>
+    
+    <item>
+      <title>data exfiltration over SSL with srvdir</title>
+      <link>http://norsec0de.github.io/posts/data-exfiltration-over-ssl-with-srvdir/</link>
+      <pubDate>Sun, 15 Jun 2014 04:31:04 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/data-exfiltration-over-ssl-with-srvdir/</guid>
+      <description>Every now and then I come across some application that may (or may not) have been developed with penetration testing in mind but it ends up being damn helpful all the same. Yesterday I found a post about srvdir which is designed to share content over SSL/TLS via a public site.
+When trying to exfiltrate data from a client site I normally spend a lot of time setting up tunnels, using disposable A records from afraid.</description>
+    </item>
+    
+    <item>
+      <title>very simple caesar cipher in python</title>
+      <link>http://norsec0de.github.io/posts/very-simple-caesar-cipher-python/</link>
+      <pubDate>Mon, 26 May 2014 05:53:11 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/very-simple-caesar-cipher-python/</guid>
+      <description>During a recent CTF I needed to decrypt a page encrypted with a Caesar Cipher. I didn&amp;rsquo;t know the what the ROT was and I was struggling to find an easy yet useful one around so I wrote this pure python one.
+Feel free to borrow it, steal it, claim it as your own or do whatever with it.
+Keep on sploiting,
+norsec0de
+#!/usr/bin/python # Very Simple Caesar Cipher # by norsec0de #  # python .</description>
+    </item>
+    
+    <item>
+      <title>cracking the infernal hades</title>
+      <link>http://norsec0de.github.io/posts/cracking-the-infernal-hades/</link>
+      <pubDate>Fri, 16 May 2014 06:53:11 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/cracking-the-infernal-hades/</guid>
+      <description>About a month ago, Vulnhub released a boot2root image built by Lok_Sigma called Hades. The box promised to be full of annoyances and it delivered them in droves. Requiring a combination of exploit development, reverse engineering and some out of the box thinking, I really enjoyed this challenge. I decided to share my solution now that the competition is over. It goes without saying this post has a lot of SPOILERS!</description>
+    </item>
+    
+    <item>
+      <title>part 3: cleaning and optimising shellcode</title>
+      <link>http://norsec0de.github.io/posts/part-3-cleaning-and-optimising-shellcode/</link>
+      <pubDate>Thu, 24 Apr 2014 12:00:54 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/part-3-cleaning-and-optimising-shellcode/</guid>
+      <description>In Part 2: Building the shellcode, we created a bind shell on port 4444 which accepts connections from any host and then interacts with /bin/sh to facilitate remote code execution. Our shellcode however was littered with null bytes and would probably not be very useful if embedding in any exploit code.
+In this final part, we will clean our code and remove any null bytes from our shellcode. We will also look at removing unnecessary instruction to make our shellcode smaller if possible.</description>
+    </item>
+    
+    <item>
+      <title>part 2: building the shellcode</title>
+      <link>http://norsec0de.github.io/posts/part-2-building-the-shellcode/</link>
+      <pubDate>Thu, 24 Apr 2014 12:00:06 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/part-2-building-the-shellcode/</guid>
+      <description>In Part 1: Disassembling and Understanding Shellcode we disassembled some shellcode and found out the steps required to create a bind shell. In Part 2, we will take each of these 6 steps, understand them and write assembly instructions to call them.
+The steps we need to follow to create our bind shell are:
+ Socket Bind Listen Accept Dup2 Execve  We are going to spend a lot of time working with NASM (The Netwide Assembler).</description>
+    </item>
+    
+    <item>
+      <title>part 1: disassembling and understanding shellcode</title>
+      <link>http://norsec0de.github.io/posts/part-1-disassembling-and-understanding-shellcode/</link>
+      <pubDate>Thu, 24 Apr 2014 11:58:47 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/part-1-disassembling-and-understanding-shellcode/</guid>
+      <description>About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &amp;ldquo;hail-mary&amp;rdquo; advice like &amp;ldquo;use pop, pop, ret when dealing with SEH.&amp;rdquo; If you&amp;rsquo;re interested in Assembly or writing shellcode, I&amp;rsquo;d highly recommend you take the certification.</description>
+    </item>
+    
+    <item>
+      <title>build a heartbleed test lab in 5 minutes</title>
+      <link>http://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/</link>
+      <pubDate>Tue, 15 Apr 2014 06:18:30 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/build-a-heartbleed-test-lab-in-5-minutes/</guid>
+      <description>Lets be clear, I’m all about the offensive side of information security. I&amp;rsquo;m a pentester and I enjoy popping, rooting, owning and pwning all the things. I am aware that what we do is there to assist and encourage better defensive countermeasures but I just leave that to the experts. My colleague sitting nearby has the more unfortunate &amp;ldquo;defensive&amp;rdquo; job consisting of writing detections for all the evil things I do.</description>
+    </item>
+    
+  </channel>
+</rss>

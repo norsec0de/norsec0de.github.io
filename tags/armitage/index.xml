@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>armitage on norsey&#39;s hideout</title>
+    <link>http://norsec0de.github.io/tags/armitage/</link>
+    <description>Recent content in armitage on norsey&#39;s hideout</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 31 Dec 2015 06:32:09 +0000</lastBuildDate><atom:link href="http://norsec0de.github.io/tags/armitage/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>installing metasploit framework on os x el capitan</title>
+      <link>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-el-capitan/</link>
+      <pubDate>Thu, 31 Dec 2015 06:32:09 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-el-capitan/</guid>
+      <description>This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X El Capitan.
+This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&amp;rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem.</description>
+    </item>
+    
+    <item>
+      <title>installing metasploit framework on os x yosemite (updated april 2015)</title>
+      <link>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/</link>
+      <pubDate>Mon, 03 Nov 2014 13:48:22 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/</guid>
+      <description>EDIT: The installation guide for OSX El Capitan can be found here
+This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X Yosemite.
+This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&amp;rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem.</description>
+    </item>
+    
+  </channel>
+</rss>

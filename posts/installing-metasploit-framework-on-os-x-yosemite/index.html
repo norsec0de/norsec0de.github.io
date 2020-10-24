@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="syph0n">
+<meta name="description" content="EDIT: The installation guide for OSX El Capitan can be found here
+This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X Yosemite.
+This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&amp;rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem." />
+<meta name="keywords" content="infosec, norsey, norsec0de, armitage, metasploit, osx, yosemite" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/" />
+
+
+    <title>
+        
+            installing metasploit framework on os x yosemite (updated april 2015) :: norsey&#39;s hideout 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="http://norsec0de.github.io/main.393856bf2c430bb6c01d7af07c6fe966e7cce8073435cfbbc46e590bab7405ef.css">
+
+
+
+
+
+
+<meta itemprop="name" content="installing metasploit framework on os x yosemite (updated april 2015)">
+<meta itemprop="description" content="EDIT: The installation guide for OSX El Capitan can be found here
+This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X Yosemite.
+This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem.">
+<meta itemprop="datePublished" content="2014-11-03T13:48:22+00:00" />
+<meta itemprop="dateModified" content="2014-11-03T13:48:22+00:00" />
+<meta itemprop="wordCount" content="887">
+<meta itemprop="image" content="http://norsec0de.github.io/"/>
+
+
+
+<meta itemprop="keywords" content="armitage,metasploit,osx,yosemite," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://norsec0de.github.io/"/>
+
+<meta name="twitter:title" content="installing metasploit framework on os x yosemite (updated april 2015)"/>
+<meta name="twitter:description" content="EDIT: The installation guide for OSX El Capitan can be found here
+This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X Yosemite.
+This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem."/>
+
+
+
+
+
+    <meta property="article:section" content="tutorial" />
+
+
+
+    <meta property="article:published_time" content="2014-11-03 13:48:22 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://norsec0de.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">norsey&#39;s hideout</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://norsec0de.github.io/posts">intel</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-yosemite/">installing metasploit framework on os x yosemite (updated april 2015)</a></h2>
+
+            
+
+            
+
+            <div class="post-content">
+                <p>EDIT: The installation guide for OSX El Capitan can be found <a href="http://norsec0de.github.io/posts/installing-metasploit-framework-on-os-x-el-capitan/">here</a></p>
+<p>This Guide is adapted from <a href="http://www.darkoperator.com/installing-metasploit-framewor/">Carlos Perez’s Blog</a> (<a href="http://www.darkoperator.com/installing-metasploit-framewor/">http://www.darkoperator.com/installing-metasploit-framewor/</a>) (<em>which is a must read</em>) with some additions and fixes to make the setup work on OS X Yosemite.</p>
+<p>This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of <code>libiconv</code> installed with OS X causes issues installing the Nokogiri gem.</p>
+<p><!-- raw HTML omitted --></p>
+<h1 id="xcode-and-command-line-development-tools">Xcode and Command Line Development Tools</h1>
+<p>The first step is to ensure that Software Update has been run and that OS X is updated. Once OS X has been updated, It is time to install Xcode.</p>
+<p><a href="https://itunes.apple.com/us/app/xcode/id497799835?mt=12">Mac App Store - Xcode</a></p>
+<p>Once Xcode has been installed launch Xcode from Applications and agree to the SDK License Agreement.</p>
+
+    <img src="http://i.imgur.com/72cLFaD.png"  class="left"  />
+
+
+<p>Install Xcode developer tools  by typing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">xcode-select --install
+</code></pre></div>
+    <img src="http://i.imgur.com/U98gNAN.png"  class="left"  />
+
+
+<p>Click Install in the dialog box that pops up and the package will be installed.</p>
+
+    <img src="http://i.imgur.com/MUAlZjF.png"  class="left"  />
+
+
+
+    <img src="http://i.imgur.com/1JJI6Mo.png"  class="left"  />
+
+
+<p><!-- raw HTML omitted --></p>
+<h1 id="java">Java</h1>
+<p>Ensure that the latest versions of the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Java 8 JRE and JDK</a> are installed.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">http://download.oracle.com/otn-pub/java/jdk/8u40-b27/jdk-8u40-macosx-x64.dmg
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">http://download.oracle.com/otn-pub/java/jdk/8u40-b27/jre-8u40-macosx-x64.dmg
+</code></pre></div>
+    <img src="http://i.imgur.com/sHOfg8r.png"  class="left"  />
+
+
+<p><!-- raw HTML omitted --></p>
+<h1 id="homebrew">Homebrew</h1>
+<p>Install homebrew by running the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ruby -e <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</code></pre></div><p>Once Homebrew installs, run ‘<strong>brew doctor</strong>’ to finalize the installation of homebrew.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew doctor
+</code></pre></div><p>Once homebrew is installed and set up, the PATH needs to be updated to ensure that all homebrew binaries are executed correctly.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo PATH<span style="color:#f92672">=</span>/usr/local/bin:/usr/local/sbin:$PATH &gt;&gt; ~/.bash_profile
+</code></pre></div><p>Once this is done, load the new $PATH by sourcing it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">source ~/.bash_profile
+</code></pre></div><p>From here we need to ensure that both versions and dupes are loaded into homebrew (We load in dupes for later, as a dependency for nokogiri is located in here.)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew tap homebrew/versions
+brew tap homebrew/dupes
+</code></pre></div><p><!-- raw HTML omitted --></p>
+<h1 id="homebrew-installs">Homebrew Installs</h1>
+<p>Before Metasploit can be installed, some more dependencies should be installed via homebrew.</p>
+<p><!-- raw HTML omitted --></p>
+<h2 id="nmap">Nmap</h2>
+<p>This can be installed either via the dmg from their site, or via homebrew. Homebrew tends to keep their packages updated and it is quite easy to install and manage.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install nmap
+</code></pre></div><p><!-- raw HTML omitted --></p>
+<h2 id="install-ruby-215">Install Ruby 2.1.5</h2>
+<p>Now time for the part the most frequently causes issues. Ruby 2.1.5 is recommended as seen in <a href="https://github.com/rapid7/metasploit-framework/blob/master/.ruby-version">this</a> file. Since Homebrew doesn&rsquo;t have 2.1.5 as an option, we&rsquo;re going to take whatever 2.1.x it can give us. At the time of writing this, the version pulled was 2.1.5 which works perfectly for us.</p>
+<p><code>brew install homebrew/versions/ruby21</code></p>
+<p>Now, the most important part of the ruby installation, Ensuring that the ruby version you are running is in fact 2.1.5.</p>
+<p><code>ruby –v</code></p>
+
+    <img src="http://i.imgur.com/b7NfJAr.png"  class="left"  />
+
+
+<p><!-- raw HTML omitted --></p>
+<h2 id="installing-and-configuring-postgresql">Installing and configuring PostgreSQL</h2>
+<p>Now, time to install the backend database that Metasploit uses.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install postgresql --without-ossp-uuid
+</code></pre></div>
+    <img src="http://i.imgur.com/GXaTSYn.png"  class="left"  />
+
+
+<p>If the Homebrew install did NOT complete this for you, the next step is to initialize the database for first time usage.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">initdb /usr/local/var/postgres
+</code></pre></div><blockquote>
+<p><em>As of 9.3.5_1 it looks like the homebrew installer wraps up by running this command for you.</em></p>
+</blockquote>
+<p>Ensure that postgreSQL is set to launch on boot by issuing the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir -p ~/Library/LaunchAgents
+cp /usr/local/Cellar/postgresql/9.4.1/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
+</code></pre></div><p>Start the PostgreSQL service:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+</code></pre></div><p>Create a new user msf* and a database msf with the user msf as the owner.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">createuser msf -P -h localhost
+createdb -O msf msf -h localhost
+</code></pre></div><p><strong>Remember this password as it will be used when configuring Metasploit</strong></p>
+<p><!-- raw HTML omitted --></p>
+<h1 id="configuring-vncviewer">Configuring VNCViewer</h1>
+<p>As Metasploit uses vncviewer for its VNC payloads, and OS X comes with a VNC client, we need to create the needed vncviewer file that will call the OS X vnc viewer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#39;#!/usr/bin/env bash&#39;</span>&gt;&gt; /usr/local/bin/vncviewer
+echo open vnc://<span style="color:#ae81ff">\$</span><span style="color:#ae81ff">1</span> &gt;&gt; /usr/local/bin/vncviewer
+chmod +x /usr/local/bin/vncviewer
+</code></pre></div><p><!-- raw HTML omitted --></p>
+<h1 id="installing-metasploit-framework">Installing Metasploit Framework</h1>
+<p>Installing the following gems needed for running the framework:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gem install pg sqlite3 msgpack activerecord redcarpet rspec simplecov yard bundler
+</code></pre></div><p>Download the framework and prepare the directories:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd /usr/local/share/
+git clone https://github.com/rapid7/metasploit-framework.git
+cd metasploit-framework
+<span style="color:#66d9ef">for</span> MSF in <span style="color:#66d9ef">$(</span>ls msf*<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span> ln -s /usr/local/share/metasploit-framework/$MSF /usr/local/bin/$MSF;<span style="color:#66d9ef">done</span>
+sudo chmod go+w /etc/profile
+sudo echo export MSF_DATABASE_CONFIG<span style="color:#f92672">=</span>/usr/local/share/metasploit-framework/config/database.yml &gt;&gt; /etc/profile
+</code></pre></div><p>Using brew and bundler the properly supported gems need to be installed.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">bundle install
+</code></pre></div>
+    <img src="http://i.imgur.com/8FZNMKl.png"  class="left"  />
+
+
+<p>Now that the framework has been installed, and proper bundles installed. The database connection needs to be configured.</p>
+<p>Save the following into <code>/usr/local/share/metasploit-framework/config/database.yml</code> replace <code>&lt;password&gt;</code> with the msf user&rsquo;s password you set earlier.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vi /usr/local/share/metasploit-framework/config/database.yml
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">production</span>:
+  <span style="color:#f92672">adapter</span>: <span style="color:#ae81ff">postgresql</span>
+  <span style="color:#f92672">database</span>: <span style="color:#ae81ff">msf</span>
+  <span style="color:#f92672">username</span>: <span style="color:#ae81ff">msf</span>
+  <span style="color:#f92672">password</span>: <span style="color:#ae81ff">&lt;password&gt;</span>
+  <span style="color:#f92672">host</span>: <span style="color:#ae81ff">127.0.0.1</span>
+  <span style="color:#f92672">port</span>: <span style="color:#ae81ff">5432</span>
+  <span style="color:#f92672">pool</span>: <span style="color:#ae81ff">75</span>
+  <span style="color:#f92672">timeout</span>: <span style="color:#ae81ff">5</span>
+</code></pre></div><p>Now that this file has been created, source bash_profile to load the variables for the database.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">source /etc/profile
+source ~/.bash_profile
+</code></pre></div><p>Now, to start Metasploit Framework as YOUR USER to it initializes the schema for the database for the first time as a NON ROOT user. Run this from within the <code>/usr/local/share/metasploit-framework</code> directory.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./msfconsole
+</code></pre></div><p>Once the console loads, ensure that the database is connected by issuing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">msf&gt; db_status
+</code></pre></div><p>it should return:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">&gt; [*] postgresql connected to msf
+</code></pre></div>
+    <img src="http://i.imgur.com/69nZpTw.png"  class="left"  />
+
+
+<p><!-- raw HTML omitted --></p>
+<h1 id="installing-armitage">Installing Armitage</h1>
+<p>Execute the following commands to prepare the environment and download armitage to the correct location:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install pidof
+curl -# -o /tmp/armitage.tgz http://www.fastandeasyhacking.com/download/armitage-latest.tgz
+tar -xvzf /tmp/armitage.tgz -C /usr/local/share
+bash -c <span style="color:#e6db74">&#34;echo \&#39;/usr/bin/java\&#39; -jar /usr/local/share/armitage/armitage.jar \$\*&#34;</span> &gt; /usr/local/share/armitage/armitage
+perl -pi -e <span style="color:#e6db74">&#39;s/armitage.jar/\/usr\/local\/share\/armitage\/armitage.jar/g&#39;</span> /usr/local/share/armitage/teamserver
+</code></pre></div>
+    <img src="http://i.imgur.com/KxX4rva.png"  class="left"  />
+
+
+<p>Lastly, create sym links for Armitage:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ln -s /usr/local/share/armitage/armitage /usr/local/bin/armitage
+ln -s /usr/local/armitage/teamserver /usr/local/bin/teamserver
+</code></pre></div><p>Due to the way variables are handled when using sudo, you will need to give the –E option.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo –E armitage
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo –E msfconsole
+</code></pre></div><p>Special thanks to <a href="https://twitter.com/SyphonPhreak">@Syph0n</a> for creating this article</p>
+<p>Keep on sploiting,</p>
+<p>norsec0de</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/tags/armitage/">armitage</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/metasploit/">metasploit</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/osx/">osx</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/yosemite/">yosemite</a></span>
+        
+    </p>
+
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/categories/tutorial/">tutorial</a></span>
+        
+    </p>
+
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="http://norsec0de.github.io/">norsey</a></span>
+            
+            <span><a href="http://norsec0de.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>norsey's hideout</span>
+            <span>hugo</span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://norsec0de.github.io/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

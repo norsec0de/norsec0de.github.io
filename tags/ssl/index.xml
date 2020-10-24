@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ssl on norsey&#39;s hideout</title>
+    <link>http://norsec0de.github.io/tags/ssl/</link>
+    <description>Recent content in ssl on norsey&#39;s hideout</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 15 Jun 2014 04:31:04 +0000</lastBuildDate><atom:link href="http://norsec0de.github.io/tags/ssl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>data exfiltration over SSL with srvdir</title>
+      <link>http://norsec0de.github.io/posts/data-exfiltration-over-ssl-with-srvdir/</link>
+      <pubDate>Sun, 15 Jun 2014 04:31:04 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/data-exfiltration-over-ssl-with-srvdir/</guid>
+      <description>Every now and then I come across some application that may (or may not) have been developed with penetration testing in mind but it ends up being damn helpful all the same. Yesterday I found a post about srvdir which is designed to share content over SSL/TLS via a public site.
+When trying to exfiltrate data from a client site I normally spend a lot of time setting up tunnels, using disposable A records from afraid.</description>
+    </item>
+    
+  </channel>
+</rss>

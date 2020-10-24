@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ubuntu on norsey&#39;s hideout</title>
+    <link>http://norsec0de.github.io/tags/ubuntu/</link>
+    <description>Recent content in ubuntu on norsey&#39;s hideout</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 Jul 2014 09:19:23 +0000</lastBuildDate><atom:link href="http://norsec0de.github.io/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>installing unicornscan on debian/ubuntu</title>
+      <link>http://norsec0de.github.io/posts/installing-unicornscan-on-debianubuntu/</link>
+      <pubDate>Sat, 19 Jul 2014 09:19:23 +0000</pubDate>
+      
+      <guid>http://norsec0de.github.io/posts/installing-unicornscan-on-debianubuntu/</guid>
+      <description>Looking back, I can&amp;rsquo;t remember a time where I used Nmap to perform UDP port scans. Pentesters are far too impatient to spend hours waiting for a UDP scan to finish in the hope of finding some badly configured service. Which is why I found it odd when I received a message saying &amp;ldquo;why do UDP scans take hours?&amp;rdquo;
+It never occurred to me that this poor dude was staring at the screen, Nmap torturing him every 30 seconds by telling him he won&amp;rsquo;t be done with this machine any time this week.</description>
+    </item>
+    
+  </channel>
+</rss>

