@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>assembly on norsey&#39;s hideout</title>
-    <link>http://www.pwnd.red/tags/assembly/</link>
+    <link>https://www.pwnd.red/tags/assembly/</link>
     <description>Recent content in assembly on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Apr 2014 12:00:54 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/tags/assembly/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Apr 2014 12:00:54 +0000</lastBuildDate><atom:link href="https://www.pwnd.red/tags/assembly/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>part 3: cleaning and optimising shellcode</title>
-      <link>http://www.pwnd.red/posts/part-3-cleaning-and-optimising-shellcode/</link>
+      <link>https://www.pwnd.red/posts/part-3-cleaning-and-optimising-shellcode/</link>
       <pubDate>Thu, 24 Apr 2014 12:00:54 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/part-3-cleaning-and-optimising-shellcode/</guid>
+      <guid>https://www.pwnd.red/posts/part-3-cleaning-and-optimising-shellcode/</guid>
       <description>In Part 2: Building the shellcode, we created a bind shell on port 4444 which accepts connections from any host and then interacts with /bin/sh to facilitate remote code execution. Our shellcode however was littered with null bytes and would probably not be very useful if embedding in any exploit code.
 In this final part, we will clean our code and remove any null bytes from our shellcode. We will also look at removing unnecessary instruction to make our shellcode smaller if possible.</description>
     </item>
     
     <item>
       <title>part 2: building the shellcode</title>
-      <link>http://www.pwnd.red/posts/part-2-building-the-shellcode/</link>
+      <link>https://www.pwnd.red/posts/part-2-building-the-shellcode/</link>
       <pubDate>Thu, 24 Apr 2014 12:00:06 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/part-2-building-the-shellcode/</guid>
+      <guid>https://www.pwnd.red/posts/part-2-building-the-shellcode/</guid>
       <description>In Part 1: Disassembling and Understanding Shellcode we disassembled some shellcode and found out the steps required to create a bind shell. In Part 2, we will take each of these 6 steps, understand them and write assembly instructions to call them.
 The steps we need to follow to create our bind shell are:
  Socket Bind Listen Accept Dup2 Execve  We are going to spend a lot of time working with NASM (The Netwide Assembler).</description>
@@ -30,10 +30,10 @@ The steps we need to follow to create our bind shell are:
     
     <item>
       <title>part 1: disassembling and understanding shellcode</title>
-      <link>http://www.pwnd.red/posts/part-1-disassembling-and-understanding-shellcode/</link>
+      <link>https://www.pwnd.red/posts/part-1-disassembling-and-understanding-shellcode/</link>
       <pubDate>Thu, 24 Apr 2014 11:58:47 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/part-1-disassembling-and-understanding-shellcode/</guid>
+      <guid>https://www.pwnd.red/posts/part-1-disassembling-and-understanding-shellcode/</guid>
       <description>About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &amp;ldquo;hail-mary&amp;rdquo; advice like &amp;ldquo;use pop, pop, ret when dealing with SEH.&amp;rdquo; If you&amp;rsquo;re interested in Assembly or writing shellcode, I&amp;rsquo;d highly recommend you take the certification.</description>
     </item>
     

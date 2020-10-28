@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>intruder on norsey&#39;s hideout</title>
-    <link>http://www.pwnd.red/tags/intruder/</link>
+    <link>https://www.pwnd.red/tags/intruder/</link>
     <description>Recent content in intruder on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Nov 2012 04:08:58 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/tags/intruder/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Nov 2012 04:08:58 +0000</lastBuildDate><atom:link href="https://www.pwnd.red/tags/intruder/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>apache log poisoning with local file inclusion</title>
-      <link>http://www.pwnd.red/posts/apache-log-poisoning-with-local-file-inclusion/</link>
+      <link>https://www.pwnd.red/posts/apache-log-poisoning-with-local-file-inclusion/</link>
       <pubDate>Sun, 04 Nov 2012 04:08:58 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/apache-log-poisoning-with-local-file-inclusion/</guid>
+      <guid>https://www.pwnd.red/posts/apache-log-poisoning-with-local-file-inclusion/</guid>
       <description>So we have our Local File Inclusion vulnerability and we can read the /etc/passwd file, now it&amp;rsquo;s time to start escalating the attack so that we are able to execute our own commands on the target system.
 In the previous post, we found the Apache log files and particularly the Apache error.log file using Burp Suite&amp;rsquo;s Intruder module. We are now going to use this log file to inject our own PHP code into this page.</description>
     </item>

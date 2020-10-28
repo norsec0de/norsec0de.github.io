@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>boot2root on norsey&#39;s hideout</title>
-    <link>http://www.pwnd.red/tags/boot2root/</link>
+    <link>https://www.pwnd.red/tags/boot2root/</link>
     <description>Recent content in boot2root on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 16 May 2014 06:53:11 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/tags/boot2root/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 May 2014 06:53:11 +0000</lastBuildDate><atom:link href="https://www.pwnd.red/tags/boot2root/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>cracking the infernal hades</title>
-      <link>http://www.pwnd.red/posts/cracking-the-infernal-hades/</link>
+      <link>https://www.pwnd.red/posts/cracking-the-infernal-hades/</link>
       <pubDate>Fri, 16 May 2014 06:53:11 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/cracking-the-infernal-hades/</guid>
+      <guid>https://www.pwnd.red/posts/cracking-the-infernal-hades/</guid>
       <description>About a month ago, Vulnhub released a boot2root image built by Lok_Sigma called Hades. The box promised to be full of annoyances and it delivered them in droves. Requiring a combination of exploit development, reverse engineering and some out of the box thinking, I really enjoyed this challenge. I decided to share my solution now that the competition is over. It goes without saying this post has a lot of SPOILERS!</description>
     </item>
     

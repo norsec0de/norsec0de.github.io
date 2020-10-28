@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>hashes on norsey&#39;s hideout</title>
-    <link>http://www.pwnd.red/tags/hashes/</link>
+    <link>https://www.pwnd.red/tags/hashes/</link>
     <description>Recent content in hashes on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Nov 2012 09:18:43 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/tags/hashes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Nov 2012 09:18:43 +0000</lastBuildDate><atom:link href="https://www.pwnd.red/tags/hashes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>decrypting base64 encrypted binary hashes</title>
-      <link>http://www.pwnd.red/posts/decrypting-base64-encrypted-binary-hashes/</link>
+      <link>https://www.pwnd.red/posts/decrypting-base64-encrypted-binary-hashes/</link>
       <pubDate>Wed, 07 Nov 2012 09:18:43 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/decrypting-base64-encrypted-binary-hashes/</guid>
+      <guid>https://www.pwnd.red/posts/decrypting-base64-encrypted-binary-hashes/</guid>
       <description>I came across a database while testing the other day which happily contained a table called users with the good old id, username and password fields. What made this a somewhat interesting find was the fact that the passwords appeared to be encrypted as base64.
 After I stopped giggling I dumped the database and grabbed the first few hashes in an attempt to quickly script the decryption. The script ran fine although I ended up with a lot of garbled text and no plain text passwords.</description>
     </item>

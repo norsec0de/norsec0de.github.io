@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>apache on norsey&#39;s hideout</title>
-    <link>http://www.pwnd.red/tags/apache/</link>
+    <link>https://www.pwnd.red/tags/apache/</link>
     <description>Recent content in apache on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Nov 2012 04:08:58 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/tags/apache/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Nov 2012 04:08:58 +0000</lastBuildDate><atom:link href="https://www.pwnd.red/tags/apache/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>apache log poisoning with local file inclusion</title>
-      <link>http://www.pwnd.red/posts/apache-log-poisoning-with-local-file-inclusion/</link>
+      <link>https://www.pwnd.red/posts/apache-log-poisoning-with-local-file-inclusion/</link>
       <pubDate>Sun, 04 Nov 2012 04:08:58 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/apache-log-poisoning-with-local-file-inclusion/</guid>
+      <guid>https://www.pwnd.red/posts/apache-log-poisoning-with-local-file-inclusion/</guid>
       <description>So we have our Local File Inclusion vulnerability and we can read the /etc/passwd file, now it&amp;rsquo;s time to start escalating the attack so that we are able to execute our own commands on the target system.
 In the previous post, we found the Apache log files and particularly the Apache error.log file using Burp Suite&amp;rsquo;s Intruder module. We are now going to use this log file to inject our own PHP code into this page.</description>
     </item>
     
     <item>
       <title>finding the apache log files using burp intruder</title>
-      <link>http://www.pwnd.red/posts/finding-the-apache-log-files-using-burp-intruder/</link>
+      <link>https://www.pwnd.red/posts/finding-the-apache-log-files-using-burp-intruder/</link>
       <pubDate>Sun, 04 Nov 2012 01:26:05 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/finding-the-apache-log-files-using-burp-intruder/</guid>
+      <guid>https://www.pwnd.red/posts/finding-the-apache-log-files-using-burp-intruder/</guid>
       <description>Often when conducting security assessments it is necessary to go beyond just identifying the vulnerability, reporting it and heading out for a beer. Sometimes, like when conducting a penetration test or when asked by a client to demonstrate business risk, it is necessary to gain command line line access to the machine to show the risks associated with having a web user being able to execute commands on their machine. Often this involves getting a shell by some means but in the case of Local File Inclusion (LFI) simply finding the Apache Log location folder can be enough to start running commands on the system as the Apache service account.</description>
     </item>
     

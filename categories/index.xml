@@ -2,98 +2,98 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on norsey&#39;s hideout</title>
-    <link>http://www.pwnd.red/categories/</link>
+    <link>https://www.pwnd.red/categories/</link>
     <description>Recent content in Categories on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 31 Dec 2015 06:32:09 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 Dec 2015 06:32:09 +0000</lastBuildDate><atom:link href="https://www.pwnd.red/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tutorial</title>
-      <link>http://www.pwnd.red/categories/tutorial/</link>
+      <link>https://www.pwnd.red/categories/tutorial/</link>
       <pubDate>Thu, 31 Dec 2015 06:32:09 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/categories/tutorial/</guid>
+      <guid>https://www.pwnd.red/categories/tutorial/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tools</title>
-      <link>http://www.pwnd.red/categories/tools/</link>
+      <link>https://www.pwnd.red/categories/tools/</link>
       <pubDate>Sat, 19 Jul 2014 09:19:23 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/categories/tools/</guid>
+      <guid>https://www.pwnd.red/categories/tools/</guid>
       <description></description>
     </item>
     
     <item>
       <title>post exploitation</title>
-      <link>http://www.pwnd.red/categories/post-exploitation/</link>
+      <link>https://www.pwnd.red/categories/post-exploitation/</link>
       <pubDate>Sun, 15 Jun 2014 04:31:04 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/categories/post-exploitation/</guid>
+      <guid>https://www.pwnd.red/categories/post-exploitation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ctf</title>
-      <link>http://www.pwnd.red/categories/ctf/</link>
+      <link>https://www.pwnd.red/categories/ctf/</link>
       <pubDate>Mon, 26 May 2014 05:53:11 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/categories/ctf/</guid>
+      <guid>https://www.pwnd.red/categories/ctf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>boot2root</title>
-      <link>http://www.pwnd.red/categories/boot2root/</link>
+      <link>https://www.pwnd.red/categories/boot2root/</link>
       <pubDate>Fri, 16 May 2014 06:53:11 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/categories/boot2root/</guid>
+      <guid>https://www.pwnd.red/categories/boot2root/</guid>
       <description></description>
     </item>
     
     <item>
       <title>shellcode</title>
-      <link>http://www.pwnd.red/categories/shellcode/</link>
+      <link>https://www.pwnd.red/categories/shellcode/</link>
       <pubDate>Thu, 24 Apr 2014 12:00:54 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/categories/shellcode/</guid>
+      <guid>https://www.pwnd.red/categories/shellcode/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Exploits</title>
-      <link>http://www.pwnd.red/categories/exploits/</link>
+      <link>https://www.pwnd.red/categories/exploits/</link>
       <pubDate>Tue, 15 Apr 2014 06:18:30 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/categories/exploits/</guid>
+      <guid>https://www.pwnd.red/categories/exploits/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Script</title>
-      <link>http://www.pwnd.red/categories/script/</link>
+      <link>https://www.pwnd.red/categories/script/</link>
       <pubDate>Sun, 10 Mar 2013 00:13:31 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/categories/script/</guid>
+      <guid>https://www.pwnd.red/categories/script/</guid>
       <description></description>
     </item>
     
     <item>
       <title>fun</title>
-      <link>http://www.pwnd.red/categories/fun/</link>
+      <link>https://www.pwnd.red/categories/fun/</link>
       <pubDate>Mon, 17 Sep 2012 09:48:35 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/categories/fun/</guid>
+      <guid>https://www.pwnd.red/categories/fun/</guid>
       <description></description>
     </item>
     
     <item>
       <title>general</title>
-      <link>http://www.pwnd.red/categories/general/</link>
+      <link>https://www.pwnd.red/categories/general/</link>
       <pubDate>Mon, 17 Sep 2012 09:48:35 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/categories/general/</guid>
+      <guid>https://www.pwnd.red/categories/general/</guid>
       <description></description>
     </item>
     

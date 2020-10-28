@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>general on norsey&#39;s hideout</title>
-    <link>http://www.pwnd.red/categories/general/</link>
+    <link>https://www.pwnd.red/categories/general/</link>
     <description>Recent content in general on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 17 Sep 2012 09:48:35 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/categories/general/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 17 Sep 2012 09:48:35 +0000</lastBuildDate><atom:link href="https://www.pwnd.red/categories/general/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>is robots.txt dead? lets ask dropbox</title>
-      <link>http://www.pwnd.red/posts/is-robots-txt-dead-lets-ask-dropbox/</link>
+      <link>https://www.pwnd.red/posts/is-robots-txt-dead-lets-ask-dropbox/</link>
       <pubDate>Mon, 17 Sep 2012 09:48:35 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/is-robots-txt-dead-lets-ask-dropbox/</guid>
+      <guid>https://www.pwnd.red/posts/is-robots-txt-dead-lets-ask-dropbox/</guid>
       <description>First off I&amp;rsquo;d like to give creds to Francis Brown and Rob Ragan who presented their talk Tenacious Diggity at DEFCON 20 where I found out about the apparent steam-rolling of Dropbox&amp;rsquo;s robots.txt file. For as far back as I can remember, the robots.txt file has been a ban-list of places that search engine crawlers are supposed to ignore when crawling a site. Recently however there is some talk that the preferred way of disallowing crawlers is to control them using alternative methods such as metatags and javascript.</description>
     </item>
     
     <item>
       <title>d0x’n myself beats the &#39;hello world&#39; post</title>
-      <link>http://www.pwnd.red/posts/d0xn-myself-beats-the-hello-world-post/</link>
+      <link>https://www.pwnd.red/posts/d0xn-myself-beats-the-hello-world-post/</link>
       <pubDate>Mon, 30 Jul 2012 11:46:56 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/d0xn-myself-beats-the-hello-world-post/</guid>
+      <guid>https://www.pwnd.red/posts/d0xn-myself-beats-the-hello-world-post/</guid>
       <description>My name is Ryan and I live in Sydney. My history is extremely boring and full of horror stories from racist countries so I&amp;rsquo;ll skip to 5 years ago in a hotel room in Perth, shortly after I moved to Australia. I liked to call myself an IT Professional but in all honesty I was a Windows Systems Administrator for 13 years who discovered that you can actually make a living breaking into peoples shit&amp;hellip;.</description>
     </item>
     

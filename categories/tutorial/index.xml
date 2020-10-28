@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tutorial on norsey&#39;s hideout</title>
-    <link>http://www.pwnd.red/categories/tutorial/</link>
+    <link>https://www.pwnd.red/categories/tutorial/</link>
     <description>Recent content in Tutorial on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 31 Dec 2015 06:32:09 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/categories/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 Dec 2015 06:32:09 +0000</lastBuildDate><atom:link href="https://www.pwnd.red/categories/tutorial/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>installing metasploit framework on os x el capitan</title>
-      <link>http://www.pwnd.red/posts/installing-metasploit-framework-on-os-x-el-capitan/</link>
+      <link>https://www.pwnd.red/posts/installing-metasploit-framework-on-os-x-el-capitan/</link>
       <pubDate>Thu, 31 Dec 2015 06:32:09 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/installing-metasploit-framework-on-os-x-el-capitan/</guid>
+      <guid>https://www.pwnd.red/posts/installing-metasploit-framework-on-os-x-el-capitan/</guid>
       <description>This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X El Capitan.
 This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&amp;rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem.</description>
     </item>
     
     <item>
       <title>installing metasploit framework on os x yosemite (updated april 2015)</title>
-      <link>http://www.pwnd.red/posts/installing-metasploit-framework-on-os-x-yosemite/</link>
+      <link>https://www.pwnd.red/posts/installing-metasploit-framework-on-os-x-yosemite/</link>
       <pubDate>Mon, 03 Nov 2014 13:48:22 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/installing-metasploit-framework-on-os-x-yosemite/</guid>
+      <guid>https://www.pwnd.red/posts/installing-metasploit-framework-on-os-x-yosemite/</guid>
       <description>EDIT: The installation guide for OSX El Capitan can be found here
 This Guide is adapted from Carlos Perez’s Blog (http://www.darkoperator.com/installing-metasploit-framewor/) (which is a must read) with some additions and fixes to make the setup work on OS X Yosemite.
 This post should help to alleviate some common issues with installing ruby and the Metasploit Framework on OS X. The main issues being that OS X ships with it&amp;rsquo;s own versions of Ruby that is not compatible with Metasploit and the version of libiconv installed with OS X causes issues installing the Nokogiri gem.</description>
@@ -30,40 +30,40 @@ This post should help to alleviate some common issues with installing ruby and t
     
     <item>
       <title>installing unicornscan on debian/ubuntu</title>
-      <link>http://www.pwnd.red/posts/installing-unicornscan-on-debianubuntu/</link>
+      <link>https://www.pwnd.red/posts/installing-unicornscan-on-debianubuntu/</link>
       <pubDate>Sat, 19 Jul 2014 09:19:23 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/installing-unicornscan-on-debianubuntu/</guid>
+      <guid>https://www.pwnd.red/posts/installing-unicornscan-on-debianubuntu/</guid>
       <description>Looking back, I can&amp;rsquo;t remember a time where I used Nmap to perform UDP port scans. Pentesters are far too impatient to spend hours waiting for a UDP scan to finish in the hope of finding some badly configured service. Which is why I found it odd when I received a message saying &amp;ldquo;why do UDP scans take hours?&amp;rdquo;
 It never occurred to me that this poor dude was staring at the screen, Nmap torturing him every 30 seconds by telling him he won&amp;rsquo;t be done with this machine any time this week.</description>
     </item>
     
     <item>
       <title>data exfiltration over SSL with srvdir</title>
-      <link>http://www.pwnd.red/posts/data-exfiltration-over-ssl-with-srvdir/</link>
+      <link>https://www.pwnd.red/posts/data-exfiltration-over-ssl-with-srvdir/</link>
       <pubDate>Sun, 15 Jun 2014 04:31:04 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/data-exfiltration-over-ssl-with-srvdir/</guid>
+      <guid>https://www.pwnd.red/posts/data-exfiltration-over-ssl-with-srvdir/</guid>
       <description>Every now and then I come across some application that may (or may not) have been developed with penetration testing in mind but it ends up being damn helpful all the same. Yesterday I found a post about srvdir which is designed to share content over SSL/TLS via a public site.
 When trying to exfiltrate data from a client site I normally spend a lot of time setting up tunnels, using disposable A records from afraid.</description>
     </item>
     
     <item>
       <title>part 3: cleaning and optimising shellcode</title>
-      <link>http://www.pwnd.red/posts/part-3-cleaning-and-optimising-shellcode/</link>
+      <link>https://www.pwnd.red/posts/part-3-cleaning-and-optimising-shellcode/</link>
       <pubDate>Thu, 24 Apr 2014 12:00:54 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/part-3-cleaning-and-optimising-shellcode/</guid>
+      <guid>https://www.pwnd.red/posts/part-3-cleaning-and-optimising-shellcode/</guid>
       <description>In Part 2: Building the shellcode, we created a bind shell on port 4444 which accepts connections from any host and then interacts with /bin/sh to facilitate remote code execution. Our shellcode however was littered with null bytes and would probably not be very useful if embedding in any exploit code.
 In this final part, we will clean our code and remove any null bytes from our shellcode. We will also look at removing unnecessary instruction to make our shellcode smaller if possible.</description>
     </item>
     
     <item>
       <title>part 2: building the shellcode</title>
-      <link>http://www.pwnd.red/posts/part-2-building-the-shellcode/</link>
+      <link>https://www.pwnd.red/posts/part-2-building-the-shellcode/</link>
       <pubDate>Thu, 24 Apr 2014 12:00:06 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/part-2-building-the-shellcode/</guid>
+      <guid>https://www.pwnd.red/posts/part-2-building-the-shellcode/</guid>
       <description>In Part 1: Disassembling and Understanding Shellcode we disassembled some shellcode and found out the steps required to create a bind shell. In Part 2, we will take each of these 6 steps, understand them and write assembly instructions to call them.
 The steps we need to follow to create our bind shell are:
  Socket Bind Listen Accept Dup2 Execve  We are going to spend a lot of time working with NASM (The Netwide Assembler).</description>
@@ -71,37 +71,37 @@ The steps we need to follow to create our bind shell are:
     
     <item>
       <title>part 1: disassembling and understanding shellcode</title>
-      <link>http://www.pwnd.red/posts/part-1-disassembling-and-understanding-shellcode/</link>
+      <link>https://www.pwnd.red/posts/part-1-disassembling-and-understanding-shellcode/</link>
       <pubDate>Thu, 24 Apr 2014 11:58:47 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/part-1-disassembling-and-understanding-shellcode/</guid>
+      <guid>https://www.pwnd.red/posts/part-1-disassembling-and-understanding-shellcode/</guid>
       <description>About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &amp;ldquo;hail-mary&amp;rdquo; advice like &amp;ldquo;use pop, pop, ret when dealing with SEH.&amp;rdquo; If you&amp;rsquo;re interested in Assembly or writing shellcode, I&amp;rsquo;d highly recommend you take the certification.</description>
     </item>
     
     <item>
       <title>build a heartbleed test lab in 5 minutes</title>
-      <link>http://www.pwnd.red/posts/build-a-heartbleed-test-lab-in-5-minutes/</link>
+      <link>https://www.pwnd.red/posts/build-a-heartbleed-test-lab-in-5-minutes/</link>
       <pubDate>Tue, 15 Apr 2014 06:18:30 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/build-a-heartbleed-test-lab-in-5-minutes/</guid>
+      <guid>https://www.pwnd.red/posts/build-a-heartbleed-test-lab-in-5-minutes/</guid>
       <description>Lets be clear, I’m all about the offensive side of information security. I&amp;rsquo;m a pentester and I enjoy popping, rooting, owning and pwning all the things. I am aware that what we do is there to assist and encourage better defensive countermeasures but I just leave that to the experts. My colleague sitting nearby has the more unfortunate &amp;ldquo;defensive&amp;rdquo; job consisting of writing detections for all the evil things I do.</description>
     </item>
     
     <item>
       <title>post exploitation: finding passwords in haystacks</title>
-      <link>http://www.pwnd.red/posts/post-exploitation-finding-passwords-in-haystacks/</link>
+      <link>https://www.pwnd.red/posts/post-exploitation-finding-passwords-in-haystacks/</link>
       <pubDate>Thu, 19 Dec 2013 02:55:06 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/post-exploitation-finding-passwords-in-haystacks/</guid>
+      <guid>https://www.pwnd.red/posts/post-exploitation-finding-passwords-in-haystacks/</guid>
       <description>Often while conducting an internal pentest you may gain access to a user machine through some vulnerability or more commonly via social engineering. Let’s say that you pop a shell, unprivileged, and incognito only finds unprivileged domain tokens. You could move onto another target or you can try some post exploitation reconnaissance. A commonly overlooked source of sensitive information is documents that are stored on the company servers as well as staff who think they know enough to start sharing folders with their peers and end up sharing the root of ‘C’.</description>
     </item>
     
     <item>
       <title>decrypting base64 encrypted binary hashes</title>
-      <link>http://www.pwnd.red/posts/decrypting-base64-encrypted-binary-hashes/</link>
+      <link>https://www.pwnd.red/posts/decrypting-base64-encrypted-binary-hashes/</link>
       <pubDate>Wed, 07 Nov 2012 09:18:43 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/decrypting-base64-encrypted-binary-hashes/</guid>
+      <guid>https://www.pwnd.red/posts/decrypting-base64-encrypted-binary-hashes/</guid>
       <description>I came across a database while testing the other day which happily contained a table called users with the good old id, username and password fields. What made this a somewhat interesting find was the fact that the passwords appeared to be encrypted as base64.
 After I stopped giggling I dumped the database and grabbed the first few hashes in an attempt to quickly script the decryption. The script ran fine although I ended up with a lot of garbled text and no plain text passwords.</description>
     </item>

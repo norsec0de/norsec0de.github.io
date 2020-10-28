@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tools on norsey&#39;s hideout</title>
-    <link>http://www.pwnd.red/categories/tools/</link>
+    <link>https://www.pwnd.red/categories/tools/</link>
     <description>Recent content in Tools on norsey&#39;s hideout</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Jul 2014 09:19:23 +0000</lastBuildDate><atom:link href="http://www.pwnd.red/categories/tools/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Jul 2014 09:19:23 +0000</lastBuildDate><atom:link href="https://www.pwnd.red/categories/tools/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>installing unicornscan on debian/ubuntu</title>
-      <link>http://www.pwnd.red/posts/installing-unicornscan-on-debianubuntu/</link>
+      <link>https://www.pwnd.red/posts/installing-unicornscan-on-debianubuntu/</link>
       <pubDate>Sat, 19 Jul 2014 09:19:23 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/installing-unicornscan-on-debianubuntu/</guid>
+      <guid>https://www.pwnd.red/posts/installing-unicornscan-on-debianubuntu/</guid>
       <description>Looking back, I can&amp;rsquo;t remember a time where I used Nmap to perform UDP port scans. Pentesters are far too impatient to spend hours waiting for a UDP scan to finish in the hope of finding some badly configured service. Which is why I found it odd when I received a message saying &amp;ldquo;why do UDP scans take hours?&amp;rdquo;
 It never occurred to me that this poor dude was staring at the screen, Nmap torturing him every 30 seconds by telling him he won&amp;rsquo;t be done with this machine any time this week.</description>
     </item>
     
     <item>
       <title>data exfiltration over SSL with srvdir</title>
-      <link>http://www.pwnd.red/posts/data-exfiltration-over-ssl-with-srvdir/</link>
+      <link>https://www.pwnd.red/posts/data-exfiltration-over-ssl-with-srvdir/</link>
       <pubDate>Sun, 15 Jun 2014 04:31:04 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/data-exfiltration-over-ssl-with-srvdir/</guid>
+      <guid>https://www.pwnd.red/posts/data-exfiltration-over-ssl-with-srvdir/</guid>
       <description>Every now and then I come across some application that may (or may not) have been developed with penetration testing in mind but it ends up being damn helpful all the same. Yesterday I found a post about srvdir which is designed to share content over SSL/TLS via a public site.
 When trying to exfiltrate data from a client site I normally spend a lot of time setting up tunnels, using disposable A records from afraid.</description>
     </item>
     
     <item>
       <title>very simple caesar cipher in python</title>
-      <link>http://www.pwnd.red/posts/very-simple-caesar-cipher-python/</link>
+      <link>https://www.pwnd.red/posts/very-simple-caesar-cipher-python/</link>
       <pubDate>Mon, 26 May 2014 05:53:11 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/very-simple-caesar-cipher-python/</guid>
+      <guid>https://www.pwnd.red/posts/very-simple-caesar-cipher-python/</guid>
       <description>During a recent CTF I needed to decrypt a page encrypted with a Caesar Cipher. I didn&amp;rsquo;t know the what the ROT was and I was struggling to find an easy yet useful one around so I wrote this pure python one.
 Feel free to borrow it, steal it, claim it as your own or do whatever with it.
 Keep on sploiting,
@@ -42,19 +42,19 @@ norsec0de
     
     <item>
       <title>build a heartbleed test lab in 5 minutes</title>
-      <link>http://www.pwnd.red/posts/build-a-heartbleed-test-lab-in-5-minutes/</link>
+      <link>https://www.pwnd.red/posts/build-a-heartbleed-test-lab-in-5-minutes/</link>
       <pubDate>Tue, 15 Apr 2014 06:18:30 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/build-a-heartbleed-test-lab-in-5-minutes/</guid>
+      <guid>https://www.pwnd.red/posts/build-a-heartbleed-test-lab-in-5-minutes/</guid>
       <description>Lets be clear, I’m all about the offensive side of information security. I&amp;rsquo;m a pentester and I enjoy popping, rooting, owning and pwning all the things. I am aware that what we do is there to assist and encourage better defensive countermeasures but I just leave that to the experts. My colleague sitting nearby has the more unfortunate &amp;ldquo;defensive&amp;rdquo; job consisting of writing detections for all the evil things I do.</description>
     </item>
     
     <item>
       <title>post exploitation: finding passwords in haystacks</title>
-      <link>http://www.pwnd.red/posts/post-exploitation-finding-passwords-in-haystacks/</link>
+      <link>https://www.pwnd.red/posts/post-exploitation-finding-passwords-in-haystacks/</link>
       <pubDate>Thu, 19 Dec 2013 02:55:06 +0000</pubDate>
       
-      <guid>http://www.pwnd.red/posts/post-exploitation-finding-passwords-in-haystacks/</guid>
+      <guid>https://www.pwnd.red/posts/post-exploitation-finding-passwords-in-haystacks/</guid>
       <description>Often while conducting an internal pentest you may gain access to a user machine through some vulnerability or more commonly via social engineering. Let’s say that you pop a shell, unprivileged, and incognito only finds unprivileged domain tokens. You could move onto another target or you can try some post exploitation reconnaissance. A commonly overlooked source of sensitive information is documents that are stored on the company servers as well as staff who think they know enough to start sharing folders with their peers and end up sharing the root of ‘C’.</description>
     </item>
     
