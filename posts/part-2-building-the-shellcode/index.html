@@ -652,11 +652,11 @@ nasm -f elf32 -o $1.o $1.nasm
 ld -z execstack -o $1 $1.o
 </code></pre></div><p>Make the file executable and run it while passing it our file name. make sure NOT to include the <code>.nasm</code> extension as it may destroy your file.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./nassemble.sh bindshell
-</code></pre></div><p><img src="http://i.imgur.com/aUTnXFt.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/aUTnXFt.png" alt=""></p>
 <p>Lets run our bindshell file and see if it creates a listener.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./bindshell
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netstat -antp
-</code></pre></div><p><img src="http://i.imgur.com/fdIpo36.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/fdIpo36.png" alt=""></p>
 <p>Fantastic, we have a bind listening on port 4444 listening on any IP address. So far so good. Lets get this bind to start talking to our shell.</p>
 <p><!-- raw HTML omitted --></p>
 <h1 id="step-5-dup2">Step 5: Dup2</h1>
@@ -897,7 +897,7 @@ _start:
 </code></pre></div><p>Finally, connect to the listener and see if we have a shell:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nc -nv 127.0.0.1 <span style="color:#ae81ff">4444</span>
 id
-</code></pre></div><p><img src="http://i.imgur.com/0SGUFE1.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/0SGUFE1.png" alt=""></p>
 <p><strong>WIN, we have a working bind shell 100% written in assembly.</strong></p>
 <p>Lets take a look at our shellcode.</p>
 <p>Create a file called <code>getshell.sh</code> with the following code:</p>
@@ -906,7 +906,7 @@ id
 objdump -d ./$1|grep <span style="color:#e6db74">&#39;[0-9a-f]:&#39;</span>|grep -v <span style="color:#e6db74">&#39;file&#39;</span>|cut -f2 -d:|cut -f1-6 -d<span style="color:#e6db74">&#39; &#39;</span>|tr -s <span style="color:#e6db74">&#39; &#39;</span>|tr <span style="color:#e6db74">&#39;\t&#39;</span> <span style="color:#e6db74">&#39; &#39;</span>|sed <span style="color:#e6db74">&#39;s/ $//g&#39;</span>|sed <span style="color:#e6db74">&#39;s/ /\\x/g&#39;</span>|paste -d <span style="color:#e6db74">&#39;&#39;</span> -s |sed <span style="color:#e6db74">&#39;s/^/&#34;/&#39;</span>|sed <span style="color:#e6db74">&#39;s/$/&#34;/g&#39;</span>
 </code></pre></div><p>Make the file executable and pass your executable &lsquo;bindshell&rsquo; as an argument:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./getshell bindshell
-</code></pre></div><p><img src="http://i.imgur.com/zYfsAhM.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/zYfsAhM.png" alt=""></p>
 <p>Uh OH! Even though our shellcode worked, it&rsquo;s full of null bytes (<code>\x00</code>) which is bad news for us.</p>
 <p>In <a href="https://www.pwnd.red/posts/part-3-cleaning-and-optimising-shellcode">Part 3: Cleaning and Optimising Shellcode</a> we will take a look at how to clean our shellcode and remove all the null bytes as well as look at some ways to reduce it&rsquo;s size.</p>
 <p>I hope you have learned a bit from reading this tutorial and feel more comfortable with assembly language as well as have some neat scripts to speed up your coding.</p>

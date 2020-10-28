@@ -235,7 +235,7 @@ From this we can see the problematic instructions:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">mov eax, 0x66
 mov ax, 0x66
 mov al, 0x66
-</code></pre></div><p><img src="http://i.imgur.com/ZmnEx3E.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/ZmnEx3E.png" alt=""></p>
 <p>If we look at these results, the only one that is going to work for us is <code>mov al, 0x66</code>.</p>
 <p>Repeat this procedure for all the <code>mov eax, $$$</code> instructions:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">mov eax, 120     =&gt;  mov al, 0x66
@@ -347,7 +347,7 @@ objdump -D bindshell -M intel | grep 0d
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netstat -antp
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nc -nv 127.0.0.1 <span style="color:#ae81ff">4444</span>
 id
-</code></pre></div><p><img src="http://i.imgur.com/EOg9Ii6.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/EOg9Ii6.png" alt=""></p>
 <p>Our clean shell is still working.</p>
 <p>Last step is to dump this for use in our exploits:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./getshell.sh bindshell

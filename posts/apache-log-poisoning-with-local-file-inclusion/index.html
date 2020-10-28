@@ -135,13 +135,13 @@ In the previous post, we found the Apache log files and particularly the Apache 
             <div class="post-content">
                 <p>So we have our Local File Inclusion vulnerability and we can read the <code>/etc/passwd</code> file, now it&rsquo;s time to start escalating the attack so that we are able to execute our own commands on the target system.</p>
 
-    <img src="http://i.imgur.com/LUYTF.png"  class="left"  />
+    <img src="https://i.imgur.com/LUYTF.png"  class="left"  />
 
 
 <p>In the previous post, we found the Apache log files and particularly the Apache <code>error.log</code> file using Burp Suite&rsquo;s Intruder module. We are now going to use this log file to inject our own PHP code into this page.</p>
 <p>If we tried to access <code>http://www.example.com/askjdhaksghfkgf</code> we should get an Error 404 telling us the the page was not found. Additionally, this should also echo our invalid request into the <code>error.log</code> file and we can now clearly see that by requesting anything that generates and error we have the ability to influence the contents of the <code>error.log</code> file.</p>
 
-    <img src="http://i.imgur.com/LNkS8.png"  class="left"  />
+    <img src="https://i.imgur.com/LNkS8.png"  class="left"  />
 
 
 <p>Seeing as we&rsquo;re using this as part of an LFI vulnerability, we are also dynamically writing code into the page we are viewing. If the site is running PHP, then we can therefore create our own PHP functions just by requesting a page that does not exist.</p>
@@ -158,18 +158,18 @@ In the previous post, we found the Apache log files and particularly the Apache 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">http://www.example.com/askjdhaksghfkgf%3C%3Fphp%20system%28%24_GET%5B%27cmd%27%5D%29%3B%20%3F%3E
 </code></pre></div><p>This gives us another 404 error message although this time it has also re-written our PHP code into the Apache <code>error.log</code> file as part of our invalid request. When Apache reads this code back, it see&rsquo;s the PHP code and processes it as a legitimate PHP script when we access this vulnerable page.</p>
 
-    <img src="http://i.imgur.com/aOoex.png"  class="left"  />
+    <img src="https://i.imgur.com/aOoex.png"  class="left"  />
 
 
 <p>At first, nothing may seem out of sort except for the two invalid requests although you can see that it is now looking for a <code>cmd</code> parameter which we have not provided as yet. Is we now append the cmd parameter as <code>%00&amp;cmd=ls</code> to the end of the URL, we see the output of our <code>ls</code> command where we injected our own PHP code.</p>
 
-    <img src="http://i.imgur.com/4ti2Z.png"  class="left"  />
+    <img src="https://i.imgur.com/4ti2Z.png"  class="left"  />
 
 
 <p>This can be extremely powerful when testing Web Applications as we can use use this method to escalate our attack to run some pretty powerful requests including downloading files onto the host system, reading the source code of file on the site, enumerating configuration files for passwords such as the MySQL connect function and starting netcat listeners to gain full shell access.</p>
 <p>This is a good example of how to demonstrate that the risks associated with LFI go far beyond just reading the output of the <code>/etc/passwd</code> file and can make or break a penetration test when you don&rsquo;t have other methods available to you.</p>
 
-    <img src="http://i.imgur.com/B2GPw.jpg"  class="left"  />
+    <img src="https://i.imgur.com/B2GPw.jpg"  class="left"  />
 
 
 <p>Keep on sploiting,</p>

@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="norsec0de">
-<meta name="description" content="About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &amp;ldquo;hail-mary&amp;rdquo; advice like &amp;ldquo;use pop, pop, ret when dealing with SEH.&amp;rdquo; If you&amp;rsquo;re interested in Assembly or writing shellcode, I&amp;rsquo;d highly recommend you take the certification." />
+<meta name="description" content="About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &amp;ldquo;hail-mary&amp;rdquo; advice like &amp;ldquo;use pop, pop, ret when dealing with SEH.&amp;rdquo; If you&amp;rsquo;re interested in Assembly or writing shellcode, I&amp;rsquo;d highly recommend you take the certification.
+My first SLAE assignment was to write my own bind shell." />
 <meta name="keywords" content="infosec, norsey, norsec0de, assembly, shellcode, tutorial" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
@@ -33,7 +34,8 @@
 
 
 <meta itemprop="name" content="part 1: disassembling and understanding shellcode">
-<meta itemprop="description" content="About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &ldquo;hail-mary&rdquo; advice like &ldquo;use pop, pop, ret when dealing with SEH.&rdquo; If you&rsquo;re interested in Assembly or writing shellcode, I&rsquo;d highly recommend you take the certification.">
+<meta itemprop="description" content="About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &ldquo;hail-mary&rdquo; advice like &ldquo;use pop, pop, ret when dealing with SEH.&rdquo; If you&rsquo;re interested in Assembly or writing shellcode, I&rsquo;d highly recommend you take the certification.
+My first SLAE assignment was to write my own bind shell.">
 <meta itemprop="datePublished" content="2014-04-24T11:58:47+00:00" />
 <meta itemprop="dateModified" content="2014-04-24T11:58:47+00:00" />
 <meta itemprop="wordCount" content="1835">
@@ -47,7 +49,8 @@
 <meta name="twitter:image" content="https://www.pwnd.red/"/>
 
 <meta name="twitter:title" content="part 1: disassembling and understanding shellcode"/>
-<meta name="twitter:description" content="About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &ldquo;hail-mary&rdquo; advice like &ldquo;use pop, pop, ret when dealing with SEH.&rdquo; If you&rsquo;re interested in Assembly or writing shellcode, I&rsquo;d highly recommend you take the certification."/>
+<meta name="twitter:description" content="About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &ldquo;hail-mary&rdquo; advice like &ldquo;use pop, pop, ret when dealing with SEH.&rdquo; If you&rsquo;re interested in Assembly or writing shellcode, I&rsquo;d highly recommend you take the certification.
+My first SLAE assignment was to write my own bind shell."/>
 
 
 
@@ -132,9 +135,9 @@
             
 
             <div class="post-content">
-                <figure>
-    <img src="http://i.imgur.com/f8xqQgX.png"/> 
-</figure>
+                
+    <img src="https://i.imgur.com/f8xqQgX.png"  class="left"  />
+
 
 <p>About a month ago I signed up for the <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">Securitytube Linux Assembly Expert</a> certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &ldquo;hail-mary&rdquo; advice like &ldquo;<em>use pop, pop, ret when dealing with SEH</em>.&rdquo; If you&rsquo;re interested in Assembly or writing shellcode, I&rsquo;d highly recommend you take the certification.</p>
 <p>My first SLAE assignment was to write my own bind shell. I don&rsquo;t know C well enough to code straight from memory, and even though I understand how individual assembly instructions affect data in the registers and the stack, I didn&rsquo;t know how to string these together to create working shellcode. I couldn&rsquo;t find many tutorials devoted to the subject so I decided to just dive in and build it from scratch.</p>
@@ -320,9 +323,9 @@ CTRL X                &lt;== Exit&lt;/pre&gt;
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">chmod +x compile.sh
 </code></pre></div><p>That&rsquo;s it, run the script and you should have a brand new binary that can create bind shells.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./compile.sh
-</code></pre></div><figure>
-    <img src="http://i.imgur.com/z4O3OcW.png"/> 
-</figure>
+</code></pre></div>
+    <img src="https://i.imgur.com/z4O3OcW.png"  class="left"  />
+
 
 <p>We&rsquo;re not interested in running this binary right now, we&rsquo;re only interested in finding out what it does. So lets take a look inside and see what this shellcode is doing.</p>
 <p>To do this, we are going to use a tool called <a href="https://sourceware.org/binutils/docs/binutils/objdump.html">objdump</a>, part of <a href="https://sourceware.org/binutils/docs/binutils/index.html">Gnu Binary Utilities</a>, which will look at our shellcode and show us what it&rsquo;s doing.</p>
@@ -407,9 +410,9 @@ sudo ldconfig -n /opt/libemu/lib
 </code></pre></div><p>Now lets convert our hex code to raw code.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat shellcode.hex | hex2raw &gt; shellcode.raw
 </code></pre></div><p>If all went well, you should have a new file called shellcode.raw</p>
-<figure>
-    <img src="http://i.imgur.com/92bg4y0.png"/> 
-</figure>
+
+    <img src="https://i.imgur.com/92bg4y0.png"  class="left"  />
+
 
 <p>We now have everything we need to see what this bind shell is doing, lets run libemu on this raw code.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat shellcode.raw | /opt/libemu/bin/sctest -vvv -Ss <span style="color:#ae81ff">99999</span> -G shellcode.dot
@@ -417,7 +420,7 @@ sudo ldconfig -n /opt/libemu/lib
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">dot -Tpng -o shellcode.png shellcode.dot
 </code></pre></div><p>Great, we now have a shellcode.png file, lets take a look at it</p>
 
-    <img src="http://i.imgur.com/8hyY41M.png"  class="left"  />
+    <img src="https://i.imgur.com/8hyY41M.png"  class="left"  />
 
 
 <p>EPIC, now we can see what this shellcode is doing a lot clearer and we can also see the system calls that it is making. We will use these to create our own bind shell shellcode.</p>

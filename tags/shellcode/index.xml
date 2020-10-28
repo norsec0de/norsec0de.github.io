@@ -34,7 +34,8 @@ The steps we need to follow to create our bind shell are:
       <pubDate>Thu, 24 Apr 2014 11:58:47 +0000</pubDate>
       
       <guid>https://www.pwnd.red/posts/part-1-disassembling-and-understanding-shellcode/</guid>
-      <description>About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &amp;ldquo;hail-mary&amp;rdquo; advice like &amp;ldquo;use pop, pop, ret when dealing with SEH.&amp;rdquo; If you&amp;rsquo;re interested in Assembly or writing shellcode, I&amp;rsquo;d highly recommend you take the certification.</description>
+      <description>About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &amp;ldquo;hail-mary&amp;rdquo; advice like &amp;ldquo;use pop, pop, ret when dealing with SEH.&amp;rdquo; If you&amp;rsquo;re interested in Assembly or writing shellcode, I&amp;rsquo;d highly recommend you take the certification.
+My first SLAE assignment was to write my own bind shell.</description>
     </item>
     
   </channel>

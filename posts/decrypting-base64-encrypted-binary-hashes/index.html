@@ -135,12 +135,12 @@ After I stopped giggling I dumped the database and grabbed the first few hashes 
             <div class="post-content">
                 <p>I came across a database while testing the other day which happily contained a table called users with the good old id, username and password fields. What made this a somewhat interesting find was the fact that the passwords appeared to be encrypted as base64.</p>
 
-    <img src="http://i.imgur.com/5qRhe.png"  class="left"  />
+    <img src="https://i.imgur.com/5qRhe.png"  class="left"  />
 
 
 <p>After I stopped giggling I dumped the database and grabbed the first few hashes in an attempt to quickly script the decryption. The script ran fine although I ended up with a lot of garbled text and no plain text passwords. I decided to try decrypt these passwords using several online websites when I discovered that they were actually binary files that had be encoded with base64. I began to doubt my sanity and asked myself why anyone would have passwords stored as binary files. I mean, the log in page didn&rsquo;t have a field for username and an upload box for password so what was going on?</p>
 
-    <img src="http://i.imgur.com/xeK2H.png"  class="left"  />
+    <img src="https://i.imgur.com/xeK2H.png"  class="left"  />
 
 
 <p>I noticed that several of the hashes were the same and I figured that whatever was going on it was going to have something to do with these recurring ones. A google search later ended up with me on a forum reading the default password storage procedure for Ahsay Backup was to encrypt the passwords using the following process:</p>
@@ -148,7 +148,7 @@ After I stopped giggling I dumped the database and grabbed the first few hashes 
 </code></pre></div><p>This was great as I now knew what they were doing to store the passwords and I could start to piece together how to reverse them.</p>
 <p>I started by looking what a MD5 in binary looked like and figured I work my way back from there.</p>
 
-    <img src="http://i.imgur.com/sjnut.png"  class="left"  />
+    <img src="https://i.imgur.com/sjnut.png"  class="left"  />
 
 
 <p>I could see that the binary text contained the text of the hash but it was jumbled around due to the binary (little endian?) architecture. My mind started working out some way to reassemble the hashes using some lame string functions but the answer that I ended up with was way more simple.</p>
@@ -158,7 +158,7 @@ After I stopped giggling I dumped the database and grabbed the first few hashes 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo X03MO1qnZdYdgyfeuILPmQ<span style="color:#f92672">==</span> | base64 -d | xxd -p
 </code></pre></div><p>This worked perfectly and I was on my way to decrypting these boys in no time.</p>
 
-    <img src="http://i.imgur.com/6t3Ct.png"  class="left"  />
+    <img src="https://i.imgur.com/6t3Ct.png"  class="left"  />
 
 
 <p>Keep on sploiting,</p>

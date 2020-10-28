@@ -141,22 +141,22 @@ This post should help to alleviate some common issues with installing ruby and t
 <p><a href="https://itunes.apple.com/us/app/xcode/id497799835?mt=12">Mac App Store - Xcode</a></p>
 <p>Once Xcode has been installed launch Xcode from Applications and agree to the SDK License Agreement.</p>
 
-    <img src="http://i.imgur.com/72cLFaD.png"  class="left"  />
+    <img src="https://i.imgur.com/72cLFaD.png"  class="left"  />
 
 
 <p>Install Xcode developer tools  by typing:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">xcode-select --install
 </code></pre></div>
-    <img src="http://i.imgur.com/U98gNAN.png"  class="left"  />
+    <img src="https://i.imgur.com/U98gNAN.png"  class="left"  />
 
 
 <p>Click Install in the dialog box that pops up and the package will be installed.</p>
 
-    <img src="http://i.imgur.com/MUAlZjF.png"  class="left"  />
+    <img src="https://i.imgur.com/MUAlZjF.png"  class="left"  />
 
 
 
-    <img src="http://i.imgur.com/1JJI6Mo.png"  class="left"  />
+    <img src="https://i.imgur.com/1JJI6Mo.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -165,7 +165,7 @@ This post should help to alleviate some common issues with installing ruby and t
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">http://download.oracle.com/otn-pub/java/jdk/8u65-b17/jdk-8u65-macosx-x64.dmg
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">http://download.oracle.com/otn-pub/java/jdk/8u65-b17/jre-8u65-macosx-x64.dmg
 </code></pre></div>
-    <img src="http://i.imgur.com/sHOfg8r.png"  class="left"  />
+    <img src="https://i.imgur.com/sHOfg8r.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -199,7 +199,7 @@ brew tap homebrew/dupes
 </code></pre></div><p>If the binary being run is not the one from the <code>usr/local/Cellar/ruby21/2.1.8/bin/</code> directory, then you will need to modify the <code>~/.bash_profile</code> file to adjust your path.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nano ~/.bash_profile
 </code></pre></div>
-    <img src="http://i.imgur.com/Rh6LC1C.png"  class="left"  />
+    <img src="https://i.imgur.com/Rh6LC1C.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -207,7 +207,7 @@ brew tap homebrew/dupes
 <p>Now, time to install the backend database that Metasploit uses.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install postgresql --without-ossp-uuid
 </code></pre></div>
-    <img src="http://i.imgur.com/GXaTSYn.png"  class="left"  />
+    <img src="https://i.imgur.com/GXaTSYn.png"  class="left"  />
 
 
 <p>If the Homebrew install did NOT complete this for you, the next step is to initialize the database for first time usage.</p>
@@ -248,7 +248,7 @@ sudo echo export MSF_DATABASE_CONFIG<span style="color:#f92672">=</span>/usr/loc
 /usr/local/lib/ruby/gems/2.1.0/bin/bundle
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ /usr/local/lib/ruby/gems/2.1.0/bin/bundle install
 </code></pre></div>
-    <img src="http://i.imgur.com/8FZNMKl.png"  class="left"  />
+    <img src="https://i.imgur.com/8FZNMKl.png"  class="left"  />
 
 
 <p>Now that the framework has been installed, and proper bundles installed. The database connection needs to be configured.</p>
@@ -273,7 +273,7 @@ source ~/.bash_profile
 </code></pre></div><p>it should return:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">&gt; [*] postgresql connected to msf
 </code></pre></div>
-    <img src="http://i.imgur.com/69nZpTw.png"  class="left"  />
+    <img src="https://i.imgur.com/69nZpTw.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -285,7 +285,7 @@ tar -xvzf /tmp/armitage.tgz -C /usr/local/share
 bash -c <span style="color:#e6db74">&#34;echo \&#39;/usr/bin/java\&#39; -jar /usr/local/share/armitage/armitage.jar \$\*&#34;</span> &gt; /usr/local/share/armitage/armitage
 perl -pi -e <span style="color:#e6db74">&#39;s/armitage.jar/\/usr\/local\/share\/armitage\/armitage.jar/g&#39;</span> /usr/local/share/armitage/teamserver
 </code></pre></div>
-    <img src="http://i.imgur.com/KxX4rva.png"  class="left"  />
+    <img src="https://i.imgur.com/KxX4rva.png"  class="left"  />
 
 
 <p>Lastly, create <code>sym</code> links for Armitage:</p>

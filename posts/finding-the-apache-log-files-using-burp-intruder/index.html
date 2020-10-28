@@ -437,17 +437,17 @@
 /wwwroot/php/php.ini
 </code></pre></div><p>Once you have saved this list somewhere, open up Burp Suite, locate the LFI injection point and send the request to Burp Intruder.</p>
 
-    <img src="http://i.imgur.com/A3L4q.png"  class="left"  />
+    <img src="https://i.imgur.com/A3L4q.png"  class="left"  />
 
 
 <p>In the Burp Intruder window, select the <code>Positions</code> tab and mark the position of your LFI injection point. Change the attack type to <code>Sniper</code>. Then under the <code>Payloads</code> tab, choose the Apache logs list or paste the contents of the list into the payload window.</p>
 
-    <img src="http://i.imgur.com/VNbX4.png"  class="left"  />
+    <img src="https://i.imgur.com/VNbX4.png"  class="left"  />
 
 
 <p>Start the attack and pay attention to the length column. Typically Apache log folders are going to be large and should return a large length field.</p>
 
-    <img src="http://i.imgur.com/1RUry.png"  class="left"  />
+    <img src="https://i.imgur.com/1RUry.png"  class="left"  />
 
 
 <p>When you find a length field that is significantly larger than the other requests, look at the response to see if the contents returned match what an Apache log file would look like. If it does look like a log file and you can see some of your previous traffic displayed, you have successfully found the Apache log location and can now use this to start injecting your PHP code to run requests on the target machine.</p>

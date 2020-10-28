@@ -24,22 +24,22 @@ This post should help to alleviate some common issues with installing ruby and t
 <p><a href="https://itunes.apple.com/us/app/xcode/id497799835?mt=12">Mac App Store - Xcode</a></p>
 <p>Once Xcode has been installed launch Xcode from Applications and agree to the SDK License Agreement.</p>
 
-    <img src="http://i.imgur.com/72cLFaD.png"  class="left"  />
+    <img src="https://i.imgur.com/72cLFaD.png"  class="left"  />
 
 
 <p>Install Xcode developer tools  by typing:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">xcode-select --install
 </code></pre></div>
-    <img src="http://i.imgur.com/U98gNAN.png"  class="left"  />
+    <img src="https://i.imgur.com/U98gNAN.png"  class="left"  />
 
 
 <p>Click Install in the dialog box that pops up and the package will be installed.</p>
 
-    <img src="http://i.imgur.com/MUAlZjF.png"  class="left"  />
+    <img src="https://i.imgur.com/MUAlZjF.png"  class="left"  />
 
 
 
-    <img src="http://i.imgur.com/1JJI6Mo.png"  class="left"  />
+    <img src="https://i.imgur.com/1JJI6Mo.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -48,7 +48,7 @@ This post should help to alleviate some common issues with installing ruby and t
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">http://download.oracle.com/otn-pub/java/jdk/8u65-b17/jdk-8u65-macosx-x64.dmg
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">http://download.oracle.com/otn-pub/java/jdk/8u65-b17/jre-8u65-macosx-x64.dmg
 </code></pre></div>
-    <img src="http://i.imgur.com/sHOfg8r.png"  class="left"  />
+    <img src="https://i.imgur.com/sHOfg8r.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -82,7 +82,7 @@ brew tap homebrew/dupes
 </code></pre></div><p>If the binary being run is not the one from the <code>usr/local/Cellar/ruby21/2.1.8/bin/</code> directory, then you will need to modify the <code>~/.bash_profile</code> file to adjust your path.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nano ~/.bash_profile
 </code></pre></div>
-    <img src="http://i.imgur.com/Rh6LC1C.png"  class="left"  />
+    <img src="https://i.imgur.com/Rh6LC1C.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -90,7 +90,7 @@ brew tap homebrew/dupes
 <p>Now, time to install the backend database that Metasploit uses.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install postgresql --without-ossp-uuid
 </code></pre></div>
-    <img src="http://i.imgur.com/GXaTSYn.png"  class="left"  />
+    <img src="https://i.imgur.com/GXaTSYn.png"  class="left"  />
 
 
 <p>If the Homebrew install did NOT complete this for you, the next step is to initialize the database for first time usage.</p>
@@ -131,7 +131,7 @@ sudo echo export MSF_DATABASE_CONFIG<span style="color:#f92672">=</span>/usr/loc
 /usr/local/lib/ruby/gems/2.1.0/bin/bundle
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ /usr/local/lib/ruby/gems/2.1.0/bin/bundle install
 </code></pre></div>
-    <img src="http://i.imgur.com/8FZNMKl.png"  class="left"  />
+    <img src="https://i.imgur.com/8FZNMKl.png"  class="left"  />
 
 
 <p>Now that the framework has been installed, and proper bundles installed. The database connection needs to be configured.</p>
@@ -156,7 +156,7 @@ source ~/.bash_profile
 </code></pre></div><p>it should return:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">&gt; [*] postgresql connected to msf
 </code></pre></div>
-    <img src="http://i.imgur.com/69nZpTw.png"  class="left"  />
+    <img src="https://i.imgur.com/69nZpTw.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -168,7 +168,7 @@ tar -xvzf /tmp/armitage.tgz -C /usr/local/share
 bash -c <span style="color:#e6db74">&#34;echo \&#39;/usr/bin/java\&#39; -jar /usr/local/share/armitage/armitage.jar \$\*&#34;</span> &gt; /usr/local/share/armitage/armitage
 perl -pi -e <span style="color:#e6db74">&#39;s/armitage.jar/\/usr\/local\/share\/armitage\/armitage.jar/g&#39;</span> /usr/local/share/armitage/teamserver
 </code></pre></div>
-    <img src="http://i.imgur.com/KxX4rva.png"  class="left"  />
+    <img src="https://i.imgur.com/KxX4rva.png"  class="left"  />
 
 
 <p>Lastly, create <code>sym</code> links for Armitage:</p>
@@ -198,22 +198,22 @@ This post should help to alleviate some common issues with installing ruby and t
 <p><a href="https://itunes.apple.com/us/app/xcode/id497799835?mt=12">Mac App Store - Xcode</a></p>
 <p>Once Xcode has been installed launch Xcode from Applications and agree to the SDK License Agreement.</p>
 
-    <img src="http://i.imgur.com/72cLFaD.png"  class="left"  />
+    <img src="https://i.imgur.com/72cLFaD.png"  class="left"  />
 
 
 <p>Install Xcode developer tools  by typing:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">xcode-select --install
 </code></pre></div>
-    <img src="http://i.imgur.com/U98gNAN.png"  class="left"  />
+    <img src="https://i.imgur.com/U98gNAN.png"  class="left"  />
 
 
 <p>Click Install in the dialog box that pops up and the package will be installed.</p>
 
-    <img src="http://i.imgur.com/MUAlZjF.png"  class="left"  />
+    <img src="https://i.imgur.com/MUAlZjF.png"  class="left"  />
 
 
 
-    <img src="http://i.imgur.com/1JJI6Mo.png"  class="left"  />
+    <img src="https://i.imgur.com/1JJI6Mo.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -222,7 +222,7 @@ This post should help to alleviate some common issues with installing ruby and t
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">http://download.oracle.com/otn-pub/java/jdk/8u40-b27/jdk-8u40-macosx-x64.dmg
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">http://download.oracle.com/otn-pub/java/jdk/8u40-b27/jre-8u40-macosx-x64.dmg
 </code></pre></div>
-    <img src="http://i.imgur.com/sHOfg8r.png"  class="left"  />
+    <img src="https://i.imgur.com/sHOfg8r.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -252,7 +252,7 @@ brew tap homebrew/dupes
 <p>Now, the most important part of the ruby installation, Ensuring that the ruby version you are running is in fact 2.1.5.</p>
 <p><code>ruby –v</code></p>
 
-    <img src="http://i.imgur.com/b7NfJAr.png"  class="left"  />
+    <img src="https://i.imgur.com/b7NfJAr.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -260,7 +260,7 @@ brew tap homebrew/dupes
 <p>Now, time to install the backend database that Metasploit uses.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install postgresql --without-ossp-uuid
 </code></pre></div>
-    <img src="http://i.imgur.com/GXaTSYn.png"  class="left"  />
+    <img src="https://i.imgur.com/GXaTSYn.png"  class="left"  />
 
 
 <p>If the Homebrew install did NOT complete this for you, the next step is to initialize the database for first time usage.</p>
@@ -297,7 +297,7 @@ sudo echo export MSF_DATABASE_CONFIG<span style="color:#f92672">=</span>/usr/loc
 </code></pre></div><p>Using brew and bundler the properly supported gems need to be installed.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">bundle install
 </code></pre></div>
-    <img src="http://i.imgur.com/8FZNMKl.png"  class="left"  />
+    <img src="https://i.imgur.com/8FZNMKl.png"  class="left"  />
 
 
 <p>Now that the framework has been installed, and proper bundles installed. The database connection needs to be configured.</p>
@@ -322,7 +322,7 @@ source ~/.bash_profile
 </code></pre></div><p>it should return:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">&gt; [*] postgresql connected to msf
 </code></pre></div>
-    <img src="http://i.imgur.com/69nZpTw.png"  class="left"  />
+    <img src="https://i.imgur.com/69nZpTw.png"  class="left"  />
 
 
 <p><!-- raw HTML omitted --></p>
@@ -334,7 +334,7 @@ tar -xvzf /tmp/armitage.tgz -C /usr/local/share
 bash -c <span style="color:#e6db74">&#34;echo \&#39;/usr/bin/java\&#39; -jar /usr/local/share/armitage/armitage.jar \$\*&#34;</span> &gt; /usr/local/share/armitage/armitage
 perl -pi -e <span style="color:#e6db74">&#39;s/armitage.jar/\/usr\/local\/share\/armitage\/armitage.jar/g&#39;</span> /usr/local/share/armitage/teamserver
 </code></pre></div>
-    <img src="http://i.imgur.com/KxX4rva.png"  class="left"  />
+    <img src="https://i.imgur.com/KxX4rva.png"  class="left"  />
 
 
 <p>Lastly, create sym links for Armitage:</p>
@@ -359,7 +359,7 @@ ln -s /usr/local/armitage/teamserver /usr/local/bin/teamserver
 It never occurred to me that this poor dude was staring at the screen, Nmap torturing him every 30 seconds by telling him he won&amp;rsquo;t be done with this machine any time this week.</description>
             <content type="html"><![CDATA[<p>Looking back, I can&rsquo;t remember a time where I used Nmap to perform UDP port scans. Pentesters are far too impatient to spend hours waiting for a UDP scan to finish in the hope of finding some badly configured service. Which is why I found it odd when I received a message saying &ldquo;<em>why do UDP scans take hours?</em>&rdquo;</p>
 
-    <img src="http://i.imgur.com/o2oQR4a.png"  class="left"  />
+    <img src="https://i.imgur.com/o2oQR4a.png"  class="left"  />
 
 
 <p>It never occurred to me that this poor dude was staring at the screen, Nmap torturing him every 30 seconds by telling him he won&rsquo;t be done with this machine any time this week. I told him about this gem of a payload transmitter that just also happened to be an epic UDP port scanner, largely forgotten since the sad departure of the late Jack C. Louis. And seeing as this was a client supplied &lsquo;jump-box&rsquo; and not something handy like Kali, I decided to take a crack at installing and showing the tester good ol' <a href="http://www.unicornscan.org/">unicornscan</a>.</p>
@@ -367,7 +367,7 @@ It never occurred to me that this poor dude was staring at the screen, Nmap tort
 <p><em>I didn&rsquo;t realise installing unicornscan would take longer than the Nmap UDP scan itself</em></p>
 </blockquote>
 
-    <img src="http://i.imgur.com/0enTmxF.png"  class="left"  />
+    <img src="https://i.imgur.com/0enTmxF.png"  class="left"  />
 
 
 <p>Many, MANY hours later I finally got unicornscan working and decided to make a note on how to deploy this on an updated debian distro circa 2014.</p>
@@ -414,23 +414,23 @@ When trying to exfiltrate data from a client site I normally spend a lot of time
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">unzip srvdir.zip
 </code></pre></div><p>Help</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">./srvdir -h
-</code></pre></div><figure>
-    <img src="http://i.imgur.com/gUKF0xI.png"/> 
-</figure>
+</code></pre></div>
+    <img src="https://i.imgur.com/gUKF0xI.png"  class="left"  />
+
 
 <p>Usage:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">./srvdir [-auth=&#34;username:password&#34;] subdomain:path
 </code></pre></div><p>Share current folder with custom subdomain</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">./srvdir norsec0de:.
-</code></pre></div><figure>
-    <img src="http://i.imgur.com/mtXOTno.png"/> 
-</figure>
+</code></pre></div>
+    <img src="https://i.imgur.com/mtXOTno.png"  class="left"  />
+
 
 <p>Share current folder with random subdomain</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">./srvdir
-</code></pre></div><figure>
-    <img src="http://i.imgur.com/JZ02ZGa.png"/> 
-</figure>
+</code></pre></div>
+    <img src="https://i.imgur.com/JZ02ZGa.png"  class="left"  />
+
 
 <p>Keep on sploiting,</p>
 <p>norsec0de</p>
@@ -734,7 +734,7 @@ From this we can see the problematic instructions:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">mov eax, 0x66
 mov ax, 0x66
 mov al, 0x66
-</code></pre></div><p><img src="http://i.imgur.com/ZmnEx3E.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/ZmnEx3E.png" alt=""></p>
 <p>If we look at these results, the only one that is going to work for us is <code>mov al, 0x66</code>.</p>
 <p>Repeat this procedure for all the <code>mov eax, $$$</code> instructions:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">mov eax, 120     =&gt;  mov al, 0x66
@@ -846,7 +846,7 @@ objdump -D bindshell -M intel | grep 0d
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netstat -antp
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nc -nv 127.0.0.1 <span style="color:#ae81ff">4444</span>
 id
-</code></pre></div><p><img src="http://i.imgur.com/EOg9Ii6.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/EOg9Ii6.png" alt=""></p>
 <p>Our clean shell is still working.</p>
 <p>Last step is to dump this for use in our exploits:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./getshell.sh bindshell
@@ -1387,11 +1387,11 @@ nasm -f elf32 -o $1.o $1.nasm
 ld -z execstack -o $1 $1.o
 </code></pre></div><p>Make the file executable and run it while passing it our file name. make sure NOT to include the <code>.nasm</code> extension as it may destroy your file.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./nassemble.sh bindshell
-</code></pre></div><p><img src="http://i.imgur.com/aUTnXFt.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/aUTnXFt.png" alt=""></p>
 <p>Lets run our bindshell file and see if it creates a listener.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./bindshell
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netstat -antp
-</code></pre></div><p><img src="http://i.imgur.com/fdIpo36.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/fdIpo36.png" alt=""></p>
 <p>Fantastic, we have a bind listening on port 4444 listening on any IP address. So far so good. Lets get this bind to start talking to our shell.</p>
 <p><!-- raw HTML omitted --></p>
 <h1 id="step-5-dup2">Step 5: Dup2</h1>
@@ -1632,7 +1632,7 @@ _start:
 </code></pre></div><p>Finally, connect to the listener and see if we have a shell:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nc -nv 127.0.0.1 <span style="color:#ae81ff">4444</span>
 id
-</code></pre></div><p><img src="http://i.imgur.com/0SGUFE1.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/0SGUFE1.png" alt=""></p>
 <p><strong>WIN, we have a working bind shell 100% written in assembly.</strong></p>
 <p>Lets take a look at our shellcode.</p>
 <p>Create a file called <code>getshell.sh</code> with the following code:</p>
@@ -1641,7 +1641,7 @@ id
 objdump -d ./$1|grep <span style="color:#e6db74">&#39;[0-9a-f]:&#39;</span>|grep -v <span style="color:#e6db74">&#39;file&#39;</span>|cut -f2 -d:|cut -f1-6 -d<span style="color:#e6db74">&#39; &#39;</span>|tr -s <span style="color:#e6db74">&#39; &#39;</span>|tr <span style="color:#e6db74">&#39;\t&#39;</span> <span style="color:#e6db74">&#39; &#39;</span>|sed <span style="color:#e6db74">&#39;s/ $//g&#39;</span>|sed <span style="color:#e6db74">&#39;s/ /\\x/g&#39;</span>|paste -d <span style="color:#e6db74">&#39;&#39;</span> -s |sed <span style="color:#e6db74">&#39;s/^/&#34;/&#39;</span>|sed <span style="color:#e6db74">&#39;s/$/&#34;/g&#39;</span>
 </code></pre></div><p>Make the file executable and pass your executable &lsquo;bindshell&rsquo; as an argument:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./getshell bindshell
-</code></pre></div><p><img src="http://i.imgur.com/zYfsAhM.png" alt=""></p>
+</code></pre></div><p><img src="https://i.imgur.com/zYfsAhM.png" alt=""></p>
 <p>Uh OH! Even though our shellcode worked, it&rsquo;s full of null bytes (<code>\x00</code>) which is bad news for us.</p>
 <p>In <a href="/posts/part-3-cleaning-and-optimising-shellcode">Part 3: Cleaning and Optimising Shellcode</a> we will take a look at how to clean our shellcode and remove all the null bytes as well as look at some ways to reduce it&rsquo;s size.</p>
 <p>I hope you have learned a bit from reading this tutorial and feel more comfortable with assembly language as well as have some neat scripts to speed up your coding.</p>
@@ -1656,10 +1656,11 @@ objdump -d ./$1|grep <span style="color:#e6db74">&#39;[0-9a-f]:&#39;</span>|grep
             <pubDate>Thu, 24 Apr 2014 11:58:47 +0000</pubDate>
             
             <guid>https://www.pwnd.red/posts/part-1-disassembling-and-understanding-shellcode/</guid>
-            <description>About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &amp;ldquo;hail-mary&amp;rdquo; advice like &amp;ldquo;use pop, pop, ret when dealing with SEH.&amp;rdquo; If you&amp;rsquo;re interested in Assembly or writing shellcode, I&amp;rsquo;d highly recommend you take the certification.</description>
-            <content type="html"><![CDATA[<figure>
-    <img src="http://i.imgur.com/f8xqQgX.png"/> 
-</figure>
+            <description>About a month ago I signed up for the Securitytube Linux Assembly Expert certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &amp;ldquo;hail-mary&amp;rdquo; advice like &amp;ldquo;use pop, pop, ret when dealing with SEH.&amp;rdquo; If you&amp;rsquo;re interested in Assembly or writing shellcode, I&amp;rsquo;d highly recommend you take the certification.
+My first SLAE assignment was to write my own bind shell.</description>
+            <content type="html"><![CDATA[
+    <img src="https://i.imgur.com/f8xqQgX.png"  class="left"  />
+
 
 <p>About a month ago I signed up for the <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">Securitytube Linux Assembly Expert</a> certification to get a deeper understanding of assembly and GDB. Doing so has helped me understand what is actually going on in the registers and not just relying on &ldquo;hail-mary&rdquo; advice like &ldquo;<em>use pop, pop, ret when dealing with SEH</em>.&rdquo; If you&rsquo;re interested in Assembly or writing shellcode, I&rsquo;d highly recommend you take the certification.</p>
 <p>My first SLAE assignment was to write my own bind shell. I don&rsquo;t know C well enough to code straight from memory, and even though I understand how individual assembly instructions affect data in the registers and the stack, I didn&rsquo;t know how to string these together to create working shellcode. I couldn&rsquo;t find many tutorials devoted to the subject so I decided to just dive in and build it from scratch.</p>
@@ -1845,9 +1846,9 @@ CTRL X                &lt;== Exit&lt;/pre&gt;
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">chmod +x compile.sh
 </code></pre></div><p>That&rsquo;s it, run the script and you should have a brand new binary that can create bind shells.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./compile.sh
-</code></pre></div><figure>
-    <img src="http://i.imgur.com/z4O3OcW.png"/> 
-</figure>
+</code></pre></div>
+    <img src="https://i.imgur.com/z4O3OcW.png"  class="left"  />
+
 
 <p>We&rsquo;re not interested in running this binary right now, we&rsquo;re only interested in finding out what it does. So lets take a look inside and see what this shellcode is doing.</p>
 <p>To do this, we are going to use a tool called <a href="https://sourceware.org/binutils/docs/binutils/objdump.html">objdump</a>, part of <a href="https://sourceware.org/binutils/docs/binutils/index.html">Gnu Binary Utilities</a>, which will look at our shellcode and show us what it&rsquo;s doing.</p>
@@ -1932,9 +1933,9 @@ sudo ldconfig -n /opt/libemu/lib
 </code></pre></div><p>Now lets convert our hex code to raw code.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat shellcode.hex | hex2raw &gt; shellcode.raw
 </code></pre></div><p>If all went well, you should have a new file called shellcode.raw</p>
-<figure>
-    <img src="http://i.imgur.com/92bg4y0.png"/> 
-</figure>
+
+    <img src="https://i.imgur.com/92bg4y0.png"  class="left"  />
+
 
 <p>We now have everything we need to see what this bind shell is doing, lets run libemu on this raw code.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat shellcode.raw | /opt/libemu/bin/sctest -vvv -Ss <span style="color:#ae81ff">99999</span> -G shellcode.dot
@@ -1942,7 +1943,7 @@ sudo ldconfig -n /opt/libemu/lib
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">dot -Tpng -o shellcode.png shellcode.dot
 </code></pre></div><p>Great, we now have a shellcode.png file, lets take a look at it</p>
 
-    <img src="http://i.imgur.com/8hyY41M.png"  class="left"  />
+    <img src="https://i.imgur.com/8hyY41M.png"  class="left"  />
 
 
 <p>EPIC, now we can see what this shellcode is doing a lot clearer and we can also see the system calls that it is making. We will use these to create our own bind shell shellcode.</p>
@@ -1970,7 +1971,7 @@ sudo ldconfig -n /opt/libemu/lib
             <guid>https://www.pwnd.red/posts/build-a-heartbleed-test-lab-in-5-minutes/</guid>
             <description>Lets be clear, I’m all about the offensive side of information security. I&amp;rsquo;m a pentester and I enjoy popping, rooting, owning and pwning all the things. I am aware that what we do is there to assist and encourage better defensive countermeasures but I just leave that to the experts. My colleague sitting nearby has the more unfortunate &amp;ldquo;defensive&amp;rdquo; job consisting of writing detections for all the evil things I do.</description>
             <content type="html"><![CDATA[
-    <img src="http://i.imgur.com/1WCqASf.png"  class="left"  />
+    <img src="https://i.imgur.com/1WCqASf.png"  class="left"  />
 
 
 <p>Lets be clear, I’m all about the offensive side of information security. I&rsquo;m a pentester and I enjoy popping, rooting, owning and pwning all the things. I am aware that what we do is there to assist and encourage better defensive countermeasures but I just leave that to the experts. My colleague sitting nearby has the more unfortunate &ldquo;defensive&rdquo; job consisting of writing detections for all the evil things I do.</p>
@@ -2019,12 +2020,12 @@ b. Pastebin: <a href="http://pastebin.com/5zUbJXe7">http://pastebin.com/5zUbJXe7
 <p>The honeypot script will just listen for a connection and reply with garbage until it sees the actual Heartbleed payload, at which point it will respond with a fake, although funny, memory content dump.</p>
 <p>A successful connection should look like this.</p>
 
-    <img src="http://i.imgur.com/VPzEyNS.png"  class="left"  />
+    <img src="https://i.imgur.com/VPzEyNS.png"  class="left"  />
 
 
 <p>This method also gives a clean .pcap file too that can be used for creating all sorts of IDS signatures.</p>
 
-    <img src="http://i.imgur.com/P62HkiK.png"  class="left"  />
+    <img src="https://i.imgur.com/P62HkiK.png"  class="left"  />
 
 
 <p>I hope this post helps some researchers, developers or our defense brethren.</p>
@@ -2169,7 +2170,7 @@ close(FILE);
 </code></pre></div><p>It works by taking each hostname and running the <code>gethostbyname</code> method on it to print out the original hostname and IP address separated by a <code>:</code> for easy regex or to use delimited import in Excel. Feel free to change the delimiter if you so wish. The other function I added was to set an IP address of <code>0.0.0.0</code> whenever a hostname could not be resolved.</p>
 <p>Here&rsquo;s what it looks like in action.</p>
 
-    <img src="http://i.imgur.com/6CAapmm.png"  class="left"  />
+    <img src="https://i.imgur.com/6CAapmm.png"  class="left"  />
 
 
 <p>If you want to import the output into another program you can just append &quot; <strong>&gt; output.csv</strong>&quot;</p>
@@ -2196,12 +2197,12 @@ close(FILE);
 After I stopped giggling I dumped the database and grabbed the first few hashes in an attempt to quickly script the decryption. The script ran fine although I ended up with a lot of garbled text and no plain text passwords.</description>
             <content type="html"><![CDATA[<p>I came across a database while testing the other day which happily contained a table called users with the good old id, username and password fields. What made this a somewhat interesting find was the fact that the passwords appeared to be encrypted as base64.</p>
 
-    <img src="http://i.imgur.com/5qRhe.png"  class="left"  />
+    <img src="https://i.imgur.com/5qRhe.png"  class="left"  />
 
 
 <p>After I stopped giggling I dumped the database and grabbed the first few hashes in an attempt to quickly script the decryption. The script ran fine although I ended up with a lot of garbled text and no plain text passwords. I decided to try decrypt these passwords using several online websites when I discovered that they were actually binary files that had be encoded with base64. I began to doubt my sanity and asked myself why anyone would have passwords stored as binary files. I mean, the log in page didn&rsquo;t have a field for username and an upload box for password so what was going on?</p>
 
-    <img src="http://i.imgur.com/xeK2H.png"  class="left"  />
+    <img src="https://i.imgur.com/xeK2H.png"  class="left"  />
 
 
 <p>I noticed that several of the hashes were the same and I figured that whatever was going on it was going to have something to do with these recurring ones. A google search later ended up with me on a forum reading the default password storage procedure for Ahsay Backup was to encrypt the passwords using the following process:</p>
@@ -2209,7 +2210,7 @@ After I stopped giggling I dumped the database and grabbed the first few hashes 
 </code></pre></div><p>This was great as I now knew what they were doing to store the passwords and I could start to piece together how to reverse them.</p>
 <p>I started by looking what a MD5 in binary looked like and figured I work my way back from there.</p>
 
-    <img src="http://i.imgur.com/sjnut.png"  class="left"  />
+    <img src="https://i.imgur.com/sjnut.png"  class="left"  />
 
 
 <p>I could see that the binary text contained the text of the hash but it was jumbled around due to the binary (little endian?) architecture. My mind started working out some way to reassemble the hashes using some lame string functions but the answer that I ended up with was way more simple.</p>
@@ -2219,7 +2220,7 @@ After I stopped giggling I dumped the database and grabbed the first few hashes 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo X03MO1qnZdYdgyfeuILPmQ<span style="color:#f92672">==</span> | base64 -d | xxd -p
 </code></pre></div><p>This worked perfectly and I was on my way to decrypting these boys in no time.</p>
 
-    <img src="http://i.imgur.com/6t3Ct.png"  class="left"  />
+    <img src="https://i.imgur.com/6t3Ct.png"  class="left"  />
 
 
 <p>Keep on sploiting,</p>
@@ -2237,13 +2238,13 @@ After I stopped giggling I dumped the database and grabbed the first few hashes 
 In the previous post, we found the Apache log files and particularly the Apache error.log file using Burp Suite&amp;rsquo;s Intruder module. We are now going to use this log file to inject our own PHP code into this page.</description>
             <content type="html"><![CDATA[<p>So we have our Local File Inclusion vulnerability and we can read the <code>/etc/passwd</code> file, now it&rsquo;s time to start escalating the attack so that we are able to execute our own commands on the target system.</p>
 
-    <img src="http://i.imgur.com/LUYTF.png"  class="left"  />
+    <img src="https://i.imgur.com/LUYTF.png"  class="left"  />
 
 
 <p>In the previous post, we found the Apache log files and particularly the Apache <code>error.log</code> file using Burp Suite&rsquo;s Intruder module. We are now going to use this log file to inject our own PHP code into this page.</p>
 <p>If we tried to access <code>http://www.example.com/askjdhaksghfkgf</code> we should get an Error 404 telling us the the page was not found. Additionally, this should also echo our invalid request into the <code>error.log</code> file and we can now clearly see that by requesting anything that generates and error we have the ability to influence the contents of the <code>error.log</code> file.</p>
 
-    <img src="http://i.imgur.com/LNkS8.png"  class="left"  />
+    <img src="https://i.imgur.com/LNkS8.png"  class="left"  />
 
 
 <p>Seeing as we&rsquo;re using this as part of an LFI vulnerability, we are also dynamically writing code into the page we are viewing. If the site is running PHP, then we can therefore create our own PHP functions just by requesting a page that does not exist.</p>
@@ -2260,18 +2261,18 @@ In the previous post, we found the Apache log files and particularly the Apache 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">http://www.example.com/askjdhaksghfkgf%3C%3Fphp%20system%28%24_GET%5B%27cmd%27%5D%29%3B%20%3F%3E
 </code></pre></div><p>This gives us another 404 error message although this time it has also re-written our PHP code into the Apache <code>error.log</code> file as part of our invalid request. When Apache reads this code back, it see&rsquo;s the PHP code and processes it as a legitimate PHP script when we access this vulnerable page.</p>
 
-    <img src="http://i.imgur.com/aOoex.png"  class="left"  />
+    <img src="https://i.imgur.com/aOoex.png"  class="left"  />
 
 
 <p>At first, nothing may seem out of sort except for the two invalid requests although you can see that it is now looking for a <code>cmd</code> parameter which we have not provided as yet. Is we now append the cmd parameter as <code>%00&amp;cmd=ls</code> to the end of the URL, we see the output of our <code>ls</code> command where we injected our own PHP code.</p>
 
-    <img src="http://i.imgur.com/4ti2Z.png"  class="left"  />
+    <img src="https://i.imgur.com/4ti2Z.png"  class="left"  />
 
 
 <p>This can be extremely powerful when testing Web Applications as we can use use this method to escalate our attack to run some pretty powerful requests including downloading files onto the host system, reading the source code of file on the site, enumerating configuration files for passwords such as the MySQL connect function and starting netcat listeners to gain full shell access.</p>
 <p>This is a good example of how to demonstrate that the risks associated with LFI go far beyond just reading the output of the <code>/etc/passwd</code> file and can make or break a penetration test when you don&rsquo;t have other methods available to you.</p>
 
-    <img src="http://i.imgur.com/B2GPw.jpg"  class="left"  />
+    <img src="https://i.imgur.com/B2GPw.jpg"  class="left"  />
 
 
 <p>Keep on sploiting,</p>
@@ -2593,17 +2594,17 @@ In the previous post, we found the Apache log files and particularly the Apache 
 /wwwroot/php/php.ini
 </code></pre></div><p>Once you have saved this list somewhere, open up Burp Suite, locate the LFI injection point and send the request to Burp Intruder.</p>
 
-    <img src="http://i.imgur.com/A3L4q.png"  class="left"  />
+    <img src="https://i.imgur.com/A3L4q.png"  class="left"  />
 
 
 <p>In the Burp Intruder window, select the <code>Positions</code> tab and mark the position of your LFI injection point. Change the attack type to <code>Sniper</code>. Then under the <code>Payloads</code> tab, choose the Apache logs list or paste the contents of the list into the payload window.</p>
 
-    <img src="http://i.imgur.com/VNbX4.png"  class="left"  />
+    <img src="https://i.imgur.com/VNbX4.png"  class="left"  />
 
 
 <p>Start the attack and pay attention to the length column. Typically Apache log folders are going to be large and should return a large length field.</p>
 
-    <img src="http://i.imgur.com/1RUry.png"  class="left"  />
+    <img src="https://i.imgur.com/1RUry.png"  class="left"  />
 
 
 <p>When you find a length field that is significantly larger than the other requests, look at the response to see if the contents returned match what an Apache log file would look like. If it does look like a log file and you can see some of your previous traffic displayed, you have successfully found the Apache log location and can now use this to start injecting your PHP code to run requests on the target machine.</p>
@@ -2625,30 +2626,30 @@ In the previous post, we found the Apache log files and particularly the Apache 
             <description>First off I&amp;rsquo;d like to give creds to Francis Brown and Rob Ragan who presented their talk Tenacious Diggity at DEFCON 20 where I found out about the apparent steam-rolling of Dropbox&amp;rsquo;s robots.txt file. For as far back as I can remember, the robots.txt file has been a ban-list of places that search engine crawlers are supposed to ignore when crawling a site. Recently however there is some talk that the preferred way of disallowing crawlers is to control them using alternative methods such as metatags and javascript.</description>
             <content type="html"><![CDATA[<p>First off I&rsquo;d like to give creds to Francis Brown and Rob Ragan who presented their talk <a href="https://www.defcon.org/html/defcon-20/dc-20-speakers.html#Brown">Tenacious Diggity</a> at <a href="https://www.defcon.org/">DEFCON 20</a> where I found out about the apparent steam-rolling of Dropbox&rsquo;s robots.txt file. For as far back as I can remember, the robots.txt file has been a ban-list of places that search engine crawlers are supposed to ignore when crawling a site. Recently however there is some talk that the preferred way of disallowing crawlers is to control them using alternative methods such as metatags and javascript.</p>
 <p>It may appear however, that Google has already decided that robots.txt is merely a bug heading towards it&rsquo;s windscreen and is indexing pages that are excluded via the robots.txt as is apparent with Dropbox.</p>
-<figure>
-    <img src="http://i.imgur.com/T3Gnp.png"/> 
-</figure>
+
+    <img src="https://i.imgur.com/T3Gnp.png"  class="left"  />
+
 
 <p>Above is a copy of Dropbox&rsquo;s <code>robots.txt</code> file and you can clearly see that <code>/gallery/</code> is on the no-fly list however the following screenshot suggests otherwise.</p>
-<figure>
-    <img src="http://i.imgur.com/yUrYp.png"/> 
-</figure>
+
+    <img src="https://i.imgur.com/yUrYp.png"  class="left"  />
+
 
 <p>Why should you care about this? What&rsquo;s so special about &ldquo;Gallery&rdquo; anyway? Well if you are a Dropbox user and you have ever clicked &ldquo;Start Import&rdquo; when seeing the below message, you should know that those photo&rsquo;s of yours may just be on that Google search result and as a result, public.</p>
-<figure>
-    <img src="http://i.imgur.com/aEzN3.png"/> 
-</figure>
+
+    <img src="https://i.imgur.com/aEzN3.png"  class="left"  />
+
 
 <p>I&rsquo;m almost positive that Dropbox did not want the galleries to be indexed and I&rsquo;m also sure that Googles Army of Lawyers has a good reason why it was but as a curious individual who enjoys tinkering with things I couldn&rsquo;t resist having a snoop through some of the results.</p>
 <p>By appending some choice keywords to the searches such as confidential, screen, budget, excel, portfolio, audition, temp, delete and a few others, I was absolutely staggered at the amount of useful data people have images of. Just in the first 10 or so pages of each result I was able to find bank statements, drivers licenses, credit cards, passwords, wifi keys, serial numbers, medical information and yes&hellip; lots and lots of porn (<em>home made mostly</em>)</p>
-<figure>
-    <img src="http://i.imgur.com/3fi1S.png"/> 
-</figure>
+
+    <img src="https://i.imgur.com/3fi1S.png"  class="left"  />
+
 
 <p>Whether you&rsquo;re bored like me or digging  up some info for (<code>$insert legitimate reason here</code>) it is a fantastic search to kill time with. If you are planning on being pro-active with it, go and get Stach &amp; Liu&rsquo;s <a href="http://www.stachliu.com/resources/tools/google-hacking-diggity-project/attack-tools/">Search Diggity</a> tool and look at some of the fantastic features they&rsquo;ve built for searching for documents through Skydrive, AWS S3 and Dropbox.</p>
-<figure>
-    <img src="http://i.imgur.com/c8SaC.png"/> 
-</figure>
+
+    <img src="https://i.imgur.com/c8SaC.png"  class="left"  />
+
 
 <p>Keep on sploiting,</p>
 <p>norsec0de</p>
@@ -2665,7 +2666,7 @@ In the previous post, we found the Apache log files and particularly the Apache 
             <content type="html"><![CDATA[<p>Recently I was running a web application assessment for a client whose system was running IIS 6.0 on Windows 2003 server. Much foosball and coffee had already gone into this assessment yet I still didn&rsquo;t have the &ldquo;Oh Shit, how did you find that?&rdquo; discovery that makes developers curl up in a ball and rock themselves to sleep. These developers where smarter than most and this was not their first assessment either. They had learned from previous tests to be vigilant about input sanitation and the usual bag of tricks.</p>
 <p>I was pretty much ready to swap my Nerf Gun for Microsoft Word and start typing up my findings when I saw <a href="http://soroush.secproject.com/downloadable/microsoft_iis_tilde_character_vulnerability_feature.pdf">this</a> article by Soroush Dalili about using a 17 year old technique to enumerate directories on &lt; IIS 7.0 using the good old &ldquo;~1&rdquo; from the 8dot3 days of Windows.</p>
 
-    <img src="http://i.imgur.com/PCaJ9.png"  class="centre"  />
+    <img src="https://i.imgur.com/PCaJ9.png"  class="centre"  />
 
 
 <p>A bit of history for you kids and nostalgia for us old-timers about the 8dot3 days of Windows was that in older versions of the OS the user had to use filenames that met the format of filename.ext (<em>or 8 chars for the filename and 3 chars for the extension.</em>) That is why the older systems always had files like <code>autoexec.bat</code>, <code>config.sys</code> and <code>command.com</code></p>
@@ -2694,7 +2695,7 @@ In the previous post, we found the Apache log files and particularly the Apache 
             
             <guid>https://www.pwnd.red/posts/d0xn-myself-beats-the-hello-world-post/</guid>
             <description>My name is Ryan and I live in Sydney. My history is extremely boring and full of horror stories from racist countries so I&amp;rsquo;ll skip to 5 years ago in a hotel room in Perth, shortly after I moved to Australia. I liked to call myself an IT Professional but in all honesty I was a Windows Systems Administrator for 13 years who discovered that you can actually make a living breaking into peoples shit&amp;hellip;.</description>
-            <content type="html"><![CDATA[<p><img src="http://i.imgur.com/dpcoz.jpg" alt=""> My name is Ryan and I live in Sydney. My history is extremely boring and full of horror stories from racist countries so I&rsquo;ll skip to 5 years ago in a hotel room in Perth, shortly after I moved to Australia. I liked to call myself an IT Professional but in all honesty I was a Windows Systems Administrator for 13 years who discovered that you can actually make a living breaking into peoples shit&hellip;.ethically of course!</p>
+            <content type="html"><![CDATA[<p><img src="https://i.imgur.com/dpcoz.jpg" alt=""> My name is Ryan and I live in Sydney. My history is extremely boring and full of horror stories from racist countries so I&rsquo;ll skip to 5 years ago in a hotel room in Perth, shortly after I moved to Australia. I liked to call myself an IT Professional but in all honesty I was a Windows Systems Administrator for 13 years who discovered that you can actually make a living breaking into peoples shit&hellip;.ethically of course!</p>
 <p>I met a guy in a downstairs bar of a hotel I was staying in and after shooting the shit and finding out we both worked in IT he told me why he was there. He was performing a Penetration Test of that hotel and he explained his life of planes, hotels and laptops and  after showing me my first ever exploit, I realised I wanted&hellip;no&hellip;NEEDED to be him! I wanted his life and I wanted his sorcery! I can&rsquo;t remember his name but if you are reading this, get in touch!</p>
 <p>Long story short, I spent the next 5 years learning that there was actually more than one operating system in the world and that a few short clicks in a nix terminal were far more powerful than a thousand clicks on a desktop. I started with a list of URL&rsquo;s written down the hotels napkin and low and behold everything I needed to know was right there in plain sight if you know what to look for. Googleing &ldquo;how to be 1337 hax0r&rdquo;; does not return the results you want but searching for the correct building blocks yields some amazing content. I spent a lot of time learning the tools and the tricks and testing them out on friends and family and having some good times learning that a Penetration Tester is more than the sum of his&hellip;distro&hellip;and that to be effective in achieving something you need to &ldquo;think&rdquo;; like an attacker would to see all the vulnerabilities.</p>
 <p>Last year I decided that my job was interfering too much with my wanting to spend all day vulnerability hunting and that the continuous need for me to repeatedly show users how to print their emails was not going to bring me the fuzziness I so craved. I spoke to some of the &ldquo;Legends&rdquo;; in the industry and asked for some advise on how I could go about becoming this destroyer of systems. Two answers frequently popped up mentioning certifications&hellip; the CISSP and the OSCP. I decided to do both.</p>
